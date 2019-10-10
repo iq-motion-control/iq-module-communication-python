@@ -1,0 +1,9 @@
+{
+  "python.pythonPath": "/home/raphouvh/anaconda3/bin/python",
+  "python.testing.pytestArgs": [
+    "iqmotion"
+  ],
+  "python.testing.unittestEnabled": false,
+  "python.testing.nosetestsEnabled": false,
+  "python.testing.pytestEnabled": true
+}
