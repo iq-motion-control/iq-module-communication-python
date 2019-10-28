@@ -1,0 +1,9 @@
+/.project
+
+# VSCODE 
+.vscode/*
+*.code-workspace
+
+*.vscode
+__pycache__/
+.pytest_cache
