@@ -28,7 +28,7 @@ class PacketQueue():
     def __str__(self):
         return self._byte_queue.__str__()
 
-    def PutBytes(self, new_bytes):
+    def put_bytes(self, new_bytes):
         try:
             if type(new_bytes) == int:
                 self._byte_queue.append(new_bytes)
@@ -41,29 +41,30 @@ class PacketQueue():
         except PacketError as e:
             print(e.message)
 
-    def Peek(self):
+    def peek(self):
         if not self._byte_queue.is_empty():
-            return self._ParseBytes()
+            return self._parse_bytes()
 
-    def _ParseBytes(self):
+    def _parse_bytes(self):
         start_index = 0
 
         packet_state = StartState(self._byte_queue, start_index, 0, 0)
         while not packet_state.is_done:
-            packet_state.Parse()
-            packet_state = packet_state.FindNextState()
+            packet_state.parse()
+            packet_state = packet_state.find_next_state()
 
         if packet_state.succesful:
             self._has_a_packet = 1
             # self._packet_start_index, self.packet_end_index = packet_state.GetPacketIndices()
-            return packet_state.GetMessage()
+            return packet_state.get_message()
         else:
             self._has_a_packet = 0
             return None
 
-    def DropPacket(self):
+    def drop_packet(self):
         if self._has_a_packet:
             msg_len = self._byte_queue[self._packet_start_index+1]
+
             # + start byte, len, type, crch, crcl
             packet_len = msg_len + 5
             for _ in range(packet_len):

@@ -4,10 +4,10 @@ class PacketMaker():
     def __init__(self):
         pass
 
-    def Make(self, spec, msg):
+    def make(self, spec, msg):
         self._BundleMsg(spec, msg)
 
-    def _BundleMsg(self, spec, msg):
+    def _bundle_msg(self, spec, msg):
         msg_type = spec["Type"]
         spec_fields = spec["Fields"]
 
@@ -16,5 +16,5 @@ class PacketMaker():
             data = field_value(msg[field_key])
             data_list.append(data)
 
-    def _BundlePacket(self):
+    def _bundle_packet(self):
         pass

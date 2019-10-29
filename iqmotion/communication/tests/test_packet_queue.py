@@ -6,31 +6,31 @@ from iqmotion.communication.crc import Crc
 
 class TestPacketQueue():
 
-    def test_PutBytes_single(self):
+    def test_put_bytes_single(self):
         data = 1
 
         pq = PacketQueue()
 
-        pq.PutBytes(data)
+        pq.put_bytes(data)
 
         assert pq._byte_queue[0] == data
 
-    def test_PutBytes_multiple(self):
+    def test_put_bytes_multiple(self):
         data = [1, 2, 3, 4]
         num_bytes = len(data)
 
         pq = PacketQueue()
 
-        pq.PutBytes(data)
+        pq.put_bytes(data)
 
         assert pq._byte_queue[:num_bytes] == data
 
-    def test_Peek(self):
+    def test_peek(self):
         data1 = [11, 12, 13]
         data2 = [1, 2, 3, 4]
 
-        fake_message = MakeFakeMessage(data1)
-        fake_message.extend(MakeFakeMessage(data2))
+        fake_message = make_fake_message(data1)
+        fake_message.extend(make_fake_message(data2))
 
         expected_message1 = [3, 0, 11, 12, 13]
         expected_message2 = [4, 0, 1, 2, 3, 4]
@@ -39,18 +39,18 @@ class TestPacketQueue():
 
         msg_number = 1
         for x in fake_message:
-            pq.PutBytes(x)
-            msg = pq.Peek()
+            pq.put_bytes(x)
+            msg = pq.peek()
             if msg:
                 if msg_number == 1:
                     assert msg == expected_message1
                 else:
                     assert msg == expected_message2
                 msg_number += 1
-                pq.DropPacket()
+                pq.drop_packet()
 
 
-def MakeFakeMessage(data):
+def make_fake_message(data):
     data_type = 0
     data_len = len(data)
 
@@ -58,7 +58,7 @@ def MakeFakeMessage(data):
 
     crc_data = [data_len, data_type]
     crc_data.extend(data)
-    crc = Crc.MakeCrc(crc_data)
+    crc = Crc.make_crc(crc_data)
     crcl = crc & 0xff
     crch = crc >> 8
 

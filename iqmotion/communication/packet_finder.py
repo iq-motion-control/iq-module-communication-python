@@ -23,17 +23,17 @@ class PacketState():
         self._packet_len = packet_len
 
     @abstractmethod
-    def Parse(self):
+    def parse(self):
         pass
 
     @abstractmethod
-    def FindNextState(self):
+    def find_next_state(self):
         pass
 
-    def GetMessage(self):
+    def get_message(self):
         return self._message.copy()
 
-    def GetPacketIndices(self):
+    def get_packet_indices(self):
         return self._start_index, self._end_index
 
 
@@ -44,7 +44,7 @@ class StartState(PacketState):
         super().__init__(byte_queue, start_index, parse_index, packet_len)
         self._end_index = len(byte_queue)
 
-    def Parse(self):
+    def parse(self):
         parse_index = self._start_index
         for _ in range(parse_index, self._end_index):
             if self._byte_queue[parse_index] == self._START_BYTE:
@@ -58,7 +58,7 @@ class StartState(PacketState):
         self.succesful = 0
         self._end_index = self._parse_index + 1
 
-    def FindNextState(self):
+    def find_next_state(self):
         if self._parse_succesful:
             return LenState(self._byte_queue, self._start_index, self._parse_index, self._packet_len)
         else:
@@ -71,7 +71,7 @@ class LenState(PacketState):
     def __init__(self, byte_queue: CircularQueue, start_index: int, parse_index: int, packet_len: int):
         super().__init__(byte_queue, start_index, parse_index, packet_len)
 
-    def Parse(self):
+    def parse(self):
         try:
             self._packet_len = self._byte_queue[self._parse_index+1]
             if self._packet_len < self._MAX_PACKET_SIZE:
@@ -83,7 +83,7 @@ class LenState(PacketState):
             self._end_index = self._parse_index + 1
         return
 
-    def FindNextState(self):
+    def find_next_state(self):
         if self._parse_succesful:
             return TypeState(self._byte_queue, self._start_index, self._parse_index, self._packet_len)
         else:
@@ -94,7 +94,7 @@ class TypeState(PacketState):
     def __init__(self, byte_queue: CircularQueue, start_index: int, parse_index: int, packet_len: int):
         super().__init__(byte_queue, start_index, parse_index, packet_len)
 
-    def Parse(self):
+    def parse(self):
         try:
             self._byte_queue[self._parse_index + 1]
             self._parse_index += 1
@@ -105,7 +105,7 @@ class TypeState(PacketState):
             self._end_index = self._parse_index + 1
         return
 
-    def FindNextState(self):
+    def find_next_state(self):
         if self._parse_succesful:
             if self._packet_len > 0:
                 return DataState(self._byte_queue, self._start_index, self._parse_index, self._packet_len)
@@ -119,7 +119,7 @@ class DataState(PacketState):
     def __init__(self, byte_queue: CircularQueue, start_index: int, parse_index: int, packet_len: int):
         super().__init__(byte_queue, start_index, parse_index, packet_len)
 
-    def Parse(self):
+    def parse(self):
         try:
             for ind in range(self._parse_index+1, self._parse_index+1+self._packet_len):
                 # check if there is the right amount of bytes,
@@ -134,7 +134,7 @@ class DataState(PacketState):
 
         return
 
-    def FindNextState(self):
+    def find_next_state(self):
         if self._parse_succesful:
             return CrcState(self._byte_queue, self._start_index, self._parse_index, self._packet_len)
         else:
@@ -145,14 +145,14 @@ class CrcState(PacketState):
     def __init__(self, byte_queue: CircularQueue, start_index: int, parse_index: int, packet_len: int):
         super().__init__(byte_queue, start_index, parse_index, packet_len)
 
-    def Parse(self):
+    def parse(self):
         try:
             crcl = self._byte_queue[self._parse_index + 1]
             crch = self._byte_queue[self._parse_index + 2]
             crc = (crch << 8) | crcl
 
-            msg = self._ExtractPacketMessage()
-            expected_crc = Crc.MakeCrc(msg)
+            msg = self._extract_packet_message()
+            expected_crc = Crc.make_crc(msg)
 
             if crc == expected_crc:
                 self._message = msg.copy()
@@ -169,10 +169,10 @@ class CrcState(PacketState):
 
         return
 
-    def FindNextState(self):
+    def find_next_state(self):
         return self
 
-    def _ExtractPacketMessage(self):
+    def _extract_packet_message(self):
         msg_start = self._start_index + 1
         # the two is the Len and Type of the data
         msg_end = msg_start + self._parse_index
