@@ -1,5 +1,4 @@
 import pytest
-
 from iqmotion.communication.circular_queue import CircularQueue
 
 
@@ -157,6 +156,14 @@ class TestCircularQueue():
 
         queue.clear()
         assert len(queue) == 0
+
+    def test_copy(self):
+        data = [0, 1, 2, 3]
+        queue = CircularQueue.from_iterable(data)
+
+        queue_copy = queue.copy()
+
+        assert queue[::] == queue_copy[::]
 
     def test_maxlen(self):
         desired_queue_size = 3

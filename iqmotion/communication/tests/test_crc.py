@@ -15,7 +15,7 @@ class TestCrc():
         for i in range(count):
             assert crcs[i] == expected_crc[i]
 
-    def test_byt_updateCrc(self):
+    def test_updateCrc(self):
         crc = 0xffff
         expected_crc = [61905, 49586, 53651]
         data = [1, 2, 3]

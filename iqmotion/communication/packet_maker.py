@@ -1,6 +1,15 @@
 
 
 class PacketMaker():
+    """
+    General Packet Format:
+        | 0x55 | length | type | ---data--- | crcL | crcH |
+        'length' is the (uint8) number of bytes in 'data'
+        'type' is the (uint8) message type
+        'data' is a series of (uint8) bytes, serialized Little-Endian
+        'crc' is the (uint16) CRC value for 'length'+'type'+'data', Little-Endian
+    """
+
     def __init__(self):
         pass
 

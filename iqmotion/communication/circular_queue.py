@@ -189,9 +189,7 @@ class CircularQueue():
         Return:
             (CircularQueue): copy of circular queue
         """
-        cq = CircularQueue(self._maxlen)
-        for x in self:
-            cq.append(x)
+        cq = CircularQueue.from_iterable(self)
         return cq
 
     def maxlen(self):

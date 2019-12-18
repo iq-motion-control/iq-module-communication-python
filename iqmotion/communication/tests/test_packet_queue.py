@@ -2,9 +2,18 @@ import pytest
 
 from iqmotion.communication.packet_queue import PacketQueue
 from iqmotion.communication.crc import Crc
+from iqmotion.communication.custom_error import PacketError
 
 
 class TestPacketQueue():
+
+    def test__str__(self):
+        data = [1, 2, 3]
+
+        pq = PacketQueue()
+        pq.put_bytes(data)
+
+        assert data.__str__() == pq.__str__()
 
     def test_put_bytes_single(self):
         data = 1
@@ -20,10 +29,31 @@ class TestPacketQueue():
         num_bytes = len(data)
 
         pq = PacketQueue()
-
         pq.put_bytes(data)
 
         assert pq._byte_queue[:num_bytes] == data
+
+    def test_put_bytes_array_overflow(self):
+        data = [i for i in range(100)]
+
+        with pytest.raises(PacketError) as err:
+            pq = PacketQueue()
+            pq.put_bytes(data)
+            assert pq.put_bytes(1)
+
+        err_str = err.value.message
+        assert "PACKET ERROR: Byte Queue Overflow\n" == err_str
+
+    def test_put_bytes_single_overflow(self):
+        data = [i for i in range(64)]
+
+        with pytest.raises(PacketError) as err:
+            pq = PacketQueue()
+            pq.put_bytes(data)
+            assert pq.put_bytes(1)
+
+        err_str = err.value.message
+        assert "PACKET ERROR: Byte Queue Overflow\n" == err_str
 
     def test_peek(self):
         data1 = [11, 12, 13]
@@ -48,6 +78,28 @@ class TestPacketQueue():
                     assert msg == expected_message2
                 msg_number += 1
                 pq.drop_packet()
+
+    def test_drop_packet(self):
+        data1 = [11, 12, 13]
+        data2 = [1, 2, 3, 4]
+
+        fake_message = make_fake_message(data1)
+        fake_message.extend(make_fake_message(data2))
+
+        pq = PacketQueue()
+        pq.put_bytes(fake_message)
+
+        assert pq.drop_packet() == False
+
+        # Peek and drop first message
+        pq.peek()
+        assert pq.drop_packet() == True
+        assert pq.drop_packet() == False
+
+        # Peek and drop second messge
+        pq.peek()
+        assert pq.drop_packet() == True
+        assert pq.drop_packet() == False
 
 
 def make_fake_message(data):

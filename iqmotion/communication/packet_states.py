@@ -5,7 +5,6 @@ from iqmotion.communication.crc import Crc
 from abc import abstractmethod
 
 
-# TODO check if GetPackIndices is actually usefull, only if want to peek multiple packets
 class PacketState():
     is_done = 0
     succesful = 0
@@ -24,17 +23,14 @@ class PacketState():
 
     @abstractmethod
     def parse(self):
-        pass
+        """ this property is too abstract to understand. """
 
     @abstractmethod
     def find_next_state(self):
-        pass
+        """ this property is too abstract to understand. """
 
     def get_message(self):
         return self._message.copy()
-
-    def get_packet_indices(self):
-        return self._start_index, self._end_index
 
 
 class StartState(PacketState):
@@ -81,6 +77,7 @@ class LenState(PacketState):
         except IndexError:
             self.is_done = 1
             self._end_index = self._parse_index + 1
+            self._parse_succesful = 0
         return
 
     def find_next_state(self):
@@ -103,6 +100,7 @@ class TypeState(PacketState):
         except IndexError:
             self.is_done = 1
             self._end_index = self._parse_index + 1
+            self._parse_succesful = 0
         return
 
     def find_next_state(self):
@@ -131,6 +129,7 @@ class DataState(PacketState):
         except IndexError:
             self.is_done = 1
             self._end_index = self._parse_index + 1
+            self._parse_succesful = 0
 
         return
 
@@ -166,6 +165,7 @@ class CrcState(PacketState):
         except IndexError:
             self.is_done = 1
             self._end_index = self._parse_index + 1
+            self.succesful = 0
 
         return
 

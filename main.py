@@ -38,3 +38,6 @@ def MakeFakeMessage(data):
 
 if __name__ == "__main__":
     module = iq.IqSpeedModule()
+    module.list("brushless_drive")
+    # string = "sd2+" + [f]
+    module.set("brushless_drive", "drive_mode")

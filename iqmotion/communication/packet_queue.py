@@ -1,5 +1,5 @@
 from iqmotion.communication.circular_queue import CircularQueue
-from iqmotion.communication.packet_finder import StartState
+from iqmotion.communication.packet_states import StartState
 from iqmotion.communication.custom_error import PacketError
 
 
@@ -29,17 +29,12 @@ class PacketQueue():
         return self._byte_queue.__str__()
 
     def put_bytes(self, new_bytes):
-        try:
-            if type(new_bytes) == int:
-                self._byte_queue.append(new_bytes)
-            else:
-                self._byte_queue.extend(new_bytes)
-
-            if len(self._byte_queue) >= self._MAX_BYTE_QUEUE_SIZE:
+        if type(new_bytes) == int:
+            if not self._byte_queue.append(new_bytes):
                 raise PacketError("Byte Queue Overflow")
-
-        except PacketError as e:
-            print(e.message)
+        else:
+            if not self._byte_queue.extend(new_bytes):
+                raise PacketError("Byte Queue Overflow")
 
     def peek(self):
         if not self._byte_queue.is_empty():
@@ -55,7 +50,6 @@ class PacketQueue():
 
         if packet_state.succesful:
             self._has_a_packet = 1
-            # self._packet_start_index, self.packet_end_index = packet_state.GetPacketIndices()
             return packet_state.get_message()
         else:
             self._has_a_packet = 0
@@ -67,8 +61,11 @@ class PacketQueue():
 
             # + start byte, len, type, crch, crcl
             packet_len = msg_len + 5
+
             for _ in range(packet_len):
                 self._byte_queue.popleft()
+
+            self._has_a_packet = 0
             return 1
 
         return 0
