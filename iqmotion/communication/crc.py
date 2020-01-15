@@ -20,8 +20,3 @@ class Crc():
 
         crc = np.uint16((crc << 8) ^ (x << 12) ^ (x << 5) ^ x)
         return crc
-
-    # Not needed yet
-    # @staticmethod
-    # def array_update_crc(crc, data, count):
-    #     pass

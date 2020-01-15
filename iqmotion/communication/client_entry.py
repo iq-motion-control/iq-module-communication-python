@@ -1,29 +1,24 @@
-from iqmotion.communication.client_entry_abstract import ClientEntryAbstract
-from iqmotion.communication.client_entry_abstract import ClientEntryValues
+from abc import ABC, abstractmethod
 
 
-from typing import Union
+class ClientEntry(ABC):
 
+    @property
+    @abstractmethod
+    def fresh(self):
+        """ this property is too abstract to understand. """
 
-class ClientEntry(ClientEntryAbstract):
-    def __init__(self, client_entry_dict: dict):
-        super(ClientEntry, self).__init__(client_entry_dict)
+    @property
+    @abstractmethod
+    def value(self):
+        """ this property is too abstract to understand. """
 
-    def get(self):
-        pass
+    @value.setter
+    @abstractmethod
+    def value(self, val):
+        """ this property is too abstract to understand. """
 
-    def set(self, args=None):
-        if not isinstance(args, (type(None), list, int, tuple)):
-            raise TypeError
-
-        print("fake setting:", self._values.name)
-        if args == None:
-            print("NO VALUES")
-        else:
-            print(args)
-
-    def save(self, value):
-        pass
-
-    def list(self):
-        return self._values.__str__()
+    @property
+    @abstractmethod
+    def data(self):
+        """ this property is too abstract to understand. """

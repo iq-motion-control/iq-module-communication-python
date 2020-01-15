@@ -4,3 +4,4 @@ omit = iqmotion/communication/tests/*
 [report]
 skip_covered = 0
 show_missing = 1
+

@@ -1,3 +1,7 @@
 {
-  "clients": ["brushless_drive"]
+    "clients": [
+        "brushless_drive",
+        "multi_turn_angle_control",
+        "propeller_motor_control"
+    ]
 }

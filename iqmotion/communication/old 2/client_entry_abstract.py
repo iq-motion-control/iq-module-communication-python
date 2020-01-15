@@ -1,3 +1,5 @@
+from iqmotion.communication.payload_maker_abstract import PayloadMakerAbstract
+
 from dataclasses import dataclass
 from abc import ABC, abstractmethod
 
@@ -26,21 +28,23 @@ class ClientEntryValues:
 class ClientEntryAbstract:
     _values = ClientEntryValues
 
-    def __init__(self, client_entry_dict: dict):
+    def __init__(self, module_idn, client_entry_dict: dict, payload_maker: PayloadMakerAbstract):
         self._values = ClientEntryValues(client_entry_dict)
+        self._module_idn = module_idn
+        self._payload_maker = payload_maker
 
     @abstractmethod
-    def get(self):
-        pass
+    def make_get_payload(self):
+        """ this property is too abstract to understand. """
 
     @abstractmethod
-    def set(self, *args):
-        pass
+    def make_set_payload(self, *args):
+        """ this property is too abstract to understand. """
 
     @abstractmethod
-    def save(self, value):
-        pass
+    def make_save_payload(self, value):
+        """ this property is too abstract to understand. """
 
     @abstractmethod
     def list(self):
-        pass
+        """ this property is too abstract to understand. """

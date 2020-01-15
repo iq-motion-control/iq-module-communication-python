@@ -28,3 +28,11 @@ class IqModuleError(Exception):
     def __init__(self, err_descriptor):
         super().__init__(err_descriptor)
         self.message = self.err_type + ": " + err_descriptor + "\n"
+
+
+class MessageMakerError(Exception):
+    err_type = "MESSAGE MAKER ERROR"
+
+    def __init__(self, err_descriptor):
+        super().__init__(err_descriptor)
+        self.message = self.err_type + ": " + err_descriptor + "\n"

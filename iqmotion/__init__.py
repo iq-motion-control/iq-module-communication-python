@@ -1,3 +1,5 @@
 import iqmotion.communication
 
-from iqmotion.communication.iq_speed_module import IqSpeedModule
+from iqmotion.communication.iq2306_2200kv_module import Iq2306_2200kvModule
+from iqmotion.communication.communication import Communication
+from iqmotion.communication.serial_communication import SerialCommunication
