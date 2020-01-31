@@ -10,8 +10,23 @@ from queue import Queue
 
 
 class SerialCommunication(Communication):
+    """SericalCommunication enables to create serial packets with a message inside
+    as well as extract well formed messages from its serial packets
+
+    General Packet Format:
+        | 0x55 | length | message | crcL | crcH |
+        'length' is the (uint8) number of bytes in 'data'
+        'message' is a series of (uint8) bytes, serialized Little-Endian
+        'crc' is the (uint16) CRC value for 'length'+'type'+'data', Little-Endian
+    """
 
     def __init__(self, port_name: str, baudrate=115200):
+        """ Creates a SericalCommunication with a given port and baudrate
+
+        Args:
+            port_name (str): serial port name
+            baudrate (int): baudrate for serial communication
+        """
         self._ser_handle = self._init_serial(port_name, baudrate)
         self._out_queue = Queue()
         self._in_queue = SerialPacketQueue()
@@ -57,8 +72,14 @@ class SerialCommunication(Communication):
         return working_ports
 
     def send_message(self, message: bytearray):
+        """ Packages a message and sends it through serial
+
+        Args:
+            message (bytearray): message to be packaged and sent
+        """
+
         packet = self._make_packet(message)
-        self.add_to_send_queue(packet)
+        self.add_to_out_queue(packet)
         self.send_now()
 
     def _make_packet(self, message: bytearray):
@@ -71,10 +92,17 @@ class SerialCommunication(Communication):
 
         return packet
 
-    def add_to_send_queue(self, bytes: bytearray):
+    def add_to_out_queue(self, bytes: bytearray):
+        """ Add raw bytes to the out queue, call "send_now" to send
+
+        Args:
+            bytes (bytearray): raw bytes to send
+        """
         self._out_queue.put(bytes)
 
     def send_now(self):
+        """ Sends everything that was added to the out queue
+        """
         all_messages = bytearray([])
         while not self._out_queue.empty():
             message = self._out_queue.get()
@@ -83,6 +111,9 @@ class SerialCommunication(Communication):
         self._ser_handle.write(all_messages)
 
     def read_bytes(self):
+        """ Read bytes available in the port and puts them inside the packet queue
+        for later extraction
+        """
         bytes_ready = self._ser_handle.in_waiting
 
         if bytes_ready != 0:
@@ -91,14 +122,21 @@ class SerialCommunication(Communication):
 
     @property
     def bytes_left_in_queue(self):
+        """ Returns the amount of bytes left in the packet queue
+        """
         if self._in_queue.is_empty:
             return False
 
         return True
 
     def extract_message(self):
+        """ Extract a well form message from the packet queue
+
+        Returns:
+            message (bytearray): if parsing successfull
+            message (None): if not message is available
+        """
         message = self._in_queue.peek()
-        if message != None:
-            self._in_queue.drop_packet()
+        self._in_queue.drop_packet()
 
         return message

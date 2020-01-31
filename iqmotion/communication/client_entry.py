@@ -2,6 +2,12 @@ from abc import ABC, abstractmethod
 
 
 class ClientEntry(ABC):
+    """ClientEntry is an interface class in order to store and access the information expressed by an entry in a client file.
+    """
+
+    @abstractmethod
+    def read_message(self, msg):
+        """ this property is too abstract to understand. """
 
     @property
     @abstractmethod

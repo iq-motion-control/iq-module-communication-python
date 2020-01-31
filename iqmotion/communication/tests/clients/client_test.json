@@ -1,0 +1,4 @@
+[
+{"type_idn":1, "param":"dictionary_client_entry",            "param_idn":  1,                    "format":"B", "unit": ""  },
+{"type_idn":3, "param":"dictionary_client_entry_no_format", "param_idn":3,                      "format":"", "unit":""   }
+]

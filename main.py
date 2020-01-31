@@ -7,13 +7,13 @@ import random
 import time
 
 
-def Rand(start, end, num):
-    res = []
+# def Rand(start, end, num):
+#     res = []
 
-    for j in range(num):
-        res.append(random.randint(start, end))
+#     for j in range(num):
+#         res.append(random.randint(start, end))
 
-    return res
+#     return res
 
 
 def MakeFakePacket(data):
@@ -71,7 +71,7 @@ if __name__ == "__main__":
 
     # com = iq.Communication
     com = iq.SerialCommunication('/dev/ttyUSB0')
-    module = iq.Iq2306_2200kvModule(com, 0)
+    module = iq.SpeedModule(com, 0)
     # module.list_clients()
     # module.list_client_entries("brushless_drive")
     # module.list_client_entries("multi_turn_angle_control")
@@ -82,17 +82,17 @@ if __name__ == "__main__":
     # module.set("brushless_drive", "drive_spin_volts", 0)
     # module.set("multi_turn_angle_control", "ctrl_velocity", 1)
 
-    # module.get_async("brushless_drive", "obs_angle")
+    module.get_async("brushless_drive", "obs_angle")
     # ii = 0
-    # while not module.is_fresh("brushless_drive", "obs_angle"):
-    #     ii += 1
-    #     print(ii)
-    #     module.update_replies()
-    # reply = module.get_reply("brushless_drive", "obs_angle")
-    # print(reply)
+    while not module.is_fresh("brushless_drive", "obs_angle"):
+        #     ii += 1
+        #     print(ii)
+        module.update_replies()
+    reply = module.get_reply("brushless_drive", "obs_angle")
+    print(reply)
 
-    # reply2 = module.get("brushless_drive", "obs_angle")
-    # print(reply2)
+    reply2 = module.get("brushless_drive", "obs_angle")
+    print(reply2)
 
     replies = module.get_all("brushless_drive")
     replies = module.get_all("brushless_drive")

@@ -14,8 +14,16 @@ class CommunicationError(Exception):
         self.message = self.err_type + ": " + err_descriptor + "\n"
 
 
-class PacketError(Exception):
-    err_type = "PACKET ERROR"
+class PacketQueueError(Exception):
+    err_type = "PACKET QUEUE ERROR"
+
+    def __init__(self, err_descriptor):
+        super().__init__(err_descriptor)
+        self.message = self.err_type + ": " + err_descriptor + "\n"
+
+
+class PacketStateError(Exception):
+    err_type = "PACKET STATE ERROR"
 
     def __init__(self, err_descriptor):
         super().__init__(err_descriptor)

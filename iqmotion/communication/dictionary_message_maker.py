@@ -33,12 +33,23 @@ class DictionaryMessageMakerData():
 
 
 class DictionaryMessageMaker(MessageMaker):
+    """ DictionaryMessageMaker is an implementation of MessageMaker
+    This class defines how to make a message from a dictionary client entry
+    """
 
     def __init__(self,
                  client_entry: DictionaryClientEntry,
                  module_idn: bytes,
                  access_type: AccessType,
                  values):
+        """ Returns a DictonaryMessageMaker object to create dictionary client entry messages
+
+        Args:
+            client_entry (DictionaryClientEntry): client entry used to make the message
+            module_idn (bytes): id of the module
+            access_type (AccessType): Access type of the message
+            values (int/list): values to be put in the message
+        """
 
         self._data = DictionaryMessageMakerData(
             client_entry.data, module_idn, access_type, values)
@@ -53,6 +64,14 @@ class DictionaryMessageMaker(MessageMaker):
                              'i': np.int32}
 
     def make(self):
+        """ Makes the message
+
+        Returns:
+            bytearray: the message made
+
+        Raises:
+            MessageMakerError: if values too long for client entry
+        """
         message = bytearray([self._data.type_idn])
         payload = self._make_payload()
         message.extend(payload)
@@ -82,14 +101,14 @@ class DictionaryMessageMaker(MessageMaker):
         return bytearray(formated_values)
 
     def _format_values_list(self, format_list, values_list):
-        values_bytes_array = []
+        values_bytes_array = bytearray([])
         for i, values in enumerate(values_list):
             format = self._parse_format_list(format_list, i)
 
             formated_values = self._value_types[format](values)
             values_bytes = formated_values.tobytes()
 
-            values_bytes_array.append(values_bytes)
+            values_bytes_array.extend(values_bytes)
 
         return values_bytes_array
 

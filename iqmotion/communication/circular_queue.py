@@ -34,7 +34,7 @@ class CircularQueue():
     def __iter__(self):
         """ Peek iteratively over the queue in a FIFO way, this method does NOT pop the element
         """
-        if not self.is_empty():
+        if not self.is_empty:
 
             front_index = self._front
             for _ in range(self._count):
@@ -100,11 +100,11 @@ class CircularQueue():
             true: if succesful
             false: if circular queue is full
         """
-        if self.is_full():
+        if self.is_full:
             return 0
 
         # condition for empty queue
-        elif self.is_empty():
+        elif self.is_empty:
             self._front = 0
             self._rear = 0
         else:
@@ -139,7 +139,7 @@ class CircularQueue():
             None: if queue is empty
             poped_element: element from queue that got poped
         """
-        if self.is_empty():
+        if self.is_empty:
             return None
 
         poped_element = self._queue[self._rear]
@@ -161,7 +161,7 @@ class CircularQueue():
             None: if queue is empty
             poped_element: element from queue that got poped
         """
-        if self.is_empty():
+        if self.is_empty:
             return None
 
         poped_element = self._queue[self._front]
@@ -200,6 +200,7 @@ class CircularQueue():
         """
         return self._maxlen
 
+    @property
     def is_full(self):
         """ Check if queue is full
 
@@ -212,6 +213,7 @@ class CircularQueue():
         else:
             return 0
 
+    @property
     def is_empty(self):
         """ Check if queue is empty
 

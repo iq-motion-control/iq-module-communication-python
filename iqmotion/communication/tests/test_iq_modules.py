@@ -1,17 +1,17 @@
-import pytest
+# import pytest
 
-from iqmotion.communication.crc import Crc
-from iqmotion.communication.iq_speed_module import IqSpeedModule
-
-
-# MODULES = [IqSpeedModule()]
+# from iqmotion.communication.crc import Crc
+# from iqmotion.communication.iq_speed_module import IqSpeedModule
 
 
-class TestIqModules():
+# # MODULES = [IqSpeedModule()]
 
-    def test_init(self):
-        # modules = MODULES
-        # modules[0].list()
-        # modules.__init__()
-        # print(MODULES)
-        assert 1 == 1
+
+# class TestIqModules():
+
+#     def test_init(self):
+#         # modules = MODULES
+#         # modules[0].list()
+#         # modules.__init__()
+#         # print(MODULES)
+#         assert 1 == 1

@@ -2,13 +2,18 @@ from abc import ABC, abstractmethod
 
 
 class Communication(ABC):
+    """ Communication is an interface class that enables different type of communication protocole
+    implementations while keeping the same message structure for every device.
+    It is the implementation's job to "package" the message into its own package as well as 
+    extract messages from its own packaging scheme.
+    """
 
     @abstractmethod
     def send_message(self, message: bytearray):
         """ this property is too abstract to understand. """
 
     @abstractmethod
-    def add_to_send_queue(self, bytes: bytearray):
+    def add_to_out_queue(self, bytes: bytearray):
         """ this property is too abstract to understand. """
 
     @abstractmethod

@@ -179,26 +179,26 @@ class TestCircularQueue():
         queue = CircularQueue(desired_queue_size)
 
         for i in range(desired_queue_size):
-            assert queue.is_full() == False
+            assert queue.is_full == False
             queue.append(i)
 
-        assert queue.is_full() == True
+        assert queue.is_full == True
 
         for i in range(desired_queue_size):
             queue.pop()
-            assert queue.is_full() == False
+            assert queue.is_full == False
 
     def test_is_empty(self):
         desired_queue_size = 3
         queue = CircularQueue(desired_queue_size)
 
-        assert queue.is_empty() == True
+        assert queue.is_empty == True
 
         for i in range(desired_queue_size):
             queue.append(i)
-            assert queue.is_empty() == False
+            assert queue.is_empty == False
 
         for i in range(desired_queue_size):
             queue.pop()
 
-        assert queue.is_empty() == True
+        assert queue.is_empty == True
