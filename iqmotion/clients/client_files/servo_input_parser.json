@@ -1,0 +1,7 @@
+[
+
+{"type_idn":78, "param":"mode",         "param_idn":  0, "format":"B", "unit": "enum"           },
+{"type_idn":78, "param":"unit_min",     "param_idn":  1, "format":"f", "unit": "unit from mode" },
+{"type_idn":78, "param":"unit_max",     "param_idn":  2, "format":"f", "unit": "unit from mode" }
+
+]

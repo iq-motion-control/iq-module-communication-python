@@ -1,0 +1,17 @@
+[
+
+{"type":"PowerMonitor", "type_idn":69, "param":"volts",         "param_idn":  0, "format":"f", "unit": "V"},
+{"type":"PowerMonitor", "type_idn":69, "param":"amps",          "param_idn":  1, "format":"f", "unit": "A"},
+{"type":"PowerMonitor", "type_idn":69, "param":"watts",         "param_idn":  2, "format":"f", "unit": "W"},
+{"type":"PowerMonitor", "type_idn":69, "param":"joules",        "param_idn":  3, "format":"f", "unit": "J"},
+{"type":"PowerMonitor", "type_idn":69, "param":"reset_joules",  "param_idn":  4, "format":"",  "unit": ""},
+
+{"type":"PowerMonitor", "type_idn":69, "param":"filter_fs",     "param_idn":  5, "format":"I", "unit": "Hz"},
+{"type":"PowerMonitor", "type_idn":69, "param":"filter_fc",     "param_idn":  6, "format":"I", "unit": "Hz"},
+{"type":"PowerMonitor", "type_idn":69, "param":"volts_raw",     "param_idn":  7, "format":"H", "unit": "-"},
+{"type":"PowerMonitor", "type_idn":69, "param":"amps_raw",      "param_idn":  8, "format":"H", "unit": "-"},
+{"type":"PowerMonitor", "type_idn":69, "param":"volts_gain",    "param_idn":  9, "format":"f", "unit": "V/bit"},
+{"type":"PowerMonitor", "type_idn":69, "param":"amps_gain",     "param_idn": 10, "format":"f", "unit": "A/bit"},
+{"type":"PowerMonitor", "type_idn":69, "param":"amps_bias",     "param_idn": 11, "format":"f", "unit": "-"}
+
+]

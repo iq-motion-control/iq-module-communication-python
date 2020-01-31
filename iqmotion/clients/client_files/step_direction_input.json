@@ -1,0 +1,4 @@
+[
+{"type_idn":58, "param":"angle",  "param_idn": 0, "format":"f", "unit": "rad" },
+{"type_idn":58, "param":"angle_step",  "param_idn": 1, "format":"f", "unit": "rad" }
+]

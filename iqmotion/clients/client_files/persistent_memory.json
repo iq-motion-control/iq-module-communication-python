@@ -1,0 +1,6 @@
+[
+
+{"type_idn":11, "param":"erase",   "param_idn":  0, "format":"", "unit": ""},
+{"type_idn":11, "param":"revert_to_default", "param_idn":  1, "format":"", "unit": ""}
+
+]

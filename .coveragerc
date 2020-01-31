@@ -1,11 +1,11 @@
 [run]
-omit = iqmotion/communication/tests/*
+omit = iqmotion/tests/*
 
 [report]
 omit = 
-    iqmotion/communication/message.py
-    iqmotion/communication/client_with_entries_message.py
-    iqmotion/communication/iq_module_json_parser.py
+    iqmotion/message_making/message.py
+    iqmotion/message_making/client_with_entries_message.py
+    iqmotion/iq_devices/iq_module_json_parser.py
 exclude_lines = 
     def _find_serial_port
     def list_clients

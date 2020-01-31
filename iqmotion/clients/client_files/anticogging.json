@@ -1,0 +1,9 @@
+[
+
+{"type_idn":71, "param":"table_size",    "param_idn": 0, "format":"H", "unit": ""},
+{"type_idn":71, "param":"is_data_valid", "param_idn": 1, "format":"B", "unit": "bool"},
+{"type_idn":71, "param":"is_enabled",    "param_idn": 2, "format":"B", "unit": "bool"},
+{"type_idn":71, "param":"erase",         "param_idn": 3, "format":"", "unit": ""},
+{"type_idn":71, "param":"left_shift",    "param_idn": 4, "format":"B", "unit": "/2^x"}
+
+]

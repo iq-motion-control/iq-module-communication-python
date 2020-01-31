@@ -1,0 +1,12 @@
+[
+
+{"type_idn":60, "param":"mode",         "param_idn":  0, "format":"B", "unit": "enum"       },
+{"type_idn":60, "param":"raw_value",    "param_idn":  1, "format":"f", "unit": "PU"         },
+{"type_idn":60, "param":"sign",         "param_idn":  3, "format":"B", "unit": "enum"       },
+{"type_idn":60, "param":"volts_max",    "param_idn":  4, "format":"f", "unit": "V"          },
+{"type_idn":60, "param":"velocity_max", "param_idn":  5, "format":"f", "unit": "rad/s"      },
+{"type_idn":60, "param":"thrust_max",   "param_idn":  6, "format":"f", "unit": "N"          },
+{"type_idn":60, "param":"safe_factor",  "param_idn":  7, "format":"f", "unit": "PU"         },
+{"type_idn":60, "param":"flip_negative","param_idn":  8, "format":"B", "unit": "bool"         }
+
+]

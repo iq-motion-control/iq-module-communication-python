@@ -2,7 +2,7 @@ from iqmotion.communication.packet_state import PacketState
 from iqmotion.communication.circular_queue import CircularQueue
 from iqmotion.communication.crc import Crc
 
-from iqmotion.communication.custom_error import PacketStateError
+from iqmotion.custom_errors import PacketStateError
 
 import copy
 

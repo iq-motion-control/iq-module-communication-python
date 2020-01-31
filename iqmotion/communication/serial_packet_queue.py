@@ -2,7 +2,7 @@ from iqmotion.communication.packet_queue import PacketQueue
 from iqmotion.communication.circular_queue import CircularQueue
 from iqmotion.communication.packet_parser import PacketParser
 from iqmotion.communication.serial_packet_states import SerialStartState
-from iqmotion.communication.custom_error import PacketQueueError
+from iqmotion.custom_errors import PacketQueueError
 
 
 class SerialPacketQueue(PacketQueue):
