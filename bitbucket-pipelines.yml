@@ -14,8 +14,10 @@ pipelines:
           - echo "BUILD IMAGE SUCESSFULLY DONE"
           - echo "PIPELINE STARTED ..........."
           - python -m pip install --upgrade pip
+          - pip install pytest
+          - pip install pytest-cov
           - pip install -r requirements.txt
           - echo "STARTING TESTING........"
-          - pytest "--cov-config=.coveragerc" --cov=iqmotion iqmotion --cov-fail-under=100
+          - pytest --cov-config=.coveragerc --cov=iqmotion iqmotion --cov-fail-under=100
           - echo "TEST COVERAGE REPORT SHOWING ABOVE"
           - echo "PIPELINE SUCESSFULLY COMPLETED"
