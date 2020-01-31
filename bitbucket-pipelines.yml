@@ -16,6 +16,6 @@ pipelines:
           - python -m pip install --upgrade pip
           - pip install -r requirements.txt
           - echo "STARTING TESTING........"
-          - pytest "--cov-config=.coveragerc" --cov=iqmotion iqmotion
+          - pytest "--cov-config=.coveragerc" --cov=iqmotion iqmotion --cov-fail-under=100
           - echo "TEST COVERAGE REPORT SHOWING ABOVE"
           - echo "PIPELINE SUCESSFULLY COMPLETED"
