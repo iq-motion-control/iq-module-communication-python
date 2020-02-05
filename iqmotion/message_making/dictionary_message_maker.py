@@ -10,7 +10,7 @@ import numpy as np
 
 
 @dataclass
-class DictionaryMessageMakerData():
+class DictionaryMessageMakerData:
     type_idn: bytes
     param_idn: bytes
     module_idn: bytes
@@ -18,11 +18,13 @@ class DictionaryMessageMakerData():
     format: str
     value: any
 
-    def __init__(self,
-                 client_entry_data: DictionaryClientEntryData,
-                 module_idn: bytes,
-                 access_type: AccessType,
-                 value):
+    def __init__(
+        self,
+        client_entry_data: DictionaryClientEntryData,
+        module_idn: bytes,
+        access_type: AccessType,
+        value,
+    ):
 
         self.type_idn = client_entry_data.type_idn
         self.param_idn = client_entry_data.param_idn
@@ -37,11 +39,13 @@ class DictionaryMessageMaker(MessageMaker):
     This class defines how to make a message from a dictionary client entry
     """
 
-    def __init__(self,
-                 client_entry: DictionaryClientEntry,
-                 module_idn: bytes,
-                 access_type: AccessType,
-                 values):
+    def __init__(
+        self,
+        client_entry: DictionaryClientEntry,
+        module_idn: bytes,
+        access_type: AccessType,
+        values,
+    ):
         """ Returns a DictonaryMessageMaker object to create dictionary client entry messages
 
         Args:
@@ -52,16 +56,19 @@ class DictionaryMessageMaker(MessageMaker):
         """
 
         self._data = DictionaryMessageMakerData(
-            client_entry.data, module_idn, access_type, values)
+            client_entry.data, module_idn, access_type, values
+        )
 
-        self._value_types = {'': None,
-                             'B': np.uint8,
-                             'b': np.int8,
-                             'f': np.float32,
-                             'H': np.uint16,
-                             'h': np.int16,
-                             'I': np.uint32,
-                             'i': np.int32}
+        self._value_types = {
+            "": None,
+            "B": np.uint8,
+            "b": np.int8,
+            "f": np.float32,
+            "H": np.uint16,
+            "h": np.int16,
+            "I": np.uint32,
+            "i": np.int32,
+        }
 
     def make(self):
         """ Makes the message
@@ -85,7 +92,7 @@ class DictionaryMessageMaker(MessageMaker):
         format = self._data.format
         values = self._data.values
 
-        access = access_type.value + (module_idn*4)
+        access = access_type.value + (module_idn * 4)
         payload = bytearray([param_idn, access])
         values_bytes = self._format_values(list(format), values)
         payload.extend(values_bytes)
@@ -113,9 +120,9 @@ class DictionaryMessageMaker(MessageMaker):
         return values_bytes_array
 
     def _parse_format_list(self, format_list, current_index):
-        if current_index >= len(format_list)-1:
-            if format_list[-1] != '*':
-                raise MessageMakerError('values too long for client entry')
+        if current_index >= len(format_list) - 1:
+            if format_list[-1] != "*":
+                raise MessageMakerError("values too long for client entry")
             else:
                 format = format_list[-2]
         else:

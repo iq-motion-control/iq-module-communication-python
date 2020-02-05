@@ -16,4 +16,5 @@ class StepDirModule(IqModule):
 
     It defines how to communicate to a module that is using the step/direction firwmare
     """
+
     _MODULE_FILE_NAME = "step_direction.json"

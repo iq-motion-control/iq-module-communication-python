@@ -1,6 +1,7 @@
 from iqmotion.clients.client import Client
 from iqmotion.custom_errors import ClientError
 from iqmotion.client_entries.dictionary_client_entry import DictionaryClientEntry
+
 # from iqmotion.communication.process_client_entry import ProcessClientEntry
 
 import os
@@ -26,7 +27,8 @@ class ClientWithEntries(Client):
         client_json = client_file_name + ".json"
 
         file_path = os.path.join(
-            os.path.dirname(__file__), ('client_files/' + client_json))
+            os.path.dirname(__file__), ("client_files/" + client_json)
+        )
 
         with open(file_path) as json_file:
             client_file = json.load(json_file)
@@ -47,8 +49,7 @@ class ClientWithEntries(Client):
         if "payload_type" not in client_entry_data_dict.keys():
             client_entry = DictionaryClientEntry(client_entry_data_dict)
         else:
-            raise ClientError(
-                "ClientWithEntries does not support this payload type")
+            raise ClientError("ClientWithEntries does not support this payload type")
 
         # UNCOMMENT WHEN YOU HANDLE PROCESS CLIENT ENTRY
         # payload_type = client_entry_data_dict["payload_type"]

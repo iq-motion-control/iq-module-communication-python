@@ -11,9 +11,16 @@ class SerialStartState(PacketState):
     """ SerialStartState defines the start state of a serial packet.
     It will parse the circular byte queue until it finds its start byte (0x55)
     """
+
     _START_BYTE = 0x55
 
-    def __init__(self, byte_queue: CircularQueue, start_index: int = 0, parse_index: int = 0, packet_len: int = 0):
+    def __init__(
+        self,
+        byte_queue: CircularQueue,
+        start_index: int = 0,
+        parse_index: int = 0,
+        packet_len: int = 0,
+    ):
         super().__init__(byte_queue, start_index, parse_index, packet_len)
         self._end_index = len(byte_queue)
 
@@ -41,7 +48,9 @@ class SerialStartState(PacketState):
             next_state (SerialStartState): if parsing not successful
         """
         if self._parse_succesful:
-            return SerialLenState(self._byte_queue, self._start_index, self._parse_index, self._packet_len)
+            return SerialLenState(
+                self._byte_queue, self._start_index, self._parse_index, self._packet_len
+            )
         else:
             return self
 
@@ -51,9 +60,16 @@ class SerialLenState(PacketState):
     It will parse the circular byte queue to find the Len Byte and store it in memory.
     Len Byte cannot be more than 250
     """
+
     _MAX_PACKET_SIZE = 250
 
-    def __init__(self, byte_queue: CircularQueue, start_index: int = 0, parse_index: int = 0, packet_len: int = 0):
+    def __init__(
+        self,
+        byte_queue: CircularQueue,
+        start_index: int = 0,
+        parse_index: int = 0,
+        packet_len: int = 0,
+    ):
         super().__init__(byte_queue, start_index, parse_index, packet_len)
 
     def parse(self):
@@ -63,13 +79,14 @@ class SerialLenState(PacketState):
             PacketStateError: Packet overflow, message is bigger than 256 bytes
         """
         try:
-            self._packet_len = self._byte_queue[self._parse_index+1]
+            self._packet_len = self._byte_queue[self._parse_index + 1]
             if self._packet_len < self._MAX_PACKET_SIZE:
                 self._parse_index += 1
                 self._parse_succesful = 1
             else:
                 raise PacketStateError(
-                    "Packet overflow, message is bigger than 256 bytes")
+                    "Packet overflow, message is bigger than 256 bytes"
+                )
         except IndexError:
             self._is_done = 1
             self._end_index = self._parse_index + 1
@@ -84,7 +101,9 @@ class SerialLenState(PacketState):
             next_state (SerialLenState): if parsing not successful
         """
         if self._parse_succesful:
-            return SerialTypeState(self._byte_queue, self._start_index, self._parse_index, self._packet_len)
+            return SerialTypeState(
+                self._byte_queue, self._start_index, self._parse_index, self._packet_len
+            )
         else:
             return self
 
@@ -96,7 +115,13 @@ class SerialTypeState(PacketState):
     otherwise it will skip SerialPayloadState and return SericalCrcState
     """
 
-    def __init__(self, byte_queue: CircularQueue, start_index: int = 0, parse_index: int = 0, packet_len: int = 0):
+    def __init__(
+        self,
+        byte_queue: CircularQueue,
+        start_index: int = 0,
+        parse_index: int = 0,
+        packet_len: int = 0,
+    ):
         super().__init__(byte_queue, start_index, parse_index, packet_len)
 
     def parse(self):
@@ -124,9 +149,19 @@ class SerialTypeState(PacketState):
         """
         if self._parse_succesful:
             if self._packet_len > 0:
-                return SerialPayloadState(self._byte_queue, self._start_index, self._parse_index, self._packet_len)
+                return SerialPayloadState(
+                    self._byte_queue,
+                    self._start_index,
+                    self._parse_index,
+                    self._packet_len,
+                )
             else:
-                return SerialCrcState(self._byte_queue, self._start_index, self._parse_index, self._packet_len)
+                return SerialCrcState(
+                    self._byte_queue,
+                    self._start_index,
+                    self._parse_index,
+                    self._packet_len,
+                )
         else:
             return self
 
@@ -136,14 +171,22 @@ class SerialPayloadState(PacketState):
     It will parse the circular byte queue to find all the payload bytes of the packet.
     """
 
-    def __init__(self, byte_queue: CircularQueue, start_index: int = 0, parse_index: int = 0, packet_len: int = 0):
+    def __init__(
+        self,
+        byte_queue: CircularQueue,
+        start_index: int = 0,
+        parse_index: int = 0,
+        packet_len: int = 0,
+    ):
         super().__init__(byte_queue, start_index, parse_index, packet_len)
 
     def parse(self):
         """ Find Paylod bytes
         """
         try:
-            for ind in range(self._parse_index+1, self._parse_index+1+self._packet_len):
+            for ind in range(
+                self._parse_index + 1, self._parse_index + 1 + self._packet_len
+            ):
                 # check if there is the right amount of bytes,
                 self._byte_queue[ind]
             self._parse_index += self._packet_len
@@ -165,7 +208,9 @@ class SerialPayloadState(PacketState):
             next_state (SerialPayloadState): if parsing not successful
         """
         if self._parse_succesful:
-            return SerialCrcState(self._byte_queue, self._start_index, self._parse_index, self._packet_len)
+            return SerialCrcState(
+                self._byte_queue, self._start_index, self._parse_index, self._packet_len
+            )
         else:
             return self
 
@@ -176,7 +221,13 @@ class SerialCrcState(PacketState):
     If the Crc is correct, stores the message in its message @property
     """
 
-    def __init__(self, byte_queue: CircularQueue, start_index: int = 0, parse_index: int = 0, packet_len: int = 0):
+    def __init__(
+        self,
+        byte_queue: CircularQueue,
+        start_index: int = 0,
+        parse_index: int = 0,
+        packet_len: int = 0,
+    ):
         super().__init__(byte_queue, start_index, parse_index, packet_len)
 
     def parse(self):

@@ -8,4 +8,5 @@ class SpeedModule(IqModule):
 
     It defines how to communicate to a module that is using the Speed firwmare
     """
+
     _MODULE_FILE_NAME = "speed.json"

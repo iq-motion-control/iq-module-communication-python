@@ -1,7 +1,7 @@
 from iqmotion.communication.packet_state import PacketState
 
 
-class PacketParser():
+class PacketParser:
     """ PacketParser is the "context" class of a State Pattern for Packet States.
     It defines a single interface to parse a message from a packet using the correct State implementations
     """

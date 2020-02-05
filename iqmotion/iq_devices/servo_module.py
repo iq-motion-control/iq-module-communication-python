@@ -16,4 +16,5 @@ class ServoModule(IqModule):
 
     It defines how to communicate to a module that is using the servo firwmare
     """
+
     _MODULE_FILE_NAME = "servo.json"

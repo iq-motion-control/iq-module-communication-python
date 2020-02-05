@@ -1,7 +1,7 @@
 import numpy as np
 
 
-class Crc():
+class Crc:
     """ A static class that creates a (uint16) CRC value from some list of bytes
     """
 
@@ -15,7 +15,7 @@ class Crc():
         Returns:
             crc (np.uint16): a uint16 CRC
         """
-        crc = np.uint16(0xffff)
+        crc = np.uint16(0xFFFF)
 
         for i in range(len(data)):
             crc = Crc.byte_update_crc(crc, data[i])

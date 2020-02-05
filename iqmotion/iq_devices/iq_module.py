@@ -10,9 +10,10 @@ from iqmotion.message_making.client_with_entries_message import ClientWithEntrie
 import time
 
 
-class IqModule():
+class IqModule:
     """ IqModule is an asbstract interface class for all the modules made by iq
     """
+
     _MODULE_FILE_NAME = ""
 
     def __init__(self, com: Communicator, module_idn=0):
@@ -27,7 +28,8 @@ class IqModule():
         # TODO: parse different clients ?
         for client_name in module_file_dict["clients"]:
             self._client_dict[client_name] = client_with_entries.ClientWithEntries(
-                client_name, self._module_idn)
+                client_name, self._module_idn
+            )
 
     def set(self, client_name: str, client_entry_name: str, *args):
         """ Sets a value to the module with a message formed by a client and client entry
@@ -44,10 +46,10 @@ class IqModule():
 
         if client_entry.data.format == "":
             raise IqModuleError(
-                "This client entry '{0}' cannot be set".format(client_entry_name))
+                "This client entry '{0}' cannot be set".format(client_entry_name)
+            )
 
-        message_bytes = self._make_message_bytes(
-            client_entry, AccessType.SET, args)
+        message_bytes = self._make_message_bytes(client_entry, AccessType.SET, args)
 
         self._com.send_message(message_bytes)
 
@@ -111,8 +113,7 @@ class IqModule():
         client = self._client_dict[client_name]
         client_entry = client.client_entries[client_entry_name]
 
-        message_bytes = self._make_message_bytes(
-            client_entry, AccessType.SAVE, [])
+        message_bytes = self._make_message_bytes(client_entry, AccessType.SAVE, [])
 
         self._com.send_message(message_bytes)
 
@@ -141,8 +142,7 @@ class IqModule():
         client = self._client_dict[client_name]
         client_entry = client.client_entries[client_entry_name]
 
-        message_bytes = self._make_message_bytes(
-            client_entry, AccessType.GET, [])
+        message_bytes = self._make_message_bytes(client_entry, AccessType.GET, [])
 
         self._com.send_message(message_bytes)
 
@@ -196,8 +196,7 @@ class IqModule():
     def list_clients(self):
         """ Displays all the clients available with the module 
         """
-        print("\nClients available from '{0}':\n".format(
-            self._MODULE_FILE_NAME))
+        print("\nClients available from '{0}':\n".format(self._MODULE_FILE_NAME))
 
         for client_name in self._client_dict.keys():
             print("\t{0}".format(client_name))
@@ -228,19 +227,24 @@ class IqModule():
 
         if client_entry_name not in client.client_entries.keys():
             raise IqModuleError(
-                "{0} does not support this client entry: {1}\n".format(client_name, client_entry_name))
+                "{0} does not support this client entry: {1}\n".format(
+                    client_name, client_entry_name
+                )
+            )
 
         return 1
 
     def _client_exists(self, client_name: str):
         if client_name not in self._client_dict.keys():
             raise IqModuleError(
-                "This module does not support this client: {0}\n".format(client_name))
+                "This module does not support this client: {0}\n".format(client_name)
+            )
         return True
 
     def _make_message_bytes(self, client_entry, access_type: AccessType, args):
         message_maker = DictionaryMessageMaker(
-            client_entry, self._module_idn, access_type, args)
+            client_entry, self._module_idn, access_type, args
+        )
 
         message = ClientWithEntriesMessage(message_maker)
 

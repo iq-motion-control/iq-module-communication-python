@@ -2,8 +2,7 @@ import pytest
 from iqmotion.communication.circular_queue import CircularQueue
 
 
-class TestCircularQueue():
-
+class TestCircularQueue:
     def test_init(self):
         desired_queue_size = 5
         queue = CircularQueue(desired_queue_size)
@@ -46,14 +45,14 @@ class TestCircularQueue():
 
         for i in range(3):
             queue.append(i)
-            assert len(queue) == i+1
+            assert len(queue) == i + 1
 
         queue.append(4)
         assert len(queue) == desired_queue_size
 
         for i in range(3, 0, -1):
             queue.pop()
-            assert len(queue) == i-1
+            assert len(queue) == i - 1
 
     def test__str__(self):
         data = [1, 2, 3]
@@ -131,7 +130,7 @@ class TestCircularQueue():
         for i in range(desired_queue_size):
             queue.append(i)
 
-        for i in range(desired_queue_size-1, -1, -1):
+        for i in range(desired_queue_size - 1, -1, -1):
             assert queue.pop() == i
 
         assert queue.pop() == None

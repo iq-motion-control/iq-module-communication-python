@@ -2,7 +2,6 @@ from iqmotion.communication.crc import Crc
 
 
 class MockCommunicator:
-
     def send_message(self, message: bytearray):
         return
 
@@ -57,7 +56,7 @@ def make_fake_packet(data, type_idn=0):
     crc_data = [data_len, data_type]
     crc_data.extend(data)
     crc = Crc.make_crc(crc_data)
-    crcl = crc & 0xff
+    crcl = crc & 0xFF
     crch = crc >> 8
 
     packet = [start, data_len, data_type]

@@ -7,8 +7,7 @@ from iqmotion.tests.helpers import make_fake_packet
 import pytest
 
 
-class TestSerialPacketQueue():
-
+class TestSerialPacketQueue:
     @pytest.fixture(params=[[1], [1, 2, 3, 4, 5]])
     def serial_packet_queue(self, request):
         if len(request.param) != 1:

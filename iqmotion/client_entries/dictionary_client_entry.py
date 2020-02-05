@@ -31,7 +31,9 @@ class DictionaryClientEntryData(ClientEntryData):
         self.name = client_entry_dict["param"]
 
     def __str__(self):
-        return "{0:10} | {1:2}: {2:32} {3:4} {4}".format(self.type_idn, self.param_idn, self.name, self.format, self.unit)
+        return "{0:10} | {1:2}: {2:32} {3:4} {4}".format(
+            self.type_idn, self.param_idn, self.name, self.format, self.unit
+        )
 
 
 class DictionaryClientEntry(ClientEntry):
@@ -62,7 +64,9 @@ class DictionaryClientEntry(ClientEntry):
         msg_access_type = msg[2] & 3
         msg_value = msg[3:]
 
-        if (msg_type_idn == self.data.type_idn) & (msg_param_idn == self.data.param_idn):
+        if (msg_type_idn == self.data.type_idn) & (
+            msg_param_idn == self.data.param_idn
+        ):
             if msg_access_type == AccessType.REPLY.value:
                 self.value = msg_value
 

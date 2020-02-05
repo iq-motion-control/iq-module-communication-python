@@ -1,5 +1,4 @@
-
-class CircularQueue():
+class CircularQueue:
     """ A fix size circular queue implemented with a list() for O(1) memory movement costs anywhere in the queue
         The queue is FIFO if you use the __iter__ method and/or popleft(), but can be LIFO with pop()
     """
@@ -47,7 +46,7 @@ class CircularQueue():
         return self._count
 
     def __str__(self):
-        list_from_queue = self._queue[self._front:self._rear+1]
+        list_from_queue = self._queue[self._front : self._rear + 1]
         return list_from_queue.__str__()
 
     def __getitem__(self, key):
@@ -145,7 +144,7 @@ class CircularQueue():
         poped_element = self._queue[self._rear]
 
         # condition for only one element
-        if (self._front == self._rear):
+        if self._front == self._rear:
             self._front = -1
             self._rear = -1
         else:
@@ -167,7 +166,7 @@ class CircularQueue():
         poped_element = self._queue[self._front]
 
         # condition for only one element
-        if (self._front == self._rear):
+        if self._front == self._rear:
             self._front = -1
             self._rear = -1
         else:
@@ -220,7 +219,7 @@ class CircularQueue():
         Returns:
             true: if queue is empty
         """
-        if (self._front == -1):
+        if self._front == -1:
             return 1
         else:
             return 0

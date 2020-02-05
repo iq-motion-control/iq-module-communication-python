@@ -13,7 +13,13 @@ class PacketState(ABC):
     """
 
     @abstractmethod
-    def __init__(self, byte_queue: CircularQueue, start_index: int = 0, parse_index: int = 0, packet_len: int = 0):
+    def __init__(
+        self,
+        byte_queue: CircularQueue,
+        start_index: int = 0,
+        parse_index: int = 0,
+        packet_len: int = 0,
+    ):
         self._byte_queue = byte_queue
         self._start_index = start_index
         self._parse_index = parse_index

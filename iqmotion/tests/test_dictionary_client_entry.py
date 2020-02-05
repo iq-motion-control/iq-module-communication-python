@@ -3,11 +3,13 @@ from iqmotion.client_entries.dictionary_client_entry import DictionaryClientEntr
 
 import pytest
 
-TEST_CLIENT_ENTRY_DICT = {"type_idn": 50,
-                          "param": "test",
-                          "param_idn": 0,
-                          "format": "B",
-                          "unit": "fake"}
+TEST_CLIENT_ENTRY_DICT = {
+    "type_idn": 50,
+    "param": "test",
+    "param_idn": 0,
+    "format": "B",
+    "unit": "fake",
+}
 
 
 class TestDictionaryClientEntry:
@@ -61,6 +63,7 @@ class TestDictionaryClientEntry:
             TEST_CLIENT_ENTRY_DICT["param_idn"],
             TEST_CLIENT_ENTRY_DICT["param"],
             TEST_CLIENT_ENTRY_DICT["format"],
-            TEST_CLIENT_ENTRY_DICT["unit"])
+            TEST_CLIENT_ENTRY_DICT["unit"],
+        )
 
         assert dce.data.__str__() == expected_str

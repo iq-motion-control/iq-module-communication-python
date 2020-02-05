@@ -21,8 +21,7 @@ def circular_queue_with_packet(request):
     return [cq, packet]
 
 
-class TestSerialStartState():
-
+class TestSerialStartState:
     def test_no_packet(self):
         data = [1, 2, 3, 4, 5]
         cq = CircularQueue.from_iterable(data)
@@ -43,8 +42,7 @@ class TestSerialStartState():
         assert type(state.find_next_state()) == SerialLenState
 
 
-class TestSerialLenState():
-
+class TestSerialLenState:
     def test_wrong_parse_index(self, circular_queue_with_packet):
         cq = circular_queue_with_packet[0]
         len_data = len(circular_queue_with_packet[1])
@@ -80,11 +78,13 @@ class TestSerialLenState():
             state.parse()
 
         err_str = err.value.message
-        assert "PACKET STATE ERROR: Packet overflow, message is bigger than 256 bytes\n" == err_str
+        assert (
+            "PACKET STATE ERROR: Packet overflow, message is bigger than 256 bytes\n"
+            == err_str
+        )
 
 
-class TestSerialTypeState():
-
+class TestSerialTypeState:
     def test_wrong_parse_index(self, circular_queue_with_packet):
         cq = circular_queue_with_packet[0]
         len_data = len(circular_queue_with_packet[1])
@@ -114,8 +114,7 @@ class TestSerialTypeState():
             assert new_state_type == SerialPayloadState
 
 
-class TestSerialPayloadState():
-
+class TestSerialPayloadState:
     def test_wrong_parse_index(self, circular_queue_with_packet):
         cq = circular_queue_with_packet[0]
         len_data = len(circular_queue_with_packet[1])
@@ -139,8 +138,7 @@ class TestSerialPayloadState():
         assert type(state.find_next_state()) == SerialCrcState
 
 
-class TestSerialCrcState():
-
+class TestSerialCrcState:
     def test_no_crc(self):
         data = [1, 2, 3, 4, 5]
         cq = CircularQueue.from_iterable(data)

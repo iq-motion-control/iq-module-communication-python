@@ -1,4 +1,3 @@
-
 from iqmotion.clients import client_with_entries
 from iqmotion.iq_devices.iq_module import IqModule
 from iqmotion.iq_devices.iq_module_json_parser import IqModuleJsonParser
@@ -15,7 +14,7 @@ import pytest
 from unittest.mock import patch, Mock, MagicMock, call, PropertyMock
 
 
-class TestIqModule():
+class TestIqModule:
     _CLIENT_NAME = "client_test"
 
     _MODULE_FILE_NAME = "iq2306_2200kv.json"
@@ -39,13 +38,14 @@ class TestIqModule():
         client_file_name = self._CLIENT_NAME
         test_dir = os.path.dirname(__file__)
 
-        with patch('os.path.dirname') as mock_class:
+        with patch("os.path.dirname") as mock_class:
             mock_class.return_value = test_dir
-            test_client = client_with_entries.ClientWithEntries(
-                client_file_name)
+            test_client = client_with_entries.ClientWithEntries(client_file_name)
 
-        with patch('iqmotion.clients.client_with_entries.ClientWithEntries') as mock_class:
-            with patch.object(IqModuleJsonParser, 'parse') as mock_parser:
+        with patch(
+            "iqmotion.clients.client_with_entries.ClientWithEntries"
+        ) as mock_class:
+            with patch.object(IqModuleJsonParser, "parse") as mock_parser:
                 mock_parser.return_value = {"clients": [self._CLIENT_NAME]}
                 mock_class.return_value = test_client
                 mock_client = mock_class.return_value
@@ -60,8 +60,12 @@ class TestIqModule():
             module.set(client_name, client_entry_name, 0)
 
         err_str = err.value.message
-        assert "IQ MODULE ERROR: This module does not support this client: {0}\n\n".format(
-            client_name) == err_str
+        assert (
+            "IQ MODULE ERROR: This module does not support this client: {0}\n\n".format(
+                client_name
+            )
+            == err_str
+        )
 
     def test_wrong_client_entry(self, mock_communicator, mock_client):
         module = IqModule(mock_communicator)
@@ -72,8 +76,12 @@ class TestIqModule():
             module.set(client_name, client_entry_name, 0)
 
         err_str = err.value.message
-        assert "IQ MODULE ERROR: {0} does not support this client entry: {1}\n\n".format(
-            client_name, client_entry_name) == err_str
+        assert (
+            "IQ MODULE ERROR: {0} does not support this client entry: {1}\n\n".format(
+                client_name, client_entry_name
+            )
+            == err_str
+        )
 
     @pytest.mark.parametrize(
         "test_input,expected",
@@ -90,8 +98,7 @@ class TestIqModule():
         value = test_input[1]
         module.set(self._CLIENT_NAME, client_entry_name, value)
 
-        assert mock_communicator.send_message.call_args == call(
-            bytearray(expected))
+        assert mock_communicator.send_message.call_args == call(bytearray(expected))
 
     def test_set_no_format(self, mock_communicator, mock_client):
         module = IqModule(mock_communicator)
@@ -101,8 +108,12 @@ class TestIqModule():
             module.set(self._CLIENT_NAME, client_entry_name, 0)
 
         err_str = err.value.message
-        assert "IQ MODULE ERROR: This client entry '{0}' cannot be set\n".format(
-            client_entry_name) == err_str
+        assert (
+            "IQ MODULE ERROR: This client entry '{0}' cannot be set\n".format(
+                client_entry_name
+            )
+            == err_str
+        )
 
     @pytest.mark.parametrize(
         "test_input,expected",
@@ -117,16 +128,17 @@ class TestIqModule():
 
         mock_communicator.read_bytes = MagicMock()
         mock_communicator.extract_message = MagicMock()
-        mock_communicator.extract_message.return_value = bytearray(
-            valid_message)
+        mock_communicator.extract_message.return_value = bytearray(valid_message)
 
-        with patch('iqmotion.tests.helpers.MockCommunicator.bytes_left_in_queue', new_callable=PropertyMock) as mock_bytes_left:
+        with patch(
+            "iqmotion.tests.helpers.MockCommunicator.bytes_left_in_queue",
+            new_callable=PropertyMock,
+        ) as mock_bytes_left:
             mock_bytes_left.side_effect = [4, 0]
             module = IqModule(mock_communicator)
             module.update_replies()
 
-            assert module.get(
-                'client_test', client_entry_name) == expected
+            assert module.get("client_test", client_entry_name) == expected
 
     @pytest.mark.parametrize(
         "test_input",
@@ -139,7 +151,7 @@ class TestIqModule():
         client_entry_name = test_input[0][0]
         module = IqModule(mock_communicator)
 
-        assert module.get('client_test', client_entry_name) == None
+        assert module.get("client_test", client_entry_name) == None
 
     def test_get_all(self, mock_communicator, mock_client):
         module = IqModule(mock_communicator)
@@ -165,8 +177,7 @@ class TestIqModule():
         client_entry_name = test_input
         module.save(self._CLIENT_NAME, client_entry_name)
 
-        assert mock_communicator.send_message.call_args == call(
-            bytearray(expected))
+        assert mock_communicator.send_message.call_args == call(bytearray(expected))
 
     def test_save_all(self, mock_communicator, mock_client):
         module = IqModule(mock_communicator)
@@ -192,15 +203,17 @@ class TestIqModule():
         client_entry_name = test_input
         module.get_async(self._CLIENT_NAME, client_entry_name)
 
-        assert mock_communicator.send_message.call_args == call(
-            bytearray(expected))
+        assert mock_communicator.send_message.call_args == call(bytearray(expected))
 
     def test_update_replies(self, mock_communicator, mock_client):
         mock_communicator.read_bytes = MagicMock()
         mock_communicator.extract_message = MagicMock()
         mock_communicator.extract_message.return_value = bytearray([1, 2, 3])
 
-        with patch('iqmotion.tests.helpers.MockCommunicator.bytes_left_in_queue', new_callable=PropertyMock) as mock_bytes_left:
+        with patch(
+            "iqmotion.tests.helpers.MockCommunicator.bytes_left_in_queue",
+            new_callable=PropertyMock,
+        ) as mock_bytes_left:
             mock_bytes_left.side_effect = [5, 0]
             module = IqModule(mock_communicator)
             module.update_replies()
@@ -221,17 +234,17 @@ class TestIqModule():
 
         mock_communicator.read_bytes = MagicMock()
         mock_communicator.extract_message = MagicMock()
-        mock_communicator.extract_message.return_value = bytearray(
-            valid_message)
+        mock_communicator.extract_message.return_value = bytearray(valid_message)
 
-        with patch('iqmotion.tests.helpers.MockCommunicator.bytes_left_in_queue', new_callable=PropertyMock) as mock_bytes_left:
+        with patch(
+            "iqmotion.tests.helpers.MockCommunicator.bytes_left_in_queue",
+            new_callable=PropertyMock,
+        ) as mock_bytes_left:
             mock_bytes_left.side_effect = [4, 0]
             module = IqModule(mock_communicator)
-            assert module.is_fresh(
-                self._CLIENT_NAME, client_entry_name) == False
+            assert module.is_fresh(self._CLIENT_NAME, client_entry_name) == False
             module.update_replies()
-            assert module.is_fresh(
-                self._CLIENT_NAME, client_entry_name) == True
+            assert module.is_fresh(self._CLIENT_NAME, client_entry_name) == True
 
     @pytest.mark.parametrize(
         "test_input,expected",
@@ -246,13 +259,15 @@ class TestIqModule():
 
         mock_communicator.read_bytes = MagicMock()
         mock_communicator.extract_message = MagicMock()
-        mock_communicator.extract_message.return_value = bytearray(
-            valid_message)
+        mock_communicator.extract_message.return_value = bytearray(valid_message)
 
-        with patch('iqmotion.tests.helpers.MockCommunicator.bytes_left_in_queue', new_callable=PropertyMock) as mock_bytes_left:
+        with patch(
+            "iqmotion.tests.helpers.MockCommunicator.bytes_left_in_queue",
+            new_callable=PropertyMock,
+        ) as mock_bytes_left:
             mock_bytes_left.side_effect = [4, 0]
             module = IqModule(mock_communicator)
             module.update_replies()
 
-            assert module.get_reply(
-                'client_test', client_entry_name) == expected
+            assert module.get_reply("client_test", client_entry_name) == expected
+
