@@ -10,7 +10,7 @@ These instructions will get you a copy of the project up and running on your loc
 
 All the prerequisited can be installed from ["requirement.txt"](requirement.txt).
 
-```[python]
+```python
 pip install requirements.txt
 ```
 
@@ -18,7 +18,7 @@ pip install requirements.txt
 
 You can install this library using "pip":
 
-```[python]
+```python
 pip install iqmotion
 ```
 
@@ -33,14 +33,14 @@ You will need the following packages to run the tests:
 
 You can install these packages with pip:
 
-```[python]
+```python
 pip install pytest
 pip install pytest-cov
 ```
 
 You can then run the tests with the following command:
 
-```[python]
+```python
 pytest --cov-config=.coveragerc --cov=iqmotion iqmotion --cov-fail-under=100
 ```
 
