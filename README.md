@@ -1,6 +1,6 @@
 # IQ Motion Python API
 
-![Coverage](https://bitbucket.org/iqcontrol/python-api/downloads/coverage.svg)
+![Coverage](https://bitbucket.org/iqcontrol/python-api/downloads/coverage.svg) ![Version](release_badge.svg)
 
 This library is to talk to any IQ Control devices from mulititude of communication protocoles.
 
