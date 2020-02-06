@@ -1,0 +1,21 @@
+[
+
+{"type_idn":52, "param":"ctrl_mode",                        "param_idn":  0, "format":"b", "unit": ""           },
+{"type_idn":52, "param":"ctrl_brake",                       "param_idn":  1, "format":"",  "unit": ""           },
+{"type_idn":52, "param":"ctrl_coast",                       "param_idn":  2, "format":"",  "unit": ""           },
+{"type_idn":52, "param":"ctrl_pwm",                         "param_idn":  3, "format":"f", "unit": "pwm"        },
+{"type_idn":52, "param":"ctrl_volts",                       "param_idn":  4, "format":"f", "unit": "V"          },
+{"type_idn":52, "param":"ctrl_velocity",                    "param_idn":  5, "format":"f", "unit": "rad/s"      },
+{"type_idn":52, "param":"ctrl_thrust",                      "param_idn":  6, "format":"f", "unit": "N"          },
+{"type_idn":52, "param":"velocity_Kp",                      "param_idn":  7, "format":"f", "unit": "V/(rad/s)"  },
+{"type_idn":52, "param":"velocity_Ki",                      "param_idn":  8, "format":"f", "unit": "V/(rad)"    },
+{"type_idn":52, "param":"velocity_Kd",                      "param_idn":  9, "format":"f", "unit": "V/(rad/s^2)"},
+{"type_idn":52, "param":"velocity_ff0",                     "param_idn":  10,"format":"f", "unit": "V"          },
+{"type_idn":52, "param":"velocity_ff1",                     "param_idn":  11,"format":"f", "unit": "V/(rad/s)"  },
+{"type_idn":52, "param":"velocity_ff2",                     "param_idn":  12,"format":"f", "unit": "V/(rad/s)^2"},
+{"type_idn":52, "param":"propeller_kt_pos",                 "param_idn":  13,"format":"f", "unit": "N/(rad/s)^2"},
+{"type_idn":52, "param":"propeller_kt_neg",                 "param_idn":  14,"format":"f", "unit": "N/(rad/s)^2"},
+{"type_idn":52, "param":"timeout",                          "param_idn":  15,"format":"f", "unit": "s"          },
+{"type_idn":52, "param":"input_filter_fc",                  "param_idn":  16,"format":"I", "unit": "Hz"         }
+
+]

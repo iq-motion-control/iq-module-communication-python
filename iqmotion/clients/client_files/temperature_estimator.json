@@ -1,0 +1,10 @@
+[
+
+  {"type_idn":77, "param":"temp",                 "param_idn":  0, "format":"f", "unit": "degC"},
+  {"type_idn":77, "param":"otw",                  "param_idn":  1, "format":"f", "unit": "degC"},
+  {"type_idn":77, "param":"otlo",                 "param_idn":  2, "format":"f", "unit": "degC"},
+  {"type_idn":77, "param":"thermal_resistance",   "param_idn":  3, "format":"f", "unit": "K/W"},
+  {"type_idn":77, "param":"thermal_capacitance",  "param_idn":  4, "format":"f", "unit": "J/K"},
+  {"type_idn":77, "param":"derate",               "param_idn":  5, "format":"I", "unit": "Fix16"}
+
+]

@@ -1,0 +1,10 @@
+[
+
+{"type_idn":73, "param":"uc_temp",   "param_idn":  0, "format":"f", "unit": "degC"},
+{"type_idn":73, "param":"filter_fs", "param_idn":  1, "format":"I", "unit": "hz"},
+{"type_idn":73, "param":"filter_fc", "param_idn":  2, "format":"I", "unit": "hz"},
+{"type_idn":73, "param":"otw",       "param_idn":  3, "format":"f", "unit": "degC"},
+{"type_idn":73, "param":"otlo",      "param_idn":  4, "format":"f", "unit": "degC"},
+{"type_idn":73, "param":"derate",    "param_idn":  5, "format":"f", "unit": "PU"}
+
+]

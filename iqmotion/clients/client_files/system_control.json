@@ -1,0 +1,24 @@
+[
+
+{"type_idn":5, "param":"reboot_program",        "param_idn":  0,  "format":"",  "unit": ""     },
+{"type_idn":5, "param":"reboot_boot_loader",    "param_idn":  1,  "format":"",  "unit": ""     },
+{"type_idn":5, "param":"dev_id",                "param_idn":  2,  "format":"H", "unit": ""     },
+{"type_idn":5, "param":"rev_id",                "param_idn":  3,  "format":"H", "unit": ""     },
+{"type_idn":5, "param":"uid1",                  "param_idn":  4,  "format":"I", "unit": ""     },
+{"type_idn":5, "param":"uid2",                  "param_idn":  5,  "format":"I", "unit": ""     },
+{"type_idn":5, "param":"uid3",                  "param_idn":  6,  "format":"I", "unit": ""     },
+{"type_idn":5, "param":"mem_size",              "param_idn":  7,  "format":"H", "unit": "Kb"   },
+{"type_idn":5, "param":"build_year",            "param_idn":  8,  "format":"H", "unit": "year" },
+{"type_idn":5, "param":"build_month",           "param_idn":  9,  "format":"B", "unit": "mon"  },
+{"type_idn":5, "param":"build_day",             "param_idn":  10, "format":"B", "unit": "day"  },
+{"type_idn":5, "param":"build_hour",            "param_idn":  11, "format":"B", "unit": "hour" },
+{"type_idn":5, "param":"build_minute",          "param_idn":  12, "format":"B", "unit": "min"  },
+{"type_idn":5, "param":"build_second",          "param_idn":  13, "format":"B", "unit": "s"    },
+{"type_idn":5, "param":"module_id",             "param_idn":  14, "format":"B", "unit": "id"   },
+{"type_idn":5, "param":"time",                  "param_idn":  15, "format":"f", "unit": "s"    },
+{"type_idn":5, "param":"firmware_version",      "param_idn":  16, "format":"I", "unit": "ver"  },
+{"type_idn":5, "param":"hardware_version",      "param_idn":  17, "format":"I", "unit": "ver"  },
+{"type_idn":5, "param":"electronics_version",   "param_idn":  18, "format":"I", "unit": "ver"  },
+{"type_idn":5, "param":"firmware_valid",        "param_idn":  19, "format":"B", "unit": "bool" }
+
+]

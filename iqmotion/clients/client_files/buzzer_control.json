@@ -1,0 +1,12 @@
+[
+
+{"type_idn":61, "param":"ctrl_mode",  "param_idn":  0, "format":"b", "unit": ""           },
+{"type_idn":61, "param":"ctrl_brake", "param_idn":  1, "format":"",  "unit": ""           },
+{"type_idn":61, "param":"ctrl_coast", "param_idn":  2, "format":"",  "unit": ""           },
+{"type_idn":61, "param":"ctrl_note",  "param_idn":  3, "format":"",  "unit": ""           },
+{"type_idn":61, "param":"volume_max", "param_idn":  4, "format":"f", "unit": "V"          },
+{"type_idn":61, "param":"hz",         "param_idn":  5, "format":"H", "unit": "Hz"         },
+{"type_idn":61, "param":"volume",     "param_idn":  6, "format":"B", "unit": "(0-127)"    },
+{"type_idn":61, "param":"duration",   "param_idn":  7, "format":"H", "unit": "ms"         }
+
+]

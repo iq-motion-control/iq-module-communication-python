@@ -1,0 +1,6 @@
+[
+
+{"type_idn":76, "param":"allowed_protocols",	"param_idn":  0, "format":"B", "unit": ""  },
+{"type_idn":76, "param":"protocol",	          "param_idn":  1, "format":"B", "unit": ""  }
+
+]
