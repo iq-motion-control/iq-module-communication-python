@@ -47,4 +47,4 @@ pipelines:
     master:
     - <<: *test
     - <<: *upload-badge
-    - <<: *push
+    # - <<: *push
