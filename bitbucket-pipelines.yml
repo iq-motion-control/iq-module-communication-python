@@ -5,19 +5,46 @@
 # You can specify a custom docker image from Docker Hub as your build environment.
 image: python:3.7.3
 
+test: &test
+  step:
+    name: Test
+    script:
+      - python -m pip install --upgrade pip
+      - pip install pytest
+      - pip install pytest-cov
+      - pip install coverage-badge
+      - pip install -r requirements.txt
+      - pytest --cov-config=.coveragerc --cov=iqmotion iqmotion --cov-fail-under=100
+      - coverage-badge -o coverage.svg
+    artifacts:
+      - coverage.svg
+    services:
+      - docker
+
+upload-badge: &upload-badge
+  step:
+    name: Upload the coverage upload-badge
+    script:
+      - pipe: docker://bitbucketpipelines/bitbucket-upload-file:0.1.0
+        variables:
+          BITBUCKET_USERNAME: $BITBUCKET_USERNAME
+          BITBUCKET_APP_PASSWORD: $BITBUCKET_APP_PASSWORD
+          FILENAME: 'coverage.svg'
+
+
+push: &push
+  step:
+    name: Push and Tag
+    script:
+    - pip install semversioner==0.6.16
+    - ./bump-version.sh
+    - ./git-tag-and-push.sh
+
 pipelines:
   default:
-    - step:
-        caches:
-          - pip
-        script: # Modify the commands below to build your repository.
-          - echo "BUILD IMAGE SUCESSFULLY DONE"
-          - echo "PIPELINE STARTED ..........."
-          - python -m pip install --upgrade pip
-          - pip install pytest
-          - pip install pytest-cov
-          - pip install -r requirements.txt
-          - echo "STARTING TESTING........"
-          - pytest --cov-config=.coveragerc --cov=iqmotion iqmotion --cov-fail-under=100
-          - echo "TEST COVERAGE REPORT SHOWING ABOVE"
-          - echo "PIPELINE SUCESSFULLY COMPLETED"
+    - <<: *test
+  branches:
+    master:
+    - <<: *test
+    - <<: *upload-badge
+    - <<: *push
