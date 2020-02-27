@@ -1,6 +1,6 @@
 # IQ Motion Python API
 
-![Coverage](coverage.svg) ![Version](release_badge.svg)
+![Python package](https://github.com/iq-motion-control/iq-module-communication-python/workflows/Python%20package/badge.svg)![Coverage](coverage.svg) ![Version](release_badge.svg)
 
 This library is to talk to any IQ Control devices from mulititude of communication protocoles.
 
@@ -12,7 +12,7 @@ These instructions will get you a copy of the project up and running on your loc
 
 All the prerequisited can be installed from ["requirement.txt"](requirement.txt).
 
-```bash
+```python
 pip install requirements.txt
 ```
 
@@ -20,7 +20,7 @@ pip install requirements.txt
 
 You can install this library using "pip":
 
-```bash
+```python
 pip install iqmotion
 ```
 
@@ -35,14 +35,14 @@ You will need the following packages to run the tests:
 
 You can install these packages with pip:
 
-```bash
+```python
 pip install pytest
 pip install pytest-cov
 ```
 
 You can then run the tests with the following command:
 
-```bash
+```python
 pytest --cov-config=.coveragerc --cov=iqmotion iqmotion --cov-fail-under=100
 ```
 

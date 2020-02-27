@@ -4,7 +4,14 @@ import argparse
 
 
 if __name__ == "__main__":
-    # Use the correct port name for your OS
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        "--port", help="serial port name where the iq module is connected"
+    )
+    args = parser.parse_args()
+    if args.port:
+        print("verbosity turned on")
+
     com = iq.SerialCommunicator("/dev/ttyUSB0")
     iq_module = iq.SpeedModule(com, 0)
 

@@ -21,7 +21,6 @@ def progress_bar():
 
 
 if __name__ == "__main__":
-    # Use the correct port name for your OS
     com = iq.SerialCommunicator("/dev/ttyUSB0")
     iq_module = iq.SpeedModule(com, 0)
     # iq_module = iq.ServoModule(com, 0)
