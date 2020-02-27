@@ -11,7 +11,6 @@ def send_tranjectory(iq_module, time_cmd, angle_cmd):
 
 
 if __name__ == "__main__":
-    # Use the correct port name for your OS
     com = iq.SerialCommunicator("/dev/ttyUSB0")
     iq_module = iq.ServoModule(com, 0)
 
