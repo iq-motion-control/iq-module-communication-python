@@ -21,6 +21,22 @@ test: &test
     services:
       - docker
 
+test: &test_branch
+  step:
+    name: Test
+    script:
+      - python -m pip install --upgrade pip
+      - pip install pytest
+      - pip install pytest-cov
+      - pip install coverage-badge
+      - pip install -r requirements.txt
+      - pytest --cov-config=.coveragerc --cov=iqmotion iqmotion 
+      - coverage-badge -o coverage.svg
+    artifacts:
+      - coverage.svg
+    services:
+      - docker
+
 upload-badge: &upload-badge
   step:
     name: Upload the coverage upload-badge
@@ -42,7 +58,7 @@ push: &push
 
 pipelines:
   default:
-    - <<: *test
+    - <<: *test_branch
     - <<: *upload-badge
   branches:
     master:
