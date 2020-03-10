@@ -20,10 +20,10 @@ class SerialPacketQueue(PacketQueue):
     """
 
     # Don't forget to change the __init__ descriptiton
-    _MAX_BYTE_QUEUE_SIZE = 256
+    _MAX_BYTE_QUEUE_SIZE = (255 + 5) * 2  # size of max packet
 
     def __init__(self):
-        """ Create an empty SerialPacketQueue of constant size 256
+        """ Create an empty SerialPacketQueue of constant size 512
         """
 
         self._byte_queue = CircularQueue(maxlen=self._MAX_BYTE_QUEUE_SIZE)
@@ -54,8 +54,16 @@ class SerialPacketQueue(PacketQueue):
         Raise:
             PacketQueueError("Byte Queue Overflow")
         """
-        if not self._byte_queue.extend(new_bytes):
-            raise PacketQueueError("Byte Queue Overflow")
+        try:
+            iter(new_bytes)
+        except TypeError:
+            # not iterable
+            if not self._byte_queue.append(new_bytes):
+                raise PacketQueueError("Byte Queue Overflow")
+        else:
+            # iterable
+            if not self._byte_queue.extend(new_bytes):
+                raise PacketQueueError("Byte Queue Overflow")
 
         return 1
 
@@ -87,6 +95,10 @@ class SerialPacketQueue(PacketQueue):
         else:
             self._has_a_packet = 0
             return None
+
+    def clear(self):
+        """ Clears the queue """
+        self._byte_queue.clear()
 
     def drop_packet(self):
         """ Drops the first packet available in the queue

@@ -1,0 +1,6 @@
+[
+  {
+    "description": "Fix security vulnerability with authentication.",
+    "type": "patch"
+  }
+]

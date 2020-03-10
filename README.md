@@ -1,6 +1,6 @@
 # IQ Motion Python API
 
-![Coverage](https://bitbucket.org/iqcontrol/python-api/downloads/coverage.svg) ![Version](release_badge.svg)
+![Coverage](https://bitbucket.org/iqcontrol/python-api/downloads/coverage.svg) ![Version](https://bitbucket.org/iqcontrol/python-api/downloads/release_badge.svg)
 
 This library is to talk to any IQ Control devices from mulititude of communication protocoles.
 
@@ -35,14 +35,14 @@ You will need the following packages to run the tests:
 
 You can install these packages with pip:
 
-```python
+```shell
 pip install pytest
 pip install pytest-cov
 ```
 
 You can then run the tests with the following command:
 
-```python
+```shell
 pytest --cov-config=.coveragerc --cov=iqmotion iqmotion --cov-fail-under=100
 ```
 
@@ -55,6 +55,14 @@ Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduc
 ## Versioning
 
 We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/your/project/tags).
+
+Here is an example on how to create a new version change before pushing
+
+'''shell
+semversioner add-change --type patch --description "my_changes"
+semversioner add-change --type minor --description "my_changes"
+semversioner add-change --type major --description "my_changes"
+'''
 
 ## Authors
 

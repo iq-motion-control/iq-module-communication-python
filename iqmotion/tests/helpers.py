@@ -14,6 +14,9 @@ class MockCommunicator:
     def read_bytes(self):
         return
 
+    def flush_input_buffer(self):
+        return
+
     @property
     def bytes_left_in_queue(self):
         return 0
@@ -36,6 +39,9 @@ class DummySerial:
         return
 
     def close(self):
+        return
+
+    def reset_input_buffer(self):
         return
 
     @property

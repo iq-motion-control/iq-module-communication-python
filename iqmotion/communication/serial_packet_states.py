@@ -61,7 +61,7 @@ class SerialLenState(PacketState):
     Len Byte cannot be more than 250
     """
 
-    _MAX_PACKET_SIZE = 250
+    _MAX_PACKET_SIZE = 255
 
     def __init__(
         self,
@@ -80,7 +80,7 @@ class SerialLenState(PacketState):
         """
         try:
             self._packet_len = self._byte_queue[self._parse_index + 1]
-            if self._packet_len < self._MAX_PACKET_SIZE:
+            if self._packet_len <= self._MAX_PACKET_SIZE:
                 self._parse_index += 1
                 self._parse_succesful = 1
             else:
@@ -249,6 +249,8 @@ class SerialCrcState(PacketState):
                 self._succesful = 1
             else:
                 self._is_done = 1
+                self._end_index = self._parse_index + 3
+                self._pop_message_bytes()
                 self._succesful = 0
 
         except IndexError:
@@ -272,3 +274,8 @@ class SerialCrcState(PacketState):
         msg_end = msg_start + self._parse_index
         msg = bytearray(self._byte_queue[msg_start:msg_end])
         return msg
+
+    def _pop_message_bytes(self):
+        num_bytes_to_pop = self._end_index - self._start_index
+        for _ in range(num_bytes_to_pop):
+            self._byte_queue.popleft()

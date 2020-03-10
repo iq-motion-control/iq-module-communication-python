@@ -5,7 +5,7 @@
 # You can specify a custom docker image from Docker Hub as your build environment.
 image: python:3.7.3
 
-test: &test
+test-master: &test-master
   step:
     name: Test
     script:
@@ -21,9 +21,33 @@ test: &test
     services:
       - docker
 
-upload-badge: &upload-badge
+test: &test
   step:
-    name: Upload the coverage upload-badge
+    name: Test
+    script:
+      - python -m pip install --upgrade pip
+      - pip install pytest
+      - pip install pytest-cov
+      - pip install coverage-badge
+      - pip install -r requirements.txt
+      - pytest --cov-config=.coveragerc --cov=iqmotion iqmotion 
+    services:
+      - docker
+
+bump-version: &bump-version
+  step:
+    name: Bump the repository version
+    script:
+      - python -m pip install --upgrade pip
+      - pip install pybadges
+      - pip install semversioner
+      - ./bump_version.sh
+    artifacts:
+      - release_badge.svg
+
+upload-cov-badge: &upload-cov-badge
+  step:
+    name: Upload the coverage badge
     script:
       - pipe: docker://bitbucketpipelines/bitbucket-upload-file:0.1.0
         variables:
@@ -31,6 +55,15 @@ upload-badge: &upload-badge
           BITBUCKET_APP_PASSWORD: $BITBUCKET_APP_PASSWORD
           FILENAME: 'coverage.svg'
 
+upload-release-badge: &upload-release-badge
+  step:
+    name: Upload the coverage badge
+    script:
+      - pipe: docker://bitbucketpipelines/bitbucket-upload-file:0.1.0
+        variables:
+          BITBUCKET_USERNAME: $BITBUCKET_USERNAME
+          BITBUCKET_APP_PASSWORD: $BITBUCKET_APP_PASSWORD
+          FILENAME: 'release_badge.svg'
 
 push: &push
   step:
@@ -45,6 +78,8 @@ pipelines:
     - <<: *test
   branches:
     master:
-    - <<: *test
-    - <<: *upload-badge
+    - <<: *test-master
+    - <<: *upload-cov-badge
+    - <<: *bump-version
+    - <<: *upload-release-badge
     # - <<: *push
