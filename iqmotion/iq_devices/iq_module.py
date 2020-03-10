@@ -44,10 +44,10 @@ class IqModule:
         client = self._client_dict[client_name]
         client_entry = client.client_entries[client_entry_name]
 
-        if client_entry.data.format == "":
-            raise IqModuleError(
-                "This client entry '{0}' cannot be set".format(client_entry_name)
-            )
+        # if client_entry.data.format == "":
+        #     raise IqModuleError(
+        #         "This client entry '{0}' cannot be set".format(client_entry_name)
+        #     )
 
         message_bytes = self._make_message_bytes(client_entry, AccessType.SET, args)
 
@@ -69,12 +69,12 @@ class IqModule:
         """
         self.get_async(client_name, client_entry_name)
 
-        max_time = time.time() + time_out
+        max_time = time.perf_counter() + time_out
         while not self.is_fresh(client_name, client_entry_name):
-            self.update_replies()
-
-            if time.time() > max_time:
+            if time.perf_counter() > max_time:
                 return None
+
+            self.update_replies()
 
         reply = self.get_reply(client_name, client_entry_name)
         return reply
@@ -146,16 +146,21 @@ class IqModule:
 
         self._com.send_message(message_bytes)
 
+    def flush_input_com_buffer(self):
+        """ Flushes the input buffer of your communicator object (such as Serial) and queue"""
+        self._com.flush_input_buffer()
+
     def update_replies(self):
         """ Reads all the bytes available in the Communication queue and stores them in the right client entries
         """
         self._com.read_bytes()
 
-        while self._com.bytes_left_in_queue:
+        new_message = self._com.extract_message()
+        while new_message != None:
+            for client in self._client_dict.values():
+                client.read_message(new_message)
+
             new_message = self._com.extract_message()
-            if new_message != None:
-                for client in self._client_dict.values():
-                    client.read_message(new_message)
 
             self._com.read_bytes()
 

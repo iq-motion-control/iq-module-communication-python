@@ -88,6 +88,10 @@ class SerialPacketQueue(PacketQueue):
             self._has_a_packet = 0
             return None
 
+    def clear(self):
+        """ Clears the queue """
+        self._byte_queue.clear()
+
     def drop_packet(self):
         """ Drops the first packet available in the queue
 

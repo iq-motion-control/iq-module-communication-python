@@ -43,6 +43,7 @@ push: &push
 pipelines:
   default:
     - <<: *test
+    - <<: *upload-badge
   branches:
     master:
     - <<: *test

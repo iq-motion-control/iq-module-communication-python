@@ -66,10 +66,10 @@ class TestSerialLenState:
 
     def test_overflow_packet(self):
         packet = []
-        for i in range(257):
+        for i in range(256):
             packet.append(i)
 
-        packet[1] = 257
+        packet[1] = 256
 
         cq = CircularQueue.from_iterable(packet)
         state = SerialLenState(cq)

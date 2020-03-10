@@ -21,6 +21,10 @@ class Communicator(ABC):
         """ this property is too abstract to understand. """
 
     @abstractmethod
+    def flush_input_buffer(self):
+        """ this property is too abstract to understand. """
+
+    @abstractmethod
     def read_bytes(self):
         """ this property is too abstract to understand. """
 
