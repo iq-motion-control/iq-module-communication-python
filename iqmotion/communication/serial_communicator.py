@@ -15,9 +15,9 @@ class SerialCommunicator(Communicator):
 
     General Packet Format:
         | 0x55 | length | message | crcL | crcH |
-        'length' is the (uint8) number of bytes in 'data'
+        'length' is the (uint8) number of bytes in 'payload'
         'message' is a series of (uint8) bytes, serialized Little-Endian
-        'crc' is the (uint16) CRC value for 'length'+'type'+'data', Little-Endian
+        'crc' is the (uint16) CRC value for 'length'+'type'+'payload', Little-Endian
     """
 
     def __init__(self, port_name: str, baudrate=115200):
@@ -124,10 +124,10 @@ class SerialCommunicator(Communicator):
         for later extraction
         """
         bytes_ready = self._ser_handle.in_waiting
-        if bytes_ready > 255:
-            print("bytes ready", bytes_ready)
 
         if bytes_ready != 0:
+            if bytes_ready > 255 + 5:  # size of max len packet
+                bytes_ready = 255 + 5
             bytes_read = self._ser_handle.read(bytes_ready)
             self._in_queue.put_bytes(bytes_read)
 

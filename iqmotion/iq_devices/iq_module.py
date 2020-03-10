@@ -162,7 +162,19 @@ class IqModule:
 
             new_message = self._com.extract_message()
 
+    def update_reply(self):
+        """ Checks the packet queue (and serial buffer if empty) for a new message
+        """
+        new_message = self._com.extract_message()
+
+        # if no message in the packet queue, read from serial buffer and check again
+        if new_message == None:
             self._com.read_bytes()
+            new_message = self._com.extract_message()
+
+        if new_message != None:
+            for client in self._client_dict.values():
+                client.read_message(new_message)
 
     def is_fresh(self, client_name: str, client_entry_name: str):
         """ Check if the value in client, client entry is new or not (fresh/not fresh)

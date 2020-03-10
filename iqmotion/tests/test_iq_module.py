@@ -174,6 +174,13 @@ class TestIqModule:
 
         assert module.save.call_count == num_client_entries
 
+    def test_flush_input_buffer(self, mock_communicator, mock_client):
+        mock_communicator.flush_input_buffer = MagicMock()
+        module = IqModule(mock_communicator)
+        module.flush_input_com_buffer()
+
+        assert mock_communicator.flush_input_buffer.called == True
+
     @pytest.mark.parametrize(
         "test_input,expected",
         [
@@ -198,8 +205,19 @@ class TestIqModule:
         module = IqModule(mock_communicator)
         module.update_replies()
 
-        assert mock_communicator.read_bytes.call_count == 2
+        assert mock_communicator.read_bytes.call_count == 1
         assert mock_communicator.extract_message.called == True
+
+    def test_update_reply(self, mock_communicator, mock_client):
+        mock_communicator.read_bytes = MagicMock()
+        mock_communicator.extract_message = MagicMock()
+        mock_communicator.extract_message.side_effect = [None, bytearray([1, 2, 3])]
+
+        module = IqModule(mock_communicator)
+        module.update_reply()
+
+        assert mock_communicator.read_bytes.call_count == 1
+        assert mock_communicator.extract_message.call_count == 2
 
     @pytest.mark.parametrize(
         "test_input",
