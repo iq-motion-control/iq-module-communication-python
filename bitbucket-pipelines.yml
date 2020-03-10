@@ -5,7 +5,7 @@
 # You can specify a custom docker image from Docker Hub as your build environment.
 image: python:3.7.3
 
-test: &test-master
+test-master: &test-master
   step:
     name: Test
     script:
@@ -42,7 +42,7 @@ bump-version: &bump-version
       - pip install pybadges
       - pip install semversioner
       - ./bump_version.sh
-      artifacts:
+    artifacts:
       - release_badge.svg
 
 upload-cov-badge: &upload-cov-badge
