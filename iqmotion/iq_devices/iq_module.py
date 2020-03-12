@@ -75,6 +75,29 @@ class IqModule:
         reply = self.get_reply(client_name, client_entry_name)
         return reply
 
+    def get_retry(
+        self, client_name: str, client_entry_name: str, time_out=0.1, retries=10
+    ):
+        """ Sends multiple get requests to the module until a reply comes back or there are no more retries left
+        
+        Arguments:
+            client_name {str} -- name of the client 
+            client_entry_name {str} -- name of the client entry
+        
+        Keyword Arguments:
+            time_out {float} -- blocking timeout while waiting for a reply for every retry (s) (default: {0.1})
+            retries {int} -- num of times you want to retry sending a get request if nothing came back (default: {10})
+        
+        Returns:
+            the reply from the module, None if no reply was available (timeout and/or max num of retries)
+        """
+        for _ in range(retries):
+            reply = self.get(client_name, client_entry_name, time_out)
+            if reply is not None:
+                return reply
+
+        return None
+
     def get_all(self, client_name: str, time_out=0.1):
         """ Gets all the value define by the client (all of its client entries).
 
