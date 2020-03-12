@@ -20,7 +20,7 @@ class SerialPacketQueue(PacketQueue):
     """
 
     # Don't forget to change the __init__ descriptiton
-    _MAX_BYTE_QUEUE_SIZE = (255 + 5) * 2  # size of max packet
+    _MAX_BYTE_QUEUE_SIZE = (255 + 5) * 2  # size of max packet * 2
 
     def __init__(self):
         """ Create an empty SerialPacketQueue of constant size 512
@@ -41,6 +41,11 @@ class SerialPacketQueue(PacketQueue):
             false: if the queue has some bytes in it
         """
         return self._byte_queue.is_empty
+
+    @property
+    def free_space(self):
+        current_size = len(self._byte_queue)
+        return self._byte_queue.maxlen - current_size
 
     def put_bytes(self, new_bytes):
         """ Append bytes to the queue
