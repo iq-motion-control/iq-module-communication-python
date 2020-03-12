@@ -12,9 +12,13 @@ import time
 
 
 class ServoModule(IqModule):
-    """ ServoModule is an implementation of IqModule
-
-    It defines how to communicate to a module that is using the servo firwmare
+    """ Creates ServoModule object
+    
+    Arguments:
+        com {Communicator} -- The communicator object to interface with the IqModule
+    
+    Keyword Arguments:
+        module_idn {int} -- The idn of the module (default: {0})
     """
 
     _MODULE_FILE_NAME = "servo.json"
