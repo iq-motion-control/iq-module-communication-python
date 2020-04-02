@@ -126,6 +126,48 @@ class TestIqModule:
         assert module.get("client_test", client_entry_name) == expected
 
     @pytest.mark.parametrize(
+        "test_input,expected",
+        [
+            _DICTIONARY_MSG_REPLY,
+            # _PROCESS_MSG_REPLY
+        ],
+    )
+    def test_get_retry(self, mock_communicator, mock_client, test_input, expected):
+        client_entry_name = test_input[0]
+        valid_message = test_input[1]
+
+        mock_communicator.read_bytes = MagicMock()
+        mock_communicator.extract_message = MagicMock()
+        mock_communicator.extract_message.side_effect = [bytearray(valid_message), None]
+
+        module = IqModule(mock_communicator)
+
+        retries = 5
+        reply = module.get_retry("client_test", client_entry_name, retries=retries)
+
+        assert reply == expected
+
+    @pytest.mark.parametrize(
+        "test_input,expected",
+        [
+            _DICTIONARY_MSG_REPLY,
+            # _PROCESS_MSG_REPLY
+        ],
+    )
+    def test_get_retry_fail(self, mock_communicator, mock_client, test_input, expected):
+        client_entry_name = test_input[0]
+
+        module = IqModule(mock_communicator)
+
+        module.get = MagicMock()
+        module.get.return_value = None
+
+        retries = 5
+        _ = module.get_retry("client_test", client_entry_name, retries=retries)
+
+        assert module.get.call_count == retries
+
+    @pytest.mark.parametrize(
         "test_input",
         [
             _DICTIONARY_MSG_REPLY,

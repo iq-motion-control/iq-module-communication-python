@@ -9,8 +9,8 @@ setup(
     description="Python libraries to talk to IQ Motion Control devices",
     author="Raphael Van Hoffelen",
     author_email="raf@iq-control.com",
-    url="https://github.com/user/reponame",
-    download_url="https://github.com/user/reponame/archive/v_01.tar.gz",
+    url="https://github.com/iq-motion-control/iq-module-communication-python",
+    download_url="https://github.com/iq-motion-control/iq-module-communication-python/releases",
     keywords=[
         "IQ",
         "IQ CONTROL",

@@ -120,16 +120,28 @@ class SerialCommunicator(Communicator):
         self._ser_handle.reset_input_buffer()
 
     def read_bytes(self):
-        """ Read bytes available in the port and puts them inside the packet queue
-        for later extraction
+        """ Read bytes available in the serial port and puts them inside the packet queue.
+
+        If there are more bytes ready to be read from serial than space in the packet queue, 
+        only read up to the max packet queue size
+        
+        Returns:
+            bool -- True if every bytes were read from the serial buffer, False otherwise
         """
         bytes_ready = self._ser_handle.in_waiting
+        free_space = self._in_queue.free_space
 
-        if bytes_ready != 0:
-            if bytes_ready > 255 + 5:  # size of max len packet
-                bytes_ready = 255 + 5
+        if bytes_ready > free_space:
+            bytes_read = self._ser_handle.read(free_space)
+            every_bytes_read = 0
+
+        else:
             bytes_read = self._ser_handle.read(bytes_ready)
-            self._in_queue.put_bytes(bytes_read)
+            every_bytes_read = 1
+
+        self._in_queue.put_bytes(bytes_read)
+
+        return every_bytes_read
 
     @property
     def bytes_left_in_queue(self):

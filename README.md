@@ -50,30 +50,30 @@ The test will fail if coverage is under 100%
 
 ## Contributing
 
-Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests to us.
+Please read [CONTRIBUTING.md](https://github.com/iq-motion-control/iq-module-communication-python/blob/master/CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests to us.
 
 ## Versioning
 
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/your/project/tags).
+We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/iq-motion-control/iq-module-communication-python/tags).
 
 Here is an example on how to create a new version change before pushing
 
-'''shell
+```shell
 semversioner add-change --type patch --description "my_changes"
 semversioner add-change --type minor --description "my_changes"
 semversioner add-change --type major --description "my_changes"
-'''
+```
 
 ## Authors
 
 - **Raphael Van Hoffelen**
 
-See also the list of [contributors](contributors.md) who participated in this project.
+See also the list of [contributors](https://github.com/iq-motion-control/iq-module-communication-python/blob/master/contributors.md) who participated in this project.
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details
+This project is licensed under the MIT License - see the [LICENSE](https://github.com/iq-motion-control/iq-module-communication-python/blob/master/LICENSE) file for details
 
 ## Acknowledgments
 
-- Matt Piccoli for helping out debugging the architecture.
+- Matt Piccoli for helping out debugging the architecture and continuously testing the API.

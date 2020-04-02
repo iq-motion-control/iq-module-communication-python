@@ -98,19 +98,21 @@ class TestSerialCommunicator:
         mock_serial.read = MagicMock(return_value=packet)
         mock_serial._in_waiting = len(packet)
         ser = SerialCommunicator("test_port")
-        ser.read_bytes()
+        read_all_available = ser.read_bytes()
 
         assert mock_serial.read.call_args == call(len(packet))
+        assert read_all_available == True
 
     def test_read_bytes_overflow(self, mock_serial):
         packet = bytes([10 for i in range(600)])
-        mock_serial.read = MagicMock(return_value=packet[: 255 + 5])
+        mock_serial.read = MagicMock(return_value=packet[: (255 + 5) * 2])
         mock_serial._in_waiting = len(packet)
 
         ser = SerialCommunicator("test_port")
-        ser.read_bytes()
+        read_all_available = ser.read_bytes()
 
-        assert mock_serial.read.call_args == call((255 + 5))
+        assert mock_serial.read.call_args == call((255 + 5) * 2)
+        assert read_all_available == False
 
     @pytest.mark.parametrize(
         "test_input", [(bytes([0, 1, 2, 3, 4])), (bytearray([i for i in range(255)]))],
@@ -152,4 +154,3 @@ class TestSerialCommunicator:
         message_back = ser.extract_message()
 
         assert message_back == None
-

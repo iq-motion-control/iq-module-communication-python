@@ -1,6 +1,6 @@
 [
   {
-    "description": "Fix security vulnerability with authentication.",
+    "description": "added modules",
     "type": "patch"
   }
 ]

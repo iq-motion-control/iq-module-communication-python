@@ -1,0 +1,12 @@
+[
+
+{"type_idn":70, "param":"table_size",    "param_idn":  0, "format":"H", "unit": ""},
+{"type_idn":70, "param":"is_data_valid", "param_idn":  1, "format":"B", "unit": "bool"},
+{"type_idn":70, "param":"is_enabled",    "param_idn":  2, "format":"B", "unit": "bool"},
+{"type_idn":70, "param":"erase",         "param_idn":  3, "format":"",  "unit": ""},
+{"type_idn":70, "param":"alpha",         "param_idn":  6, "format":"i",  "unit": "Fix29"},
+{"type_idn":70, "param":"beta",          "param_idn":  7, "format":"i",  "unit": "Fix29"},
+{"type_idn":70, "param":"position",      "param_idn":  8, "format":"f",  "unit": "rad"},
+{"type_idn":70, "param":"velocity",      "param_idn":  9, "format":"f",  "unit": "rad/s"}
+
+]

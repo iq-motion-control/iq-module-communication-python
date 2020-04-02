@@ -2,8 +2,8 @@ from iqmotion.iq_devices.iq_module import IqModule
 from iqmotion.iq_devices.ramper import Ramper
 
 
-class ServoModule(IqModule):
-    """ Creates ServoModule object
+class PulsingModule(IqModule):
+    """ Creates PulsingModule object
     
     Arguments:
         com {Communicator} -- The communicator object to interface with the IqModule
@@ -12,10 +12,10 @@ class ServoModule(IqModule):
         module_idn {int} -- The idn of the module (default: {0})
     """
 
-    _MODULE_FILE_NAME = "servo.json"
+    _MODULE_FILE_NAME = "pulsing.json"
 
     def ramp_velocity(self, final_velocity: float, total_time: float, time_steps=20):
-        velocity_client = "multi_turn_angle_control"
+        velocity_client = "propeller_motor_control"
         velocity_client_entry = "ctrl_velocity"
         success = Ramper.ramp_velocity(
             self,
@@ -29,7 +29,7 @@ class ServoModule(IqModule):
         return success
 
     def ramp_volts(self, final_volts: float, total_time: float, time_steps=20):
-        success = Ramper.ramp_volts(self, final_volts, total_time, time_steps)
+        success = Ramper.ramp_volts(self, final_volts, total_time, time_steps,)
 
         return success
 

@@ -2,8 +2,8 @@ from iqmotion.iq_devices.iq_module import IqModule
 from iqmotion.iq_devices.ramper import Ramper
 
 
-class ServoModule(IqModule):
-    """ Creates ServoModule object
+class StepDirModule(IqModule):
+    """ Creates StepDirModule object
     
     Arguments:
         com {Communicator} -- The communicator object to interface with the IqModule
@@ -12,7 +12,7 @@ class ServoModule(IqModule):
         module_idn {int} -- The idn of the module (default: {0})
     """
 
-    _MODULE_FILE_NAME = "servo.json"
+    _MODULE_FILE_NAME = "step_direction.json"
 
     def ramp_velocity(self, final_velocity: float, total_time: float, time_steps=20):
         velocity_client = "multi_turn_angle_control"

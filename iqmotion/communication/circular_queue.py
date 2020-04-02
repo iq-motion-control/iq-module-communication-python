@@ -191,6 +191,7 @@ class CircularQueue:
         cq = CircularQueue.from_iterable(self)
         return cq
 
+    @property
     def maxlen(self):
         """ Maximum size of the circular queue.
 

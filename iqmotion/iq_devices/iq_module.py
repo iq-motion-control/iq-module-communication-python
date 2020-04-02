@@ -33,21 +33,16 @@ class IqModule:
 
     def set(self, client_name: str, client_entry_name: str, *args):
         """ Sets a value to the module with a message formed by a client and client entry
-
-        Args:
-            client_name (str): name of client
-            client_entry (str): name of client entry
-            *args (): value(s) to be set
+        
+        Arguments:
+            client_name {str} -- name of the client
+            client_entry_name {str} -- name of the client entry
+            *args -- value(s) to be set
         """
         self._client_and_client_entry_exists(client_name, client_entry_name)
 
         client = self._client_dict[client_name]
         client_entry = client.client_entries[client_entry_name]
-
-        # if client_entry.data.format == "":
-        #     raise IqModuleError(
-        #         "This client entry '{0}' cannot be set".format(client_entry_name)
-        #     )
 
         message_bytes = self._make_message_bytes(client_entry, AccessType.SET, args)
 
@@ -57,15 +52,16 @@ class IqModule:
         """ Gets the value define by the client and client entry from the module.
 
         This call is blocking and will wait until it gets a reply or timeouts.
-
-        Args:
-            client_name (str): name of client
-            client_entry (str): name of client entry
-            timeout=1 (int): blocking timeout while waiting for a reply
-
+        
+        Arguments:
+            client_name {str} -- name of the client
+            client_entry_name {str} -- name of the client entry
+        
+        Keyword Arguments:
+            time_out {float} -- blocking timeout while waiting for a reply (s) (default: {0.1})
+        
         Returns:
-            reply (format): the reply from the module
-            None: if no reply was available (timeout)
+            the reply from the module, None if no reply was available (timeout)
         """
         self.get_async(client_name, client_entry_name)
 
@@ -79,17 +75,42 @@ class IqModule:
         reply = self.get_reply(client_name, client_entry_name)
         return reply
 
+    def get_retry(
+        self, client_name: str, client_entry_name: str, time_out=0.1, retries=10
+    ):
+        """ Sends multiple get requests to the module until a reply comes back or there are no more retries left
+        
+        Arguments:
+            client_name {str} -- name of the client 
+            client_entry_name {str} -- name of the client entry
+        
+        Keyword Arguments:
+            time_out {float} -- blocking timeout while waiting for a reply for every retry (s) (default: {0.1})
+            retries {int} -- num of times you want to retry sending a get request if nothing came back (default: {10})
+        
+        Returns:
+            the reply from the module, None if no reply was available (timeout and/or max num of retries)
+        """
+        for _ in range(retries):
+            reply = self.get(client_name, client_entry_name, time_out)
+            if reply is not None:
+                return reply
+
+        return None
+
     def get_all(self, client_name: str, time_out=0.1):
         """ Gets all the value define by the client (all of its client entries).
 
         This call is blocking and will wait until it gets a reply or timeouts for every "get" call
-
-        Args:
-            client_name (str): name of client
-            timeout=1 (int): blocking timeout while waiting for a reply
-
+        
+        Arguments:
+            client_name {str} -- name of client
+        
+        Keyword Arguments:
+            time_out {float} --  blocking timeout while waiting for a reply (s) (default: {0.1})
+        
         Returns:
-            replies (dict{str:format}): all the successful replies of the module
+            dict -- all the successful replies of the module
         """
         self._client_exists(client_name)
         client = self._client_dict[client_name]
@@ -102,11 +123,11 @@ class IqModule:
         return replies
 
     def save(self, client_name: str, client_entry_name: str):
-        """ Saves a the client and client entry value already set on the module
-
-        Args:
-            client_name (str): name of client
-            client_entry (str): name of client entry
+        """ Saves the client and client entry values already set on the module
+        
+        Arguments:
+            client_name {str} -- name of the client
+            client_entry_name {str} -- name of the client entry
         """
         self._client_and_client_entry_exists(client_name, client_entry_name)
 
@@ -119,9 +140,9 @@ class IqModule:
 
     def save_all(self, client_name: str):
         """ Saves all the values of the client already set on the module
-
-        Args:
-            client_name (str): name of client
+        
+        Arguments:
+            client_name {str} -- name of the client
         """
         self._client_exists(client_name)
         client = self._client_dict[client_name]
@@ -132,11 +153,11 @@ class IqModule:
     def get_async(self, client_name: str, client_entry_name: str):
         """ Sends a asynchroniously get request to the module
 
-        This call is non blocking, to read the reply you have to call "update reply" and then "get_reply" if that client entry is fresh
-
-        Args:
-            client_name (str): name of client
-            client_entry (str): name of client entry
+        This call is non blocking, to read the reply you have to call "update reply" or "update replies" and then "get_reply" if that client entry is fresh
+        
+        Arguments:
+            client_name {str} -- name of the client
+            client_entry_name {str} -- name of the client entry
         """
         self._client_and_client_entry_exists(client_name, client_entry_name)
         client = self._client_dict[client_name]
@@ -147,13 +168,18 @@ class IqModule:
         self._com.send_message(message_bytes)
 
     def flush_input_com_buffer(self):
-        """ Flushes the input buffer of your communicator object (such as Serial) and queue"""
+        """ Flushes the input buffer of your communicator object (such as Serial) and queue
+        """
         self._com.flush_input_buffer()
 
     def update_replies(self):
-        """ Reads all the bytes available in the Communication queue and stores them in the right client entries
+        """ Reads all the bytes possible in the Communication queue and stores them in the right client entries.
+        If this returns False, you might want to run this function again (more bytes in the com queue that was possible to parse at once).
+
+        Returns:
+            bool -- True if every bytes were read from the Communication queue, False otherwise
         """
-        self._com.read_bytes()
+        bytes_left = self._com.read_bytes()
 
         new_message = self._com.extract_message()
         while new_message != None:
@@ -162,8 +188,10 @@ class IqModule:
 
             new_message = self._com.extract_message()
 
+        return bytes_left
+
     def update_reply(self):
-        """ Checks the packet queue (and serial buffer if empty) for a new message
+        """ Checks the packet queue (and communication queue if empty) for a new message
         """
         new_message = self._com.extract_message()
 
@@ -177,17 +205,16 @@ class IqModule:
                 client.read_message(new_message)
 
     def is_fresh(self, client_name: str, client_entry_name: str):
-        """ Check if the value in client, client entry is new or not (fresh/not fresh)
+        """ Check if the value in the client, client entry is new or not (fresh/not fresh)
 
         This method is usually called after "update_replies" to check if a client entry got updated
-
-        Args:
-            client_name (str): name of client
-            client_entry (str): name of client entry
-
+        
+        Arguments:
+            client_name {str} -- name of the client
+            client_entry_name {str} -- name of the client entry
+        
         Returns:
-            True: value is fresh
-            False: value is not fresh
+            bool -- True if value is fresh, False otherwise
         """
         self._client_and_client_entry_exists(client_name, client_entry_name)
         client = self._client_dict[client_name]
@@ -197,13 +224,14 @@ class IqModule:
         """ Reads the reply stored in the client entry
 
         This method is normally called after checking if the value is fresh with "is_fresh" 
+        
+        Arguments:
+            client_name {str} -- name of the client
+            client_entry_name {str} -- name of the client entry
 
-        Args:
-            client_name (str): name of client
-            client_entry (str): name of client entry
-
-        Return:
-            reply (format): value stored in client_entry
+        
+        Returns:
+            value stored in client entry
         """
         self._client_and_client_entry_exists(client_name, client_entry_name)
         client = self._client_dict[client_name]
@@ -224,7 +252,7 @@ class IqModule:
         """ Displays all the client entries available for that client
 
         Args:
-            client_name (str): name of client
+            client_name {str} -- name of client
         """
         self._client_exists(client_name)
 

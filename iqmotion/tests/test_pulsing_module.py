@@ -1,4 +1,4 @@
-from iqmotion.iq_devices.speed_module import SpeedModule
+from iqmotion.iq_devices.pulsing_module import PulsingModule
 from iqmotion.tests.helpers import MockCommunicator
 from iqmotion.iq_devices.ramper import Ramper
 
@@ -6,18 +6,18 @@ import pytest
 from unittest.mock import patch, Mock, MagicMock, call, PropertyMock
 
 
-class TestSpeedModule:
+class TestPulsingModule:
     @pytest.fixture
     def mock_communicator(self):
         mock_class = MockCommunicator()
         return mock_class
 
     def test_module(self, mock_communicator):
-        SpeedModule(mock_communicator)
+        PulsingModule(mock_communicator)
 
     def test_ramp_velocity(self, mock_communicator):
         Ramper.ramp_velocity = MagicMock()
-        module = SpeedModule(mock_communicator)
+        module = PulsingModule(mock_communicator)
 
         velocity_client = "propeller_motor_control"
         velocity_client_entry = "ctrl_velocity"
@@ -38,7 +38,7 @@ class TestSpeedModule:
 
     def test_ramp_volts(self, mock_communicator):
         Ramper.ramp_volts = MagicMock()
-        module = SpeedModule(mock_communicator)
+        module = PulsingModule(mock_communicator)
 
         final_volts = 5
         total_time = 2
@@ -52,7 +52,7 @@ class TestSpeedModule:
 
     def test_ramp_slew(self, mock_communicator):
         Ramper.ramp_volts_slew = MagicMock()
-        module = SpeedModule(mock_communicator)
+        module = PulsingModule(mock_communicator)
 
         final_volts = 5
         slew_rate = 2

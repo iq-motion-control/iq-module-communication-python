@@ -7,7 +7,7 @@ class TestCircularQueue:
         desired_queue_size = 5
         queue = CircularQueue(desired_queue_size)
 
-        assert queue.maxlen() == desired_queue_size
+        assert queue.maxlen == desired_queue_size
 
     def test_init_from_iterable(self):
         iterable = [1, 2, 3, 4, 5]
@@ -170,8 +170,8 @@ class TestCircularQueue:
         queue1 = CircularQueue(desired_queue_size)
         queue2 = CircularQueue.from_iterable(data)
 
-        assert queue1.maxlen() == desired_queue_size
-        assert queue2.maxlen() == len(data)
+        assert queue1.maxlen == desired_queue_size
+        assert queue2.maxlen == len(data)
 
     def test_is_full(self):
         desired_queue_size = 3
