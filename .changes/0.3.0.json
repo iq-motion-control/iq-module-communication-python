@@ -1,0 +1,6 @@
+[
+  {
+    "description": "fixed parsing issues, adding pulsing, adding ramping methods",
+    "type": "minor"
+  }
+]
