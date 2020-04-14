@@ -1,6 +1,10 @@
 # Changelog
 Note: version releases in the 0.x.y range may introduce breaking changes.
 
+## 0.4.0
+
+- minor: added hardware testing, fixed ramp_to_volts
+
 ## 0.3.0
 
 - minor: fixed parsing issues, adding pulsing, adding ramping methods

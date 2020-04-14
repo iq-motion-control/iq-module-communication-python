@@ -1,0 +1,6 @@
+[
+  {
+    "description": "added hardware testing, fixed ramp_to_volts",
+    "type": "minor"
+  }
+]
