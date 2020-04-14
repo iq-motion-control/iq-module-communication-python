@@ -22,7 +22,6 @@ All the prerequisited can be installed from ["requirement.txt"](requirement.txt)
 pip install requirements.txt
 ```
 
-
 ### Installing
 
 You can install this library using "pip":
