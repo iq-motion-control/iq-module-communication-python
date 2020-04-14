@@ -40,6 +40,8 @@ class TestStepDirModule:
         Ramper.ramp_volts = MagicMock()
         module = StepDirModule(mock_communicator)
 
+        volts_client = "multi_turn_angle_control"
+        volts_client_entry = "ctrl_volts"
         final_volts = 5
         total_time = 2
         time_steps = 10
@@ -47,7 +49,12 @@ class TestStepDirModule:
         module.ramp_volts(final_volts, total_time, time_steps=time_steps)
 
         Ramper.ramp_volts.assert_called_with(
-            module, final_volts, total_time, time_steps,
+            module,
+            volts_client,
+            volts_client_entry,
+            final_volts,
+            total_time,
+            time_steps,
         )
 
     def test_ramp_slew(self, mock_communicator):

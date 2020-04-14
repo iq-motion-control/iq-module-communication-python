@@ -37,7 +37,12 @@ class Ramper:
 
     @staticmethod
     def ramp_volts(
-        iq_module: IqModule, final_volts: float, total_time: float, time_steps=20,
+        iq_module: IqModule,
+        volts_client: str,
+        volts_client_entry: str,
+        final_volts: float,
+        total_time: float,
+        time_steps=20,
     ):
         init_volts = iq_module.get_retry("brushless_drive", "drive_volts", retries=5)
 
@@ -56,7 +61,7 @@ class Ramper:
             while time.perf_counter() < start_time + time_steps[step]:
                 pass
             new_voltage = volts_steps[step]
-            iq_module.set("brushless_drive", "drive_volts", new_voltage)
+            iq_module.set(volts_client, volts_client_entry, new_voltage)
 
         return 1
 

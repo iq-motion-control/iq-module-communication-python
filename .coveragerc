@@ -1,5 +1,7 @@
 [run]
-omit = iqmotion/tests/*
+omit = 
+    iqmotion/tests/*
+    iqmotion/hardware_tests/*
 
 [report]
 omit = 

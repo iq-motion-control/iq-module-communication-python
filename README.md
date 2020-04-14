@@ -10,17 +10,24 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Prerequisites
 
+All the prerequisits can be installed with pipenv:
+
+```bash
+pipenv install
+```
+
 All the prerequisited can be installed from ["requirement.txt"](requirement.txt).
 
-```python
+```bash
 pip install requirements.txt
 ```
+
 
 ### Installing
 
 You can install this library using "pip":
 
-```python
+```bash
 pip install iqmotion
 ```
 
@@ -40,13 +47,21 @@ pip install pytest
 pip install pytest-cov
 ```
 
-You can then run the tests with the following command:
+You can then run the software tests with the following command:
 
 ```shell
-pytest --cov-config=.coveragerc --cov=iqmotion iqmotion --cov-fail-under=100
+pytest ./iqmotion/tests/ --cov-config=.coveragerc --cov=iqmotion --cov-fail-under=100
 ```
 
 The test will fail if coverage is under 100%
+
+You can run the hardware tests with the following commands:
+
+```shell
+python run_hardware_tests.py speed --usb_handle=/dev/tty/USB0
+python run_hardware_tests.py servo --usb_handle=/dev/tty/USB0
+python run_hardware_tests.py step_dir --usb_handle=/dev/tty/USB0
+```
 
 ## Contributing
 

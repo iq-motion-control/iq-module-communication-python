@@ -29,7 +29,11 @@ class ServoModule(IqModule):
         return success
 
     def ramp_volts(self, final_volts: float, total_time: float, time_steps=20):
-        success = Ramper.ramp_volts(self, final_volts, total_time, time_steps)
+        volts_client = "multi_turn_angle_control"
+        volts_client_entry = "ctrl_volts"
+        success = Ramper.ramp_volts(
+            self, volts_client, volts_client_entry, final_volts, total_time, time_steps,
+        )
 
         return success
 

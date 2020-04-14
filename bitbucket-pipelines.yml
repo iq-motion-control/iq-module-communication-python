@@ -14,7 +14,7 @@ test-master: &test-master
       - pip install pytest-cov
       - pip install coverage-badge
       - pip install -r requirements.txt
-      - pytest --cov-config=.coveragerc --cov=iqmotion iqmotion --cov-fail-under=100
+      - pytest ./iqmotion/tests/ --cov-config=.coveragerc --cov=iqmotion --cov-fail-under=100
       - coverage-badge -o coverage.svg
     artifacts:
       - coverage.svg
@@ -30,7 +30,7 @@ test: &test
       - pip install pytest-cov
       - pip install coverage-badge
       - pip install -r requirements.txt
-      - pytest --cov-config=.coveragerc --cov=iqmotion iqmotion 
+      - pytest ./iqmotion/tests/ --cov-config=.coveragerc --cov=iqmotion 
     services:
       - docker
 

@@ -179,7 +179,7 @@ class IqModule:
         Returns:
             bool -- True if every bytes were read from the Communication queue, False otherwise
         """
-        bytes_left = self._com.read_bytes()
+        all_bytes_read = self._com.read_bytes()
 
         new_message = self._com.extract_message()
         while new_message != None:
@@ -188,7 +188,7 @@ class IqModule:
 
             new_message = self._com.extract_message()
 
-        return bytes_left
+        return all_bytes_read
 
     def update_reply(self):
         """ Checks the packet queue (and communication queue if empty) for a new message
