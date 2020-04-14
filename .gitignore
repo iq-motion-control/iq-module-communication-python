@@ -5,6 +5,9 @@
 *.code-workspace
 *.vscode
 
+coverage.svg
+release_badge.svg
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
