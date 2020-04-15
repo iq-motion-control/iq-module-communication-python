@@ -1,7 +1,6 @@
 # IQ Motion Python API
-
-<!-- ![Python package](https://github.com/IQ-raf/test_actions/workflows/Python%20package/badge.svg) -->
-<!-- [![codecov](https://codecov.io/gh/IQ-raf/test_actions/branch/master/graph/badge.svg?token=4GRI2NQJYM)](https://codecov.io/gh/IQ-raf/test_actions) -->
+![Python Build](https://github.com/iq-motion-control/iq-module-communication-python/workflows/Python%20Build/badge.svg)
+[![codecov](https://codecov.io/gh/iq-motion-control/iq-module-communication-python/branch/master/graph/badge.svg)](https://codecov.io/gh/iq-motion-control/iq-module-communication-python)
 ![tag](https://img.shields.io/github/v/tag/iq-motion-control/iq-module-communication-python)
 ![release](https://img.shields.io/github/release/iq-motion-control/iq-module-communication-python/all.svg)
 
