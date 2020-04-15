@@ -15,9 +15,9 @@ class SerialCommunicator(Communicator):
 
     General Packet Format:
         | 0x55 | length | message | crcL | crcH |
-        'length' is the (uint8) number of bytes in 'data'
+        'length' is the (uint8) number of bytes in 'payload'
         'message' is a series of (uint8) bytes, serialized Little-Endian
-        'crc' is the (uint16) CRC value for 'length'+'type'+'data', Little-Endian
+        'crc' is the (uint16) CRC value for 'length'+'type'+'payload', Little-Endian
     """
 
     def __init__(self, port_name: str, baudrate=115200):
@@ -40,25 +40,28 @@ class SerialCommunicator(Communicator):
         available_ports = self._find_serial_port()
 
         if port_name not in available_ports:
-            pretty_available_ports_str = '\n'.join(
-                '\t"{}"'.format(port)for port in available_ports)
+            pretty_available_ports_str = "\n".join(
+                '\t"{}"'.format(port) for port in available_ports
+            )
             raise CommunicationError(
-                "Serial port is not available, here is a list of available ports:\n" + pretty_available_ports_str)
+                "Serial port is not available, here is a list of available ports:\n"
+                + pretty_available_ports_str
+            )
 
         ser_handle = serial.Serial(port_name, baudrate)
 
         return ser_handle
 
     def _find_serial_port(self):
-        if sys.platform.startswith('win'):
-            ports = ['COM%s' % (i + 1) for i in range(256)]
-        elif sys.platform.startswith('linux') or sys.platform.startswith('cygwin'):
+        if sys.platform.startswith("win"):
+            ports = ["COM%s" % (i + 1) for i in range(256)]
+        elif sys.platform.startswith("linux") or sys.platform.startswith("cygwin"):
             # this excludes your current terminal "/dev/tty"
-            ports = glob.glob('/dev/tty[A-Za-z]*')
-        elif sys.platform.startswith('darwin'):
-            ports = glob.glob('/dev/tty.*')
+            ports = glob.glob("/dev/tty[A-Za-z]*")
+        elif sys.platform.startswith("darwin"):
+            ports = glob.glob("/dev/tty.*")
         else:
-            raise EnvironmentError('Unsupported platform')
+            raise EnvironmentError("Unsupported platform")
 
         working_ports = []
         for port in ports:
@@ -110,15 +113,35 @@ class SerialCommunicator(Communicator):
 
         self._ser_handle.write(all_messages)
 
+    def flush_input_buffer(self):
+        """Flushes all the bytes left in the serial buffer in
+        """
+        self._in_queue.clear()
+        self._ser_handle.reset_input_buffer()
+
     def read_bytes(self):
-        """ Read bytes available in the port and puts them inside the packet queue
-        for later extraction
+        """ Read bytes available in the serial port and puts them inside the packet queue.
+
+        If there are more bytes ready to be read from serial than space in the packet queue, 
+        only read up to the max packet queue size
+        
+        Returns:
+            bool -- True if every bytes were read from the serial buffer, False otherwise
         """
         bytes_ready = self._ser_handle.in_waiting
+        free_space = self._in_queue.free_space
 
-        if bytes_ready != 0:
+        if bytes_ready > free_space:
+            bytes_read = self._ser_handle.read(free_space)
+            every_bytes_read = 0
+
+        else:
             bytes_read = self._ser_handle.read(bytes_ready)
-            self._in_queue.put_bytes(bytes_read)
+            every_bytes_read = 1
+
+        self._in_queue.put_bytes(bytes_read)
+
+        return every_bytes_read
 
     @property
     def bytes_left_in_queue(self):
@@ -136,7 +159,10 @@ class SerialCommunicator(Communicator):
             message (bytearray): if parsing successfull
             message (None): if not message is available
         """
-        message = self._in_queue.peek()
-        self._in_queue.drop_packet()
+        if self.bytes_left_in_queue:
+            message = self._in_queue.peek()
+            self._in_queue.drop_packet()
+        else:
+            message = None
 
         return message

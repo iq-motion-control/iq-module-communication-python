@@ -74,17 +74,51 @@ class TestSerialCommunicator:
 
         assert mock_serial.write.call_args == call(packet)
 
-    def test_read_bytes(self, mock_serial):
+    def test_flush_input_buffer(self, mock_serial):
+        # fake_message = bytearray([i for i in range(100)])
         packet = bytes([0, 1, 2, 3, 4])
+        mock_serial.reset_input_buffer = MagicMock()
+        mock_serial.read = MagicMock(return_value=packet)
+        mock_serial._in_waiting = len(packet)
+
+        ser = SerialCommunicator("test_port")
+        ser.read_bytes()
+        assert ser.bytes_left_in_queue == True
+
+        ser.flush_input_buffer()
+
+        assert mock_serial.reset_input_buffer.called == True
+        assert ser.bytes_left_in_queue == False
+
+    @pytest.mark.parametrize(
+        "test_input", [(bytes([0, 1, 2, 3, 4])), (bytearray([i for i in range(255)]))],
+    )
+    def test_read_bytes(self, mock_serial, test_input):
+        packet = test_input
         mock_serial.read = MagicMock(return_value=packet)
         mock_serial._in_waiting = len(packet)
         ser = SerialCommunicator("test_port")
-        ser.read_bytes()
+        read_all_available = ser.read_bytes()
 
         assert mock_serial.read.call_args == call(len(packet))
+        assert read_all_available == True
 
-    def test_byte_left_in_queue(self, mock_serial):
-        packet = bytes([0, 1, 2, 3, 4])
+    def test_read_bytes_overflow(self, mock_serial):
+        packet = bytes([10 for i in range(600)])
+        mock_serial.read = MagicMock(return_value=packet[: (255 + 5) * 2])
+        mock_serial._in_waiting = len(packet)
+
+        ser = SerialCommunicator("test_port")
+        read_all_available = ser.read_bytes()
+
+        assert mock_serial.read.call_args == call((255 + 5) * 2)
+        assert read_all_available == False
+
+    @pytest.mark.parametrize(
+        "test_input", [(bytes([0, 1, 2, 3, 4])), (bytearray([i for i in range(255)]))],
+    )
+    def test_byte_left_in_queue(self, mock_serial, test_input):
+        packet = test_input
         mock_serial.read = MagicMock(return_value=packet)
         mock_serial._in_waiting = len(packet)
         ser = SerialCommunicator("test_port")
@@ -97,11 +131,14 @@ class TestSerialCommunicator:
 
         assert ser.bytes_left_in_queue == False
 
-    def test_extract_message(self, mock_serial):
+    @pytest.mark.parametrize(
+        "test_input", [(bytes([0, 1, 2, 3, 4])), (bytearray([i for i in range(255)]))],
+    )
+    def test_extract_message(self, mock_serial, test_input):
         ser = SerialCommunicator("test_port")
 
-        message = bytearray([0, 11, 12, 13, 14])
-        packet = bytes(make_fake_packet(message[1:], 0))
+        message = test_input
+        packet = bytes(make_fake_packet(message, 0))
 
         mock_serial.read = MagicMock(return_value=packet)
         mock_serial._in_waiting = len(packet)
@@ -109,4 +146,11 @@ class TestSerialCommunicator:
 
         message_back = ser.extract_message()
 
-        assert message_back == message
+        assert message_back[1:] == message
+
+    def test_extract_message_from_empty_queue(self, mock_serial):
+        ser = SerialCommunicator("test_port")
+
+        message_back = ser.extract_message()
+
+        assert message_back == None
