@@ -35,12 +35,19 @@ class TestSerialPacketQueue:
         assert True == spq.is_empty
 
     def test_put_bytes(self):
-        data = [i for i in range(257)]
+        data = [i for i in range((255 + 5) * 2)]
         spq = SerialPacketQueue()
 
         with pytest.raises(PacketQueueError) as err:
             assert spq.put_bytes(data) == 1
             spq.put_bytes(1)
+
+        err_str = err.value.message
+        assert "PACKET QUEUE ERROR: Byte Queue Overflow\n" == err_str
+
+        with pytest.raises(PacketQueueError) as err:
+            assert spq.put_bytes(data) == 1
+            spq.put_bytes([1, 2, 3])
 
         err_str = err.value.message
         assert "PACKET QUEUE ERROR: Byte Queue Overflow\n" == err_str
