@@ -56,3 +56,11 @@ class TestGeneric:
                 angle_samples.append(current_angle)
 
         assert None not in angle_samples
+
+    def test_set_verify(self, iq_module):
+        orginal_kv = iq_module.get("brushless_drive", "motor_Kv")
+
+        success = iq_module.set_verify("brushless_drive", "motor_Kv", orginal_kv + 1)
+        assert success == True
+
+        iq_module.set_verify("brushless_drive", "motor_Kv", orginal_kv, save=True)
