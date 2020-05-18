@@ -1,2 +1,0 @@
-recursive-include iqmotion *.py *json
-prune iqmotion/tests examples/

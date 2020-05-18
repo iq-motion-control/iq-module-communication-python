@@ -17,6 +17,7 @@ def servo_test(hardware_type, usb_handle):
     param = [
         "./iqmotion/hardware_tests/test_generic.py",
         "./iqmotion/hardware_tests/test_servo.py",
+        "-s",
     ]
     param.append("--usb_handle={}".format(usb_handle))
     param.append("--hardware_type={}".format(hardware_type))
