@@ -1,4 +1,0 @@
-{
-  "type": "minor",
-  "description": "added set_verify and get_all_retry, updated rampers docstring"
-}
