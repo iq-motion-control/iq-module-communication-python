@@ -48,6 +48,59 @@ class IqModule:
 
         self._com.send_message(message_bytes)
 
+    def set_verify(
+        self,
+        client_name: str,
+        client_entry_name: str,
+        *args,
+        time_out=0.1,
+        retries=5,
+        save=False,
+    ):
+        """ Sets a value to the module with a message formed by a client and client entry and checks 
+        if value was set properly. You can also set "save=True" to save the value if the verify was 
+        succesful.
+
+        Arguments:
+            client_name {str} -- name of the client
+            client_entry_name {str} -- name of the client entry
+            *args -- value(s) to be set
+
+        Keyword Arguments:
+            time_out {float} -- blocking timeout while verifying the set (s) (default: {0.1})
+            retries {int} -- num of times you want to retry verifying the set (default: {5})
+            save {bool} -- save the value if verify was successful (default: {False})
+
+        Returns:
+            bool -- if the value was correctly set
+        """
+        verify_range = 0.01
+        self.set(client_name, client_entry_name, args)
+
+        get_value = self.get_retry(client_name, client_entry_name, time_out, retries)
+
+        # checks when you do an empty set
+        if not args:
+            if get_value != 1:
+                return False
+        else:
+            if not self._verify_value(args[0], get_value, verify_range):
+                return False
+
+        if save:
+            self.save(client_name, client_entry_name)
+
+        return True
+
+    def _verify_value(self, set_value, get_value, range):
+        if get_value is None:
+            return False
+        # some values might loose precision when being saved so check if it's within a 0.01 range
+        elif abs(set_value - get_value) >= 0.01:
+            return False
+
+        return True
+
     def get(self, client_name: str, client_entry_name: str, time_out=0.1):
         """ Gets the value define by the client and client entry from the module.
 
@@ -76,7 +129,7 @@ class IqModule:
         return reply
 
     def get_retry(
-        self, client_name: str, client_entry_name: str, time_out=0.1, retries=10
+        self, client_name: str, client_entry_name: str, time_out=0.1, retries=5
     ):
         """ Sends multiple get requests to the module until a reply comes back or there are no more retries left
         
@@ -86,7 +139,7 @@ class IqModule:
         
         Keyword Arguments:
             time_out {float} -- blocking timeout while waiting for a reply for every retry (s) (default: {0.1})
-            retries {int} -- num of times you want to retry sending a get request if nothing came back (default: {10})
+            retries {int} -- num of times you want to retry sending a get request if nothing came back (default: {5})
         
         Returns:
             the reply from the module, None if no reply was available (timeout and/or max num of retries)
@@ -118,6 +171,29 @@ class IqModule:
         replies = {}
         for client_entry_name in client.client_entries.keys():
             reply = self.get(client_name, client_entry_name, time_out)
+            replies[client_entry_name] = reply
+
+        return replies
+
+    def get_all_retry(self, client_name: str, time_out=0.1, retries=5):
+        """[summary]
+
+        Arguments:
+            client_name {str} -- name of client
+
+        Keyword Arguments:
+            time_out {float} -- blocking timeout while waiting for a reply (s) (default: {0.1})
+            retries {int} -- num of times you want to retry sending a get request if nothing came back (default: {5})
+
+        Returns:
+            dict -- all the successful replies of the module
+        """
+        self._client_exists(client_name)
+        client = self._client_dict[client_name]
+
+        replies = {}
+        for client_entry_name in client.client_entries.keys():
+            reply = self.get_retry(client_name, client_entry_name, time_out, retries)
             replies[client_entry_name] = reply
 
         return replies
