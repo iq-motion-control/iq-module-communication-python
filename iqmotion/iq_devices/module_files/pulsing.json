@@ -15,6 +15,7 @@
     "temperature_estimator",
     "temperature_monitor_uc",
     "voltage_superposition",
-    "predicting_linearizing_rev_conv_compact"
+    "predicting_linearizing_rev_conv_compact",
+    "product_key"
   ]
 }

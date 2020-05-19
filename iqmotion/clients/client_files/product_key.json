@@ -1,0 +1,19 @@
+[
+{"type_idn":72, "param":"state", "param_idn":  0, "format":"b", "unit": ""},
+{"type_idn":72, "param":"key0",  "param_idn":  1, "format":"I", "unit": ""},
+{"type_idn":72, "param":"key1",  "param_idn":  2, "format":"I", "unit": ""},
+{"type_idn":72, "param":"key2",  "param_idn":  3, "format":"I", "unit": ""},
+{"type_idn":72, "param":"key3",  "param_idn":  4, "format":"I", "unit": ""},
+{"type_idn":72, "param":"key4",  "param_idn":  5, "format":"I", "unit": ""},
+{"type_idn":72, "param":"key5",  "param_idn":  6, "format":"I", "unit": ""},
+{"type_idn":72, "param":"key6",  "param_idn":  7, "format":"I", "unit": ""},
+{"type_idn":72, "param":"key7",  "param_idn":  8, "format":"I", "unit": ""},
+{"type_idn":72, "param":"data0", "param_idn":  9, "format":"I", "unit": ""},
+{"type_idn":72, "param":"data1", "param_idn": 10, "format":"I", "unit": ""},
+{"type_idn":72, "param":"data2", "param_idn": 11, "format":"I", "unit": ""},
+{"type_idn":72, "param":"data3", "param_idn": 12, "format":"I", "unit": ""},
+{"type_idn":72, "param":"data4", "param_idn": 13, "format":"I", "unit": ""},
+{"type_idn":72, "param":"data5", "param_idn": 14, "format":"I", "unit": ""},
+{"type_idn":72, "param":"data6", "param_idn": 15, "format":"I", "unit": ""},
+{"type_idn":72, "param":"data7", "param_idn": 16, "format":"I", "unit": ""}
+]
