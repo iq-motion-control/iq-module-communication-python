@@ -1,0 +1,2 @@
+recursive-include iqmotion *.py *json
+prune iqmotion/tests examples/ iqmotion/harwdware_tests/
