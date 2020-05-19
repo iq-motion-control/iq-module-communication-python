@@ -32,6 +32,14 @@ pip install iqmotion
 
 If you want to edit this library and/or run some tests, You can clone this repository locally on your computer.
 
+### Submodule
+
+If you are using this repository as a submodule, make sure to make a symbolic link:
+
+```bash
+ln -s python_api/iqmotion iqmotion
+```
+
 ## Running the tests
 
 You will need the following packages to run the tests:
