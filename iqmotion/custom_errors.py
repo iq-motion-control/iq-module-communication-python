@@ -1,6 +1,8 @@
 class IqMotionError(Exception):
     """Base class for other custom exceptions"""
 
+    message = ""
+
 
 class ClientError(IqMotionError):
     err_type = "CLIENT ERROR"
