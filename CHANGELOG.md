@@ -1,6 +1,10 @@
 # Changelog
 Note: version releases in the 0.x.y range may introduce breaking changes.
 
+## 0.6.1
+
+- patch: adding msg variable to Custom Error Base Class
+
 ## 0.6.0
 
 - minor: Custom Error Base Class
