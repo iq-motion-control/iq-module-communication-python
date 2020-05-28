@@ -88,6 +88,13 @@ class TestIqModule:
             == err_str
         )
 
+    def test_coast(self, mock_communicator, mock_client):
+        module = IqModule(mock_communicator)
+        module.set = MagicMock()
+        module.coast()
+
+        assert module.set.called
+
     @pytest.mark.parametrize(
         "test_input,expected",
         [

@@ -64,3 +64,14 @@ class TestGeneric:
         assert success == True
 
         iq_module.set_verify("brushless_drive", "motor_Kv", orginal_kv, save=True)
+
+    def test_coast(self, iq_module):
+        iq_module.set("brushless_drive", "drive_volts", 1)
+        time.sleep(0.5)
+        drive_mode = iq_module.get_retry("brushless_drive", "drive_mode")
+
+        assert drive_mode != 5
+
+        iq_module.set("brushless_drive", "drive_coast")
+        drive_mode = iq_module.get_retry("brushless_drive", "drive_mode")
+        assert drive_mode == 5
