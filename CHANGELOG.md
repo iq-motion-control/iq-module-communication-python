@@ -1,6 +1,10 @@
 # Changelog
 Note: version releases in the 0.x.y range may introduce breaking changes.
 
+## 0.7.0
+
+- minor: coast() method now available for modules
+
 ## 0.6.1
 
 - patch: adding msg variable to Custom Error Base Class
