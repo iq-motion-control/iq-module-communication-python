@@ -1,5 +1,5 @@
 from iqmotion.iq_devices.iq_module import IqModule
-from iqmotion.iq_devices.ramper import Ramper
+from iqmotion.iq_devices.common_commands.ramper import Ramper
 
 
 class PulsingModule(IqModule):
@@ -12,6 +12,7 @@ class PulsingModule(IqModule):
         module_idn {int} -- The idn of the module (default: {0})
     """
 
+    _DEFAULT_CONTROL_CLIENT = "propeller_motor_control"
     _MODULE_FILE_NAME = "pulsing.json"
 
     def ramp_velocity(self, final_velocity: float, total_time: float, time_steps=20):
@@ -27,7 +28,7 @@ class PulsingModule(IqModule):
         Returns:
             bool -- True if the ramp was successful
         """
-        velocity_client = "propeller_motor_control"
+        velocity_client = self._DEFAULT_CONTROL_CLIENT
         velocity_client_entry = "ctrl_velocity"
         success = Ramper.ramp_velocity(
             self,
@@ -53,7 +54,7 @@ class PulsingModule(IqModule):
         Returns:
             bool -- True if the ramp was successful
         """
-        volts_client = "propeller_motor_control"
+        volts_client = self._DEFAULT_CONTROL_CLIENT
         volts_client_entry = "ctrl_volts"
         success = Ramper.ramp_volts(
             self, volts_client, volts_client_entry, final_volts, total_time, time_steps,

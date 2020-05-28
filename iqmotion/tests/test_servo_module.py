@@ -1,6 +1,6 @@
 from iqmotion.iq_devices.servo_module import ServoModule
 from iqmotion.tests.helpers import MockCommunicator
-from iqmotion.iq_devices.ramper import Ramper
+from iqmotion.iq_devices.common_commands.ramper import Ramper
 
 import pytest
 from unittest.mock import patch, Mock, MagicMock, call, PropertyMock

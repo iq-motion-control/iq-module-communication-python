@@ -65,9 +65,9 @@ The test will fail if coverage is under 100%
 You can run the hardware tests with the following commands:
 
 ```shell
-python run_hardware_tests.py speed --usb_handle=/dev/tty/USB0
-python run_hardware_tests.py servo --usb_handle=/dev/tty/USB0
-python run_hardware_tests.py step_dir --usb_handle=/dev/tty/USB0
+python run_hardware_tests.py speed --usb_handle=/dev/ttyUSB0
+python run_hardware_tests.py servo --usb_handle=/dev/ttyUSB0
+python run_hardware_tests.py step_dir --usb_handle=/dev/ttyUSB0
 ```
 
 ## Contributing

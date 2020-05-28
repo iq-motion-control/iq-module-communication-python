@@ -1,13 +1,12 @@
-from iqmotion.iq_devices.iq_module_json_parser import IqModuleJsonParser
-from iqmotion.communication.communicator import Communicator
-from iqmotion.clients import client_with_entries
-from iqmotion.custom_errors import IqModuleError
-from iqmotion.message_making.dictionary_message_maker import DictionaryMessageMaker
-from iqmotion.client_entries.dictionary_client_entry import AccessType
-from iqmotion.message_making.client_with_entries_message import ClientWithEntriesMessage
-
-
 import time
+
+from iqmotion.client_entries.dictionary_client_entry import AccessType
+from iqmotion.clients import client_with_entries
+from iqmotion.communication.communicator import Communicator
+from iqmotion.custom_errors import IqModuleError
+from iqmotion.iq_devices.iq_module_json_parser import IqModuleJsonParser
+from iqmotion.message_making.client_with_entries_message import ClientWithEntriesMessage
+from iqmotion.message_making.dictionary_message_maker import DictionaryMessageMaker
 
 
 class IqModule:
@@ -15,6 +14,7 @@ class IqModule:
     """
 
     _MODULE_FILE_NAME = ""
+    _DEFAULT_CONTROL_CLIENT = ""
 
     def __init__(self, com: Communicator, module_idn=0):
         self._client_dict = {}
@@ -30,6 +30,12 @@ class IqModule:
             self._client_dict[client_name] = client_with_entries.ClientWithEntries(
                 client_name, self._module_idn
             )
+
+    def coast(self):
+        """ Sends a coast command from the default control client to the module.
+        You can check the success with "brushless_drive" "drive_mode".
+        """
+        self.set(self._DEFAULT_CONTROL_CLIENT, "ctrl_coast")
 
     def set(self, client_name: str, client_entry_name: str, *args):
         """ Sets a value to the module with a message formed by a client and client entry
