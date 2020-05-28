@@ -67,9 +67,9 @@ These tests need a module connected to your computer in order to run. You can ru
 You can run the hardware tests with the following commands:
 
 ```shell
-python run_hardware_tests.py speed --usb_handle=/dev/tty/USB0
-python run_hardware_tests.py servo --usb_handle=/dev/tty/USB0
-python run_hardware_tests.py step_dir --usb_handle=/dev/tty/USB0
+python run_hardware_tests.py speed --usb_handle=/dev/ttyUSB0
+python run_hardware_tests.py servo --usb_handle=/dev/ttyUSB0
+python run_hardware_tests.py step_dir --usb_handle=/dev/ttyUSB0
 ```
 
 Make sure to chose the right IQ-module and the correct usb_handle for your computer.
