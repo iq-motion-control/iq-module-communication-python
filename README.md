@@ -1,6 +1,9 @@
 # IQ Motion Python API
 
-![Coverage](https://bitbucket.org/iqcontrol/python-api/downloads/coverage.svg) ![Version](https://bitbucket.org/iqcontrol/python-api/downloads/release_badge.svg)
+![Python Build](https://github.com/iq-motion-control/iq-module-communication-python/workflows/Python%20Build/badge.svg)
+[![codecov](https://codecov.io/gh/iq-motion-control/iq-module-communication-python/branch/master/graph/badge.svg)](https://codecov.io/gh/iq-motion-control/iq-module-communication-python)
+![tag](https://img.shields.io/github/v/tag/iq-motion-control/iq-module-communication-python)
+![release](https://img.shields.io/github/release/iq-motion-control/iq-module-communication-python/all.svg)
 
 This library is to talk to any IQ Control devices from mulititude of communication protocoles.
 

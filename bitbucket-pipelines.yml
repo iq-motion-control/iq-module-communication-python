@@ -57,7 +57,7 @@ test-release: &test-release
 
 release-new-version: &release-new-version
   step:
-    name: Bump the repository version
+    name: Bump the repository version and releases new package on pypi
     script:
       - python -m pip install --upgrade pip
       - pip install pybadges
@@ -94,7 +94,7 @@ upload-cov-badge: &upload-cov-badge
 
 upload-release-badge: &upload-release-badge
   step:
-    name: Upload the coverage badge
+    name: Upload the release badge
     script:
       - pipe: docker://bitbucketpipelines/bitbucket-upload-file:0.1.0
         variables:
@@ -108,6 +108,7 @@ pipelines:
   branches:
     master:
     - <<: *test-master
+    - <<: *upload-cov-badge
     release/*:
     - <<: *test-release
     - <<: *upload-cov-badge
