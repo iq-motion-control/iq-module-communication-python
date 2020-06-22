@@ -1,6 +1,6 @@
-from iqmotion.message_making.message_maker import MessageMaker
-
 from abc import ABC, abstractmethod
+
+from iqmotion.message_making.message_maker import MessageMaker
 
 
 class Message(ABC):

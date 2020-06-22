@@ -1,7 +1,9 @@
 import time
+import os
 
+from iqmotion.iq_devices.common_commands.ramper import Ramper
 from iqmotion.client_entries.dictionary_client_entry import AccessType
-from iqmotion.clients import client_with_entries
+from iqmotion.clients.client_with_entries import ClientWithEntries
 from iqmotion.communication.communicator import Communicator
 from iqmotion.custom_errors import IqModuleError
 from iqmotion.iq_devices.iq_module_json_parser import IqModuleJsonParser
@@ -15,21 +17,49 @@ class IqModule:
 
     _MODULE_FILE_NAME = ""
     _DEFAULT_CONTROL_CLIENT = ""
+    _DEFAULT_VELOCITY_CLIENT_ENTRY = ""
+    _DEFAULT_VOLTS_CLIENT_ENTRY = ""
 
-    def __init__(self, com: Communicator, module_idn=0):
+    def __init__(
+        self, com: Communicator, module_idn=0, extra_clients=None, module_file_path=None
+    ):
         self._client_dict = {}
         self._com = com
         self._module_idn = module_idn
 
-        module_file_dict = IqModuleJsonParser.parse(self._MODULE_FILE_NAME)
-        self._create_clients(module_file_dict)
+        if module_file_path is None:
+            self._module_file_dict = IqModuleJsonParser.parse_default_modules(
+                self._MODULE_FILE_NAME
+            )
+        else:
+            self._module_file_dict = IqModuleJsonParser.parse_module(module_file_path)
+
+        self._create_clients(self._module_file_dict)
+
+        if extra_clients is not None:
+            for extra_client in extra_clients:
+                self.add_client(extra_client)
 
     def _create_clients(self, module_file_dict: dict):
-        # TODO: parse different clients ?
+
+        # parse different clients when new clients will be added
         for client_name in module_file_dict["clients"]:
-            self._client_dict[client_name] = client_with_entries.ClientWithEntries(
+            self._client_dict[client_name] = ClientWithEntries.from_default_clients(
                 client_name, self._module_idn
             )
+
+    def add_client(self, client_file_path: str):
+        client_name = os.path.basename(client_file_path)
+        if not client_name.endswith(".json"):
+            raise IqModuleError(
+                f"Path does not lead to a json file: {client_file_path}"
+            )
+
+        client_name = client_name.split(".")[0]
+
+        self._client_dict[client_name] = ClientWithEntries(
+            client_file_path, self._module_idn
+        )
 
     def coast(self):
         """ Sends a coast command from the default control client to the module.
@@ -89,20 +119,20 @@ class IqModule:
         if not args:
             if get_value != 1:
                 return False
-        else:
-            if not self._verify_value(args[0], get_value, verify_range):
-                return False
+        elif not self._verify_value(args[0], get_value, verify_range):
+            return False
 
         if save:
             self.save(client_name, client_entry_name)
 
         return True
 
-    def _verify_value(self, set_value, get_value, range):
+    def _verify_value(self, set_value, get_value, verify_range=0.01):
         if get_value is None:
             return False
+
         # some values might loose precision when being saved so check if it's within a 0.01 range
-        elif abs(set_value - get_value) >= 0.01:
+        if abs(set_value - get_value) >= verify_range:
             return False
 
         return True
@@ -264,7 +294,7 @@ class IqModule:
         all_bytes_read = self._com.read_bytes()
 
         new_message = self._com.extract_message()
-        while new_message != None:
+        while new_message is not None:
             for client in self._client_dict.values():
                 client.read_message(new_message)
 
@@ -278,11 +308,11 @@ class IqModule:
         new_message = self._com.extract_message()
 
         # if no message in the packet queue, read from serial buffer and check again
-        if new_message == None:
+        if new_message is None:
             self._com.read_bytes()
             new_message = self._com.extract_message()
 
-        if new_message != None:
+        if new_message is not None:
             for client in self._client_dict.values():
                 client.read_message(new_message)
 
@@ -325,10 +355,8 @@ class IqModule:
         """
         print("\nClients available from '{0}':\n".format(self._MODULE_FILE_NAME))
 
-        for client_name in self._client_dict.keys():
+        for client_name in self._client_dict:
             print("\t{0}".format(client_name))
-
-        return
 
     def list_client_entries(self, client_name: str):
         """ Displays all the client entries available for that client
@@ -338,14 +366,11 @@ class IqModule:
         """
         self._client_exists(client_name)
 
-        # TODO: Make a pretty table with indication of all values
         print("\nEntries available loaded from '{0}': \n".format(client_name))
 
         client = self._client_dict[client_name]
         for client_entry in client.client_entries.values():
             print(client_entry.data)
-
-        return
 
     def _client_and_client_entry_exists(self, client_name: str, client_entry_name: str):
         self._client_exists(client_name)
@@ -376,3 +401,64 @@ class IqModule:
         message = ClientWithEntriesMessage(message_maker)
 
         return message.make_bytes()
+
+    def ramp_velocity(self, final_velocity: float, total_time: float, time_steps=20):
+        """ Ramps velocity of the module up to a target in set amount of seconds
+
+        Arguments:
+            final_velocity {float} -- final velocity goal
+            total_time {float} -- time to reach velocity goal (s)
+
+        Keyword Arguments:
+            time_steps {int} -- num of velocity increments (default: {20})
+
+        Returns:
+            bool -- True if the ramp was successful
+        """
+        velocity_client = self._DEFAULT_CONTROL_CLIENT
+        velocity_client_entry = self._DEFAULT_VELOCITY_CLIENT_ENTRY
+        success = Ramper.ramp_velocity(
+            self,
+            velocity_client,
+            velocity_client_entry,
+            final_velocity,
+            total_time,
+            time_steps,
+        )
+
+        return success
+
+    def ramp_volts(self, final_volts: float, total_time: float, time_steps=20):
+        """ Ramps the volts of the module up to a target in set amount of seconds
+
+        Arguments:
+            final_volts {float} -- final volts goal
+            total_time {float} -- time to reach volts goal (s)
+
+        Keyword Arguments:
+            time_steps {int} -- num of volts increment (default: {20})
+
+        Returns:
+            bool -- True if the ramp was successful
+        """
+        volts_client = self._DEFAULT_CONTROL_CLIENT
+        volts_client_entry = self._DEFAULT_VOLTS_CLIENT_ENTRY
+        success = Ramper.ramp_volts(
+            self, volts_client, volts_client_entry, final_volts, total_time, time_steps,
+        )
+
+        return success
+
+    def ramp_volts_slew(self, final_volts: float, slew_rate: float):
+        """ Ramps the volts of the module up to a target following a slew rate
+
+        Arguments:
+            final_volts {float} -- final volts goal
+            slew_rate {float} -- wanted slew rate
+
+        Returns:
+            bool -- True if the ramp was successful
+        """
+        success = Ramper.ramp_volts_slew(self, final_volts, slew_rate)
+
+        return success

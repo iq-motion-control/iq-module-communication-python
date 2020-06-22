@@ -1,16 +1,16 @@
+import pytest
+
 from iqmotion.communication.serial_packet_states import SerialStartState
 from iqmotion.communication.serial_packet_states import SerialLenState
 from iqmotion.communication.serial_packet_states import SerialTypeState
 from iqmotion.communication.serial_packet_states import SerialPayloadState
 from iqmotion.communication.serial_packet_states import SerialCrcState
-from iqmotion.communication.crc import Crc
 from iqmotion.communication.circular_queue import CircularQueue
 from iqmotion.custom_errors import PacketStateError
 
-
 from iqmotion.tests.helpers import make_fake_packet
 
-import pytest
+# pylint: disable=redefined-outer-name
 
 
 @pytest.fixture(params=[[1, 2, 3, 4, 5], []])
@@ -39,7 +39,7 @@ class TestSerialStartState:
 
         state.parse()
 
-        assert type(state.find_next_state()) == SerialLenState
+        assert isinstance(state.find_next_state(), SerialLenState)
 
 
 class TestSerialLenState:
@@ -62,7 +62,7 @@ class TestSerialLenState:
 
         state.parse()
 
-        assert type(state.find_next_state()) == SerialTypeState
+        assert isinstance(state.find_next_state(), SerialTypeState)
 
     def test_overflow_packet(self):
         packet = []
@@ -79,8 +79,8 @@ class TestSerialLenState:
 
         err_str = err.value.message
         assert (
-            "PACKET STATE ERROR: Packet overflow, message is bigger than 256 bytes\n"
-            == err_str
+            err_str
+            == "PACKET STATE ERROR: Packet overflow, message is bigger than 256 bytes\n"
         )
 
 
@@ -135,7 +135,7 @@ class TestSerialPayloadState:
             state = state.find_next_state()
             state.parse()
 
-        assert type(state.find_next_state()) == SerialCrcState
+        assert isinstance(state.find_next_state(), SerialCrcState)
 
 
 class TestSerialCrcState:
@@ -146,7 +146,7 @@ class TestSerialCrcState:
         state = SerialCrcState(cq)
         state.parse()
 
-        assert state.is_succesful == False
+        assert not state.is_succesful
 
     def test_crc_state_packet(self, circular_queue_with_packet):
         cq = circular_queue_with_packet[0]
@@ -169,4 +169,4 @@ class TestSerialCrcState:
         state = SerialCrcState(cq, 0, parse_index, 0)
         state.parse()
 
-        assert state.is_succesful == False
+        assert not state.is_succesful

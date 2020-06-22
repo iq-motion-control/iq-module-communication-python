@@ -1,17 +1,8 @@
 import iqmotion as iq
 import time
-import argparse
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser()
-    parser.add_argument(
-        "--port", help="serial port name where the iq module is connected"
-    )
-    args = parser.parse_args()
-    if args.port:
-        print("verbosity turned on")
-
     com = iq.SerialCommunicator("/dev/ttyUSB0")
     iq_module = iq.SpeedModule(com, 0)
 
@@ -33,4 +24,3 @@ if __name__ == "__main__":
 
         # Limit acceleration at a constant rate
         time.sleep(0.2)
-

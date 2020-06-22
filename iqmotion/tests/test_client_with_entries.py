@@ -1,12 +1,12 @@
-from iqmotion.clients.client_with_entries import ClientWithEntries
-from iqmotion.custom_errors import ClientError
-
-from iqmotion.tests.helpers import make_fake_message
-
-import pytest
 import os
 
-from unittest.mock import patch, Mock, MagicMock, call, PropertyMock
+from unittest.mock import patch
+import pytest
+
+
+from iqmotion.clients.client_with_entries import ClientWithEntries
+from iqmotion.custom_errors import ClientError
+from iqmotion.tests.helpers import make_fake_message
 
 
 class TestClientWithEntries:
@@ -20,7 +20,7 @@ class TestClientWithEntries:
 
         with patch("os.path.dirname") as mock_class:
             mock_class.return_value = test_dir
-            client = ClientWithEntries(client_file_name)
+            client = ClientWithEntries.from_default_clients(client_file_name)
             yield client
 
     def test_client_jsons(self):
@@ -29,7 +29,7 @@ class TestClientWithEntries:
         for file in os.listdir(dir_path):
             if file.endswith(".json"):
                 client_name = file.split(".")[0]
-                ClientWithEntries(client_name)
+                ClientWithEntries.from_default_clients(client_name)
 
     def test_not_supported_client_entry(self):
         client_file_name = "fail_client_test"
@@ -39,12 +39,12 @@ class TestClientWithEntries:
             mock_class.return_value = test_dir
 
             with pytest.raises(ClientError) as err:
-                ClientWithEntries(client_file_name)
+                ClientWithEntries.from_default_clients(client_file_name)
 
         err_str = err.value.message
         assert (
-            "CLIENT ERROR: ClientWithEntries does not support this payload type\n"
-            == err_str
+            err_str
+            == "CLIENT ERROR: ClientWithEntries does not support this payload type\n"
         )
 
     @pytest.mark.parametrize(
@@ -71,17 +71,18 @@ class TestClientWithEntries:
             # _PROCESS_MSG
         ],
     )
+    # pylint: disable=unused-argument
     def test_is_fresh(self, client, test_input, expected):
         client_entry_name = test_input[0]
         type_idn = test_input[1]
         payload = test_input[2]
         msg = make_fake_message(payload, type_idn)
 
-        assert client.is_fresh(client_entry_name) == False
+        assert not client.is_fresh(client_entry_name)
 
         client.read_message(msg)
 
-        assert client.is_fresh(client_entry_name) == True
+        assert client.is_fresh(client_entry_name)
 
     def test_default_module_idn(self, client):
         assert client.module_idn == 0
@@ -94,7 +95,9 @@ class TestClientWithEntries:
 
         with patch("os.path.dirname") as mock_class:
             mock_class.return_value = test_dir
-            client = ClientWithEntries(client_file_name, module_idn)
+            client = ClientWithEntries.from_default_clients(
+                client_file_name, module_idn
+            )
 
         assert client.module_idn == module_idn
 

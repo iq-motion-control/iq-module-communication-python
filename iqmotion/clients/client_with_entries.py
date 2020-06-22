@@ -1,11 +1,9 @@
+import os
+import json
+
 from iqmotion.clients.client import Client
 from iqmotion.custom_errors import ClientError
 from iqmotion.client_entries.dictionary_client_entry import DictionaryClientEntry
-
-# from iqmotion.communication.process_client_entry import ProcessClientEntry
-
-import os
-import json
 
 
 class ClientWithEntries(Client):
@@ -15,22 +13,27 @@ class ClientWithEntries(Client):
         A ClientWithEntries is defined by a .json file where all its entries data is located
     """
 
-    def __init__(self, client_file_name: str, module_idn=0):
+    def __init__(self, client_file_path: str, module_idn=0):
         self._client_entry_dict = {}
         self._module_idn = module_idn
 
-        client_file = self._parse_client_json(client_file_name)
+        client_file = self._parse_client_json(client_file_path)
 
         self._populate_client_entries(client_file)
 
-    def _parse_client_json(self, client_file_name: str):
+    @classmethod
+    def from_default_clients(cls, client_file_name: str, module_idn=0):
         client_json = client_file_name + ".json"
 
         file_path = os.path.join(
             os.path.dirname(__file__), ("client_files/" + client_json)
         )
 
-        with open(file_path) as json_file:
+        return ClientWithEntries(file_path, module_idn)
+
+    def _parse_client_json(self, client_file_path: str):
+
+        with open(client_file_path) as json_file:
             client_file = json.load(json_file)
 
         return client_file
@@ -41,8 +44,6 @@ class ClientWithEntries(Client):
             client_entry = self._create_client_entry(client_entry_data_dict)
 
             self._client_entry_dict[client_entry_name] = client_entry
-
-        return
 
     def _create_client_entry(self, client_entry_data_dict: dict):
         # special case where no "payload_type" field exists, legacy compatibility

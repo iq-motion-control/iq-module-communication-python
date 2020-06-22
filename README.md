@@ -1,16 +1,31 @@
 # IQ Motion Python API
+
 ![Python Build](https://github.com/iq-motion-control/iq-module-communication-python/workflows/Python%20Build/badge.svg)
 [![codecov](https://codecov.io/gh/iq-motion-control/iq-module-communication-python/branch/master/graph/badge.svg)](https://codecov.io/gh/iq-motion-control/iq-module-communication-python)
 ![tag](https://img.shields.io/github/v/tag/iq-motion-control/iq-module-communication-python)
 ![release](https://img.shields.io/github/release/iq-motion-control/iq-module-communication-python/all.svg)
 
-This library is to talk to any IQ Control devices.
+This library is to talk to any IQ Control devices from mulititude of communication protocoles.
 
 ## Getting Started
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
 
-### Installing with Pip
+### Prerequisites
+
+All the prerequisits can be installed with pipenv:
+
+```bash
+pipenv install
+```
+
+All the prerequisited can be installed from ["requirement.txt"](requirement.txt).
+
+```bash
+pip install requirements.txt
+```
+
+### Installing
 
 You can install this library using "pip":
 
@@ -18,22 +33,14 @@ You can install this library using "pip":
 pip install iqmotion
 ```
 
-### Installing locally
+If you want to edit this library and/or run some tests, You can clone this repository locally on your computer.
 
-You can also use this library by cloning this repository.
+### Submodule
 
-#### Prerequisites
-
-RECOMMENDED: All the prerequisits can be installed with [pipenv](https://github.com/pypa/pipenv):
+If you are using this repository as a submodule, make sure to make a symbolic link:
 
 ```bash
-pipenv install
-```
-
-All the prerequisits can also be installed from ["requirements.txt"](requirements.txt).
-
-```bash
-pip install requirements.txt
+ln -s python_api/iqmotion iqmotion
 ```
 
 ## Running the tests
@@ -43,27 +50,21 @@ You will need the following packages to run the tests:
 - pytest
 - pytest-cov
 
-These should be installed automatically with pipenv or requirements.txt.  
-But you can also install these packages with pip:
+You can install these packages with pip:
 
 ```shell
 pip install pytest
 pip install pytest-cov
 ```
 
-#### Software tests
-
 You can then run the software tests with the following command:
 
 ```shell
-pytest ./iqmotion/tests/ --cov-config=.coveragerc --cov=iqmotion --cov-fail-under=100
+pytest ./iqmotion/tests/ --cov-config=.coveragerc --cov=iqmotion --cov-fail-under=90
 ```
 
-The test will fail if coverage is under 100%
+The test will fail if coverage is under 90%
 
-#### Hardware tests
-
-These tests need a module connected to your computer in order to run. You can run the test for different modules.  
 You can run the hardware tests with the following commands:
 
 ```shell
@@ -72,7 +73,7 @@ python run_hardware_tests.py servo --usb_handle=/dev/ttyUSB0
 python run_hardware_tests.py step_dir --usb_handle=/dev/ttyUSB0
 ```
 
-Make sure to chose the right IQ-module and the correct usb_handle for your computer.
+We use pylint and black to format this repository.
 
 ## Contributing
 
@@ -90,12 +91,6 @@ semversioner add-change --type minor --description "my_changes"
 semversioner add-change --type major --description "my_changes"
 ```
 
-After being merged into master, you can bump the version and tag by running the following bash script:
-
-```bash
-./bump_version_and_tag.sh
-```
-
 ## Authors
 
 - **Raphael Van Hoffelen**
@@ -104,7 +99,7 @@ See also the list of [contributors](https://github.com/iq-motion-control/iq-modu
 
 ## License
 
-This project is licensed under the GPLv3 License - see the [LICENSE](https://github.com/iq-motion-control/iq-module-communication-python/blob/master/LICENSE) file for details
+This project is licensed under the MIT License - see the [LICENSE](https://github.com/iq-motion-control/iq-module-communication-python/blob/master/LICENSE) file for details
 
 ## Acknowledgments
 

@@ -83,10 +83,10 @@ class SerialPacketQueue(PacketQueue):
         When the queue is empty
             PacketQueueError("Serial packet queue is empty")
         """
-        if not self._byte_queue.is_empty:
-            return self._parse_bytes()
-        else:
+        if self._byte_queue.is_empty:
             raise PacketQueueError("Serial packet queue is empty")
+
+        return self._parse_bytes()
 
     def _parse_bytes(self):
         packet_state = SerialStartState(self._byte_queue)
@@ -94,12 +94,12 @@ class SerialPacketQueue(PacketQueue):
         packet_parser = PacketParser(packet_state)
         packet_parser.parse()
 
-        if packet_parser.succesful:
-            self._has_a_packet = 1
-            return packet_parser.message
-        else:
+        if not packet_parser.succesful:
             self._has_a_packet = 0
             return None
+
+        self._has_a_packet = 1
+        return packet_parser.message
 
     def clear(self):
         """ Clears the queue """
