@@ -53,7 +53,7 @@ class CircularQueue:
         """ Slicing multiple elements is not fast, this will copy the queue as a list and slice this list.
             Slicing one element is alot faster, equivalent to a "peek" but for any index position
         """
-        if type(key) == slice:
+        if isinstance(key, slice):
             return self._parse_queue_from_slice(key)
 
         self._check_key_in_range(key)
@@ -62,20 +62,20 @@ class CircularQueue:
 
         return self._queue[actual_index]
 
-    def _parse_queue_from_slice(self, slice):
+    def _parse_queue_from_slice(self, wanted_slice):
         queue_as_list = []
         for item in self:
             queue_as_list.append(item)
 
-        return queue_as_list[slice]
+        return queue_as_list[wanted_slice]
 
     def _check_key_in_range(self, key):
         if key >= 0:
             if key > self._count - 1:
                 raise IndexError("IndexError: queue index out of range")
-        else:
-            if abs(key) > self._count:
-                raise IndexError("IndexError: queue index out of range")
+
+        elif abs(key) > self._count:
+            raise IndexError("IndexError: queue index out of range")
 
     def _calculate_actual_queue_index(self, key):
         if key < 0:
@@ -103,7 +103,7 @@ class CircularQueue:
             return 0
 
         # condition for empty queue
-        elif self.is_empty:
+        if self.is_empty:
             self._front = 0
             self._rear = 0
         else:
@@ -210,8 +210,8 @@ class CircularQueue:
         # condition if queue is full
         if (self._rear + 1) % self._maxlen == self._front:
             return 1
-        else:
-            return 0
+
+        return 0
 
     @property
     def is_empty(self):
@@ -220,7 +220,7 @@ class CircularQueue:
         Returns:
             true: if queue is empty
         """
-        if self._front == -1:
-            return 1
-        else:
+        if not self._front == -1:
             return 0
+
+        return 1

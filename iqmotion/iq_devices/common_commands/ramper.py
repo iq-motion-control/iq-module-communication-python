@@ -1,13 +1,11 @@
-from iqmotion.iq_devices.iq_module import IqModule
-
-import numpy as np
 import time
+import numpy as np
 
 
 class Ramper:
     @staticmethod
     def ramp_velocity(
-        iq_module: IqModule,
+        iq_module,
         velocity_client: str,
         velocity_client_entry: str,
         final_velocity: float,
@@ -18,7 +16,7 @@ class Ramper:
             "brushless_drive", "obs_velocity", retries=5
         )
 
-        if init_velocity == None:
+        if init_velocity is None:
             return 0
 
         num_steps = round(1000 * total_time / time_steps)  # 20ms time steps by default
@@ -37,7 +35,7 @@ class Ramper:
 
     @staticmethod
     def ramp_volts(
-        iq_module: IqModule,
+        iq_module,
         volts_client: str,
         volts_client_entry: str,
         final_volts: float,
@@ -46,7 +44,7 @@ class Ramper:
     ):
         init_volts = iq_module.get_retry("brushless_drive", "drive_volts", retries=5)
 
-        if init_volts == None:
+        if init_volts is None:
             return 0
 
         num_steps = int(
@@ -66,13 +64,13 @@ class Ramper:
         return 1
 
     @staticmethod
-    def ramp_volts_slew(iq_module: IqModule, final_volts: float, slew_rate: float):
+    def ramp_volts_slew(iq_module, final_volts: float, slew_rate: float):
         init_volts = iq_module.get_retry("brushless_drive", "drive_volts", retries=5)
 
-        if init_volts == None:
+        if init_volts is None:
             return 0
 
-        time = abs((final_volts - init_volts) / slew_rate)
+        slew_time = abs((final_volts - init_volts) / slew_rate)
 
-        success = iq_module.ramp_volts(final_volts, time)
+        success = iq_module.ramp_volts(final_volts, slew_time)
         return success

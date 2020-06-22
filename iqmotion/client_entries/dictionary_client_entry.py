@@ -1,9 +1,9 @@
-from iqmotion.client_entries.client_entry import ClientEntry
-from iqmotion.client_entries.client_entry_data import ClientEntryData
-
 from dataclasses import dataclass
 import enum
 import struct
+
+from iqmotion.client_entries.client_entry import ClientEntry
+from iqmotion.client_entries.client_entry_data import ClientEntryData
 
 
 class AccessType(enum.Enum):
@@ -95,8 +95,8 @@ class DictionaryClientEntry(ClientEntry):
         """ Sets the value of the Client Entry and formats it to the right type
         """
         # unpack always returns a tuple
-        format = self._data.format
-        formated_value = struct.unpack(format, value)[0]
+        data_format = self._data.format
+        formated_value = struct.unpack(data_format, value)[0]
         self._value = formated_value
         self._fresh = 1
 

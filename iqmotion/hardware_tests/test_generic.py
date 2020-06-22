@@ -1,7 +1,8 @@
-import iqmotion as iq
-
-import pytest
 import time
+import sys
+import pytest
+
+import iqmotion as iq
 
 
 class TestGeneric:
@@ -11,12 +12,11 @@ class TestGeneric:
             "speed": iq.SpeedModule,
             "servo": iq.ServoModule,
             "step_dir": iq.StepDirModule,
-            "pulsing": iq.PulsingModule,
         }
 
         if hardware_type not in hardware_types.keys():
             print("THIS TYPE IS NOT HANDLED IN TEST GENERING")
-            exit()
+            sys.exit()
 
         com = iq.SerialCommunicator(usb_handle)
         iq_module = hardware_types[hardware_type](com, 0)
@@ -33,12 +33,12 @@ class TestGeneric:
         results = iq_module.get_all("system_control")
         for key, value in results.items():
             if key not in empty_entries:
-                assert value != None
+                assert value is not None
 
     def test_get_overload(self, iq_module):
         for _ in range(50):
             result = iq_module.get("system_control", "uid1")
-            assert result != None
+            assert result is not None
 
     def test_get_async_overload(self, iq_module):
         angle_samples = []
@@ -61,7 +61,7 @@ class TestGeneric:
         orginal_kv = iq_module.get("brushless_drive", "motor_Kv")
 
         success = iq_module.set_verify("brushless_drive", "motor_Kv", orginal_kv + 1)
-        assert success == True
+        assert success
 
         iq_module.set_verify("brushless_drive", "motor_Kv", orginal_kv, save=True)
 

@@ -13,7 +13,7 @@ class Communicator(ABC):
         """ this property is too abstract to understand. """
 
     @abstractmethod
-    def add_to_out_queue(self, bytes: bytearray):
+    def add_to_out_queue(self, out_bytes: bytearray):
         """ this property is too abstract to understand. """
 
     @abstractmethod

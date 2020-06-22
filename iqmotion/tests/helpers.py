@@ -1,11 +1,13 @@
 from iqmotion.communication.crc import Crc
 
+# pylint: disable=unused-argument
+
 
 class MockCommunicator:
     def send_message(self, message: bytearray):
         return
 
-    def add_to_out_queue(self, bytes: bytearray):
+    def add_to_out_queue(self, out_bytes: bytearray):
         return
 
     def send_now(self):
@@ -79,3 +81,10 @@ def make_fake_message(data, type_idn=0):
     message.extend(data)
 
     return message
+
+
+def index_in_list(a_list, index):
+    if index < len(a_list):
+        return 1
+
+    return 0

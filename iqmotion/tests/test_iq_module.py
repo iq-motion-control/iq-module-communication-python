@@ -1,19 +1,20 @@
+import os
+from unittest.mock import patch, MagicMock, call
+
+import pytest
+
+
 from iqmotion.clients import client_with_entries
 from iqmotion.iq_devices.iq_module import IqModule
 from iqmotion.iq_devices.iq_module_json_parser import IqModuleJsonParser
-from iqmotion.communication.communicator import Communicator
 from iqmotion.custom_errors import IqModuleError
 
 from iqmotion.tests.helpers import MockCommunicator
 
-import os
-import json
-import serial
-
-import pytest
-from unittest.mock import patch, Mock, MagicMock, call, PropertyMock
+# pylint: disable=unused-argument
 
 
+# pylint: disable=too-many-public-methods
 class TestIqModule:
     _CLIENT_NAME = "client_test"
 
@@ -45,12 +46,16 @@ class TestIqModule:
 
         with patch("os.path.dirname") as mock_class:
             mock_class.return_value = test_dir
-            test_client = client_with_entries.ClientWithEntries(client_file_name)
+            test_client = client_with_entries.ClientWithEntries.from_default_clients(
+                client_file_name
+            )
 
         with patch(
-            "iqmotion.clients.client_with_entries.ClientWithEntries"
+            "iqmotion.clients.client_with_entries.ClientWithEntries.from_default_clients"
         ) as mock_class:
-            with patch.object(IqModuleJsonParser, "parse") as mock_parser:
+            with patch.object(
+                IqModuleJsonParser, "parse_default_modules"
+            ) as mock_parser:
                 mock_parser.return_value = {"clients": [self._CLIENT_NAME]}
                 mock_class.return_value = test_client
                 mock_client = mock_class.return_value
@@ -86,6 +91,43 @@ class TestIqModule:
                 client_name, client_entry_name
             )
             == err_str
+        )
+
+    def test_extra_clients(self, mock_communicator, mock_client):
+        client_file_path = os.path.join(
+            os.path.dirname(__file__), ("client_files/extra_client.json")
+        )
+
+        module = IqModule(mock_communicator, extra_clients=[client_file_path])
+
+        assert "extra_client" in module._client_dict.keys()
+
+    def test_add_client(self, mock_communicator, mock_client):
+        module = IqModule(mock_communicator)
+
+        client_file_path = os.path.join(
+            os.path.dirname(__file__), ("client_files/extra_client.json")
+        )
+
+        module.add_client(client_file_path)
+
+        assert "extra_client" in module._client_dict.keys()
+
+    def test_add_client_fail(self, mock_communicator, mock_client):
+        module = IqModule(mock_communicator)
+
+        client_file_path = os.path.join(
+            os.path.dirname(__file__), ("client_files/extra_client")
+        )
+
+        with pytest.raises(IqModuleError) as err:
+            module.add_client(client_file_path)
+
+        err_str = err.value.message
+
+        assert (
+            err_str
+            == f"IQ MODULE ERROR: Path does not lead to a json file: {client_file_path}\n"
         )
 
     def test_coast(self, mock_communicator, mock_client):
@@ -161,12 +203,12 @@ class TestIqModule:
             module.get_retry.return_value = None
             success = module.set_verify(self._CLIENT_NAME, client_entry_name, value)
             # two points of failure
-            assert success == False
+            assert not success
 
             module.get_retry.return_value = value - 1
             success = module.set_verify(self._CLIENT_NAME, client_entry_name, value)
 
-        assert success == False
+        assert not success
 
     @pytest.mark.parametrize(
         "test_input,expected",
@@ -265,7 +307,7 @@ class TestIqModule:
         client_entry_name = test_input[0][0]
         module = IqModule(mock_communicator)
 
-        assert module.get("client_test", client_entry_name) == None
+        assert module.get("client_test", client_entry_name) is None
 
     def test_get_all(self, mock_communicator, mock_client):
         module = IqModule(mock_communicator)
@@ -318,7 +360,7 @@ class TestIqModule:
         module = IqModule(mock_communicator)
         module.flush_input_com_buffer()
 
-        assert mock_communicator.flush_input_buffer.called == True
+        assert mock_communicator.flush_input_buffer.called
 
     @pytest.mark.parametrize(
         "test_input,expected",
@@ -345,7 +387,7 @@ class TestIqModule:
         module.update_replies()
 
         assert mock_communicator.read_bytes.call_count == 1
-        assert mock_communicator.extract_message.called == True
+        assert mock_communicator.extract_message.called
 
     def test_update_reply(self, mock_communicator, mock_client):
         mock_communicator.read_bytes = MagicMock()
@@ -374,9 +416,11 @@ class TestIqModule:
         mock_communicator.extract_message.side_effect = [bytearray(valid_message), None]
 
         module = IqModule(mock_communicator)
-        assert module.is_fresh(self._CLIENT_NAME, client_entry_name) == False
+        assert not module.is_fresh(self._CLIENT_NAME, client_entry_name)
+
         module.update_replies()
-        assert module.is_fresh(self._CLIENT_NAME, client_entry_name) == True
+
+        assert module.is_fresh(self._CLIENT_NAME, client_entry_name)
 
     @pytest.mark.parametrize(
         "test_input,expected",
