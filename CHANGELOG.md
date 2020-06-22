@@ -1,6 +1,10 @@
 # Changelog
 Note: version releases in the 0.x.y range may introduce breaking changes.
 
+## 0.8.0
+
+- minor: handles custom modules and dynamically adding clients
+
 ## 0.7.0
 
 - minor: coast() method now available for modules
