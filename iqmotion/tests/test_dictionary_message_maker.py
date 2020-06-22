@@ -1,11 +1,11 @@
+import pytest
+
 from iqmotion.message_making.dictionary_message_maker import DictionaryMessageMaker
-from iqmotion.message_making.dictionary_message_maker import DictionaryMessageMakerData
 from iqmotion.client_entries.dictionary_client_entry import DictionaryClientEntry
 from iqmotion.client_entries.dictionary_client_entry import AccessType
 from iqmotion.custom_errors import MessageMakerError
 
-
-import pytest
+# pylint: disable=unused-argument
 
 
 class TestDictionaryMessageMaker:
@@ -93,4 +93,4 @@ class TestDictionaryMessageMaker:
             message_maker.make()
 
         err_str = err.value.message
-        assert "MESSAGE MAKER ERROR: values too long for client entry\n" == err_str
+        assert err_str == "MESSAGE MAKER ERROR: values too long for client entry\n"

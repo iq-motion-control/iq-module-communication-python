@@ -1,4 +1,5 @@
 import pytest
+
 from iqmotion.communication.circular_queue import CircularQueue
 
 
@@ -15,7 +16,7 @@ class TestCircularQueue:
 
         assert len(queue) == len(iterable)
         assert queue[::] == iterable
-        assert type(queue) == CircularQueue
+        assert isinstance(queue, CircularQueue)
 
     def test__iter__(self):
         data = [1, 2, 3, 4, 5]
@@ -64,11 +65,11 @@ class TestCircularQueue:
         data = [0, 1, 2, 3]
         queue = CircularQueue.from_iterable(data)
         with pytest.raises(TypeError):
-            queue[1.1::]
+            _ = queue[1.1::]
         with pytest.raises(TypeError):
-            queue[:1.1:]
+            _ = queue[:1.1:]
         with pytest.raises(TypeError):
-            queue[::1.1]
+            _ = queue[::1.1]
 
         for i in range(4):
             assert queue[:i] == data[:i]
@@ -82,9 +83,9 @@ class TestCircularQueue:
         queue = CircularQueue.from_iterable(data)
 
         with pytest.raises(IndexError):
-            queue[4]
+            _ = queue[4]
         with pytest.raises(IndexError):
-            queue[-5]
+            _ = queue[-5]
 
         for i in range(4):
             assert queue[i] == data[i]
@@ -104,10 +105,10 @@ class TestCircularQueue:
         queue = CircularQueue(desired_queue_size)
 
         for i in range(desired_queue_size):
-            assert queue.append(i) == True
+            assert queue.append(i)
             assert queue[-1] == i
 
-        assert queue.append(4) == False
+        assert not queue.append(4)
 
     def test_extend(self):
         desired_queue_size = 3
@@ -125,7 +126,7 @@ class TestCircularQueue:
         desired_queue_size = 3
         queue = CircularQueue(desired_queue_size)
 
-        assert queue.pop() == None
+        assert queue.pop() is None
 
         for i in range(desired_queue_size):
             queue.append(i)
@@ -133,13 +134,13 @@ class TestCircularQueue:
         for i in range(desired_queue_size - 1, -1, -1):
             assert queue.pop() == i
 
-        assert queue.pop() == None
+        assert queue.pop() is None
 
     def test_popleft(self):
         desired_queue_size = 3
         queue = CircularQueue(desired_queue_size)
 
-        assert queue.popleft() == None
+        assert queue.popleft() is None
 
         for i in range(desired_queue_size):
             queue.append(i)
@@ -147,7 +148,7 @@ class TestCircularQueue:
         for i in range(desired_queue_size):
             assert queue.popleft() == i
 
-        assert queue.popleft() == None
+        assert queue.popleft() is None
 
     def test_clear(self):
         data = [0, 1, 2, 3]
@@ -178,26 +179,27 @@ class TestCircularQueue:
         queue = CircularQueue(desired_queue_size)
 
         for i in range(desired_queue_size):
-            assert queue.is_full == False
+            assert not queue.is_full
             queue.append(i)
 
-        assert queue.is_full == True
+        assert queue.is_full
 
         for i in range(desired_queue_size):
             queue.pop()
-            assert queue.is_full == False
+            assert not queue.is_full
 
     def test_is_empty(self):
         desired_queue_size = 3
         queue = CircularQueue(desired_queue_size)
 
-        assert queue.is_empty == True
+        assert queue.is_empty
 
         for i in range(desired_queue_size):
             queue.append(i)
-            assert queue.is_empty == False
+            assert not queue.is_empty
 
         for i in range(desired_queue_size):
             queue.pop()
 
-        assert queue.is_empty == True
+        assert queue.is_empty
+

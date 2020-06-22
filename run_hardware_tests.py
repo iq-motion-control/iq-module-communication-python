@@ -1,6 +1,7 @@
-import pytest
-import sys
 import argparse
+import sys
+
+import pytest
 
 
 def speed_test(hardware_type, usb_handle):
@@ -34,33 +35,22 @@ def step_dir_test(hardware_type, usb_handle):
     pytest.main(param)
 
 
-def pulsing_test(hardware_type, usb_handle):
-    param = [
-        "./iqmotion/hardware_tests/test_generic.py",
-        "./iqmotion/hardware_tests/test_pulsing.py",
-    ]
-    param.append("--usb_handle={}".format(usb_handle))
-    param.append("--hardware_type={}".format(hardware_type))
-    pytest.main(param)
-
-
 def main(hardware_type, usb_handle):
     test_types = {
         "speed": speed_test,
         "servo": servo_test,
         "step_dir": step_dir_test,
-        "pulsing": pulsing_test,
     }
 
     if hardware_type not in test_types.keys():
         print("THIS TYPE IS NOT HANDLED HARDWARE TEST")
-        exit()
+        sys.exit()
 
     test_types[hardware_type](hardware_type, usb_handle)
 
 
 if __name__ == "__main__":
-    handled_hardware_types = ["speed", "servo", "step_dir", "pulsing"]
+    handled_hardware_types = ["speed", "servo", "step_dir"]
 
     parser = argparse.ArgumentParser()
     parser.add_argument(

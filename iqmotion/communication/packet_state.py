@@ -1,7 +1,7 @@
-from iqmotion.communication.circular_queue import CircularQueue
-
 from abc import ABC, abstractmethod
 import copy
+
+from iqmotion.communication.circular_queue import CircularQueue
 
 
 class PacketState(ABC):

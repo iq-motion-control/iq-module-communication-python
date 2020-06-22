@@ -1,12 +1,13 @@
+import sys
+import glob
+from queue import Queue
+
+import serial
+
 from iqmotion.communication.communicator import Communicator
 from iqmotion.communication.crc import Crc
 from iqmotion.communication.serial_packet_queue import SerialPacketQueue
 from iqmotion.custom_errors import CommunicationError
-
-import sys
-import serial
-import glob
-from queue import Queue
 
 
 class SerialCommunicator(Communicator):
@@ -32,23 +33,22 @@ class SerialCommunicator(Communicator):
         self._in_queue = SerialPacketQueue()
 
     def __del__(self):
-        if self._ser_handle.is_open:
+        if hasattr(self, "_ser_handle") and self._ser_handle.is_open:
             self._ser_handle.close()
             del self._ser_handle
 
     def _init_serial(self, port_name: str, baudrate):
-        available_ports = self._find_serial_port()
+        try:
+            ser_handle = serial.Serial(port_name, baudrate)
 
-        if port_name not in available_ports:
+        except serial.SerialException:
+            available_ports = self._find_serial_port()
             pretty_available_ports_str = "\n".join(
                 '\t"{}"'.format(port) for port in available_ports
             )
             raise CommunicationError(
-                "Serial port is not available, here is a list of available ports:\n"
-                + pretty_available_ports_str
+                f"Serial port '{port_name}' is not available, here is a list of available ports:\n{pretty_available_ports_str}"
             )
-
-        ser_handle = serial.Serial(port_name, baudrate)
 
         return ser_handle
 
@@ -95,13 +95,13 @@ class SerialCommunicator(Communicator):
 
         return packet
 
-    def add_to_out_queue(self, bytes: bytearray):
+    def add_to_out_queue(self, out_bytes: bytearray):
         """ Add raw bytes to the out queue, call "send_now" to send
 
         Args:
             bytes (bytearray): raw bytes to send
         """
-        self._out_queue.put(bytes)
+        self._out_queue.put(out_bytes)
 
     def send_now(self):
         """ Sends everything that was added to the out queue

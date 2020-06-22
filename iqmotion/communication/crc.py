@@ -17,9 +17,8 @@ class Crc:
         """
         crc = np.uint16(0xFFFF)
 
-        for i in range(len(data)):
+        for i, _ in enumerate(data):
             crc = Crc.byte_update_crc(crc, data[i])
-        pass
 
         return crc
 

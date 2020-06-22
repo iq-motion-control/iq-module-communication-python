@@ -1,12 +1,11 @@
+from dataclasses import dataclass
+import numpy as np
+
 from iqmotion.message_making.message_maker import MessageMaker
 from iqmotion.client_entries.dictionary_client_entry import DictionaryClientEntry
 from iqmotion.client_entries.dictionary_client_entry import AccessType
 from iqmotion.client_entries.dictionary_client_entry import DictionaryClientEntryData
 from iqmotion.custom_errors import MessageMakerError
-
-from dataclasses import dataclass
-import enum
-import numpy as np
 
 
 @dataclass
@@ -89,12 +88,12 @@ class DictionaryMessageMaker(MessageMaker):
         param_idn = self._data.param_idn
         module_idn = self._data.module_idn
         access_type = self._data.access_type
-        format = self._data.format
+        data_format = self._data.format
         values = self._data.values
 
         access = access_type.value + (module_idn * 4)
         payload = bytearray([param_idn, access])
-        values_bytes = self._format_values(list(format), values)
+        values_bytes = self._format_values(list(data_format), values)
         payload.extend(values_bytes)
 
         return payload
@@ -112,9 +111,9 @@ class DictionaryMessageMaker(MessageMaker):
     def _format_values_list(self, format_list, values_list):
         values_bytes_array = bytearray([])
         for i, values in enumerate(values_list):
-            format = self._parse_format_list(format_list, i)
+            data_format = self._parse_format_list(format_list, i)
 
-            formated_values = self._value_types[format](values)
+            formated_values = self._value_types[data_format](values)
             values_bytes = formated_values.tobytes()
 
             values_bytes_array.extend(values_bytes)
@@ -125,15 +124,15 @@ class DictionaryMessageMaker(MessageMaker):
         if current_index >= len(format_list) - 1:
             if format_list[-1] != "*":
                 raise MessageMakerError("values too long for client entry")
-            else:
-                format = format_list[-2]
+            data_format = format_list[-2]
+
         else:
-            format = format_list[current_index]
+            data_format = format_list[current_index]
 
-        return format
+        return data_format
 
-    def _format_single_value(self, format, value):
-        formated_value = self._value_types[format](value)
+    def _format_single_value(self, data_format, value):
+        formated_value = self._value_types[data_format](value)
         value_byte = formated_value.tobytes()
 
         return value_byte

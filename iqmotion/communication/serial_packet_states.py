@@ -1,10 +1,17 @@
+import copy
+
 from iqmotion.communication.packet_state import PacketState
 from iqmotion.communication.circular_queue import CircularQueue
 from iqmotion.communication.crc import Crc
 
 from iqmotion.custom_errors import PacketStateError
 
-import copy
+
+def index_in_list(a_list, index):
+    if index < len(a_list):
+        return 1
+
+    return 0
 
 
 class SerialStartState(PacketState):
@@ -33,8 +40,8 @@ class SerialStartState(PacketState):
                 self._parse_succesful = 1
                 self._parse_index = parse_index
                 return
-            else:
-                self._byte_queue.popleft()
+
+            self._byte_queue.popleft()
 
         self._is_done = 1
         self._succesful = 0
@@ -51,8 +58,8 @@ class SerialStartState(PacketState):
             return SerialLenState(
                 self._byte_queue, self._start_index, self._parse_index, self._packet_len
             )
-        else:
-            return self
+
+        return self
 
 
 class SerialLenState(PacketState):
@@ -63,6 +70,7 @@ class SerialLenState(PacketState):
 
     _MAX_PACKET_SIZE = 255
 
+    # pylint: disable=useless-super-delegation
     def __init__(
         self,
         byte_queue: CircularQueue,
@@ -78,20 +86,19 @@ class SerialLenState(PacketState):
         Raise:
             PacketStateError: Packet overflow, message is bigger than 256 bytes
         """
-        try:
-            self._packet_len = self._byte_queue[self._parse_index + 1]
-            if self._packet_len <= self._MAX_PACKET_SIZE:
-                self._parse_index += 1
-                self._parse_succesful = 1
-            else:
-                raise PacketStateError(
-                    "Packet overflow, message is bigger than 256 bytes"
-                )
-        except IndexError:
+        new_index = self._parse_index + 1
+        if not index_in_list(self._byte_queue, new_index):
             self._is_done = 1
             self._end_index = self._parse_index + 1
             self._parse_succesful = 0
-        return
+            return
+
+        self._packet_len = self._byte_queue[new_index]
+        if self._packet_len <= self._MAX_PACKET_SIZE:
+            self._parse_index += 1
+            self._parse_succesful = 1
+        else:
+            raise PacketStateError("Packet overflow, message is bigger than 256 bytes")
 
     def find_next_state(self):
         """ Finds next state depending on the success of parse 
@@ -104,8 +111,8 @@ class SerialLenState(PacketState):
             return SerialTypeState(
                 self._byte_queue, self._start_index, self._parse_index, self._packet_len
             )
-        else:
-            return self
+
+        return self
 
 
 class SerialTypeState(PacketState):
@@ -115,6 +122,7 @@ class SerialTypeState(PacketState):
     otherwise it will skip SerialPayloadState and return SericalCrcState
     """
 
+    # pylint: disable=useless-super-delegation
     def __init__(
         self,
         byte_queue: CircularQueue,
@@ -128,16 +136,15 @@ class SerialTypeState(PacketState):
         """ Find Type byte
         """
 
-        try:
-            self._byte_queue[self._parse_index + 1]
-            self._parse_index += 1
-            self._parse_succesful = 1
-            return
-        except IndexError:
+        new_index = self._parse_index + 1
+        if not index_in_list(self._byte_queue, new_index):
             self._is_done = 1
             self._end_index = self._parse_index + 1
             self._parse_succesful = 0
-        return
+            return
+
+        self._parse_index += 1
+        self._parse_succesful = 1
 
     def find_next_state(self):
         """ Finds next state depending on the success of parse 
@@ -155,15 +162,15 @@ class SerialTypeState(PacketState):
                     self._parse_index,
                     self._packet_len,
                 )
-            else:
-                return SerialCrcState(
-                    self._byte_queue,
-                    self._start_index,
-                    self._parse_index,
-                    self._packet_len,
-                )
-        else:
-            return self
+
+            return SerialCrcState(
+                self._byte_queue,
+                self._start_index,
+                self._parse_index,
+                self._packet_len,
+            )
+
+        return self
 
 
 class SerialPayloadState(PacketState):
@@ -171,6 +178,7 @@ class SerialPayloadState(PacketState):
     It will parse the circular byte queue to find all the payload bytes of the packet.
     """
 
+    # pylint: disable=useless-super-delegation
     def __init__(
         self,
         byte_queue: CircularQueue,
@@ -178,27 +186,24 @@ class SerialPayloadState(PacketState):
         parse_index: int = 0,
         packet_len: int = 0,
     ):
+
         super().__init__(byte_queue, start_index, parse_index, packet_len)
 
     def parse(self):
         """ Find Paylod bytes
         """
-        try:
-            for ind in range(
-                self._parse_index + 1, self._parse_index + 1 + self._packet_len
-            ):
-                # check if there is the right amount of bytes,
-                self._byte_queue[ind]
-            self._parse_index += self._packet_len
-            self._parse_succesful = 1
-            return
+        for ind in range(
+            self._parse_index + 1, self._parse_index + 1 + self._packet_len
+        ):
+            # check if there is the right amount of bytes,
+            if not index_in_list(self._byte_queue, ind):
+                self._is_done = 1
+                self._end_index = self._parse_index + 1
+                self._parse_succesful = 0
+                return
 
-        except IndexError:
-            self._is_done = 1
-            self._end_index = self._parse_index + 1
-            self._parse_succesful = 0
-
-        return
+        self._parse_index += self._packet_len
+        self._parse_succesful = 1
 
     def find_next_state(self):
         """ Finds next state depending on the success of parse 
@@ -211,8 +216,8 @@ class SerialPayloadState(PacketState):
             return SerialCrcState(
                 self._byte_queue, self._start_index, self._parse_index, self._packet_len
             )
-        else:
-            return self
+
+        return self
 
 
 class SerialCrcState(PacketState):
@@ -221,6 +226,7 @@ class SerialCrcState(PacketState):
     If the Crc is correct, stores the message in its message @property
     """
 
+    # pylint: disable=useless-super-delegation
     def __init__(
         self,
         byte_queue: CircularQueue,
@@ -257,8 +263,6 @@ class SerialCrcState(PacketState):
             self._is_done = 1
             self._end_index = self._parse_index + 1
             self._succesful = 0
-
-        return
 
     def find_next_state(self):
         """ Finds next state depending on the success of parse 

@@ -10,11 +10,14 @@ test-master: &test-master
     name: Test
     script:
       - python -m pip install --upgrade pip
+      - pip install pylint
+      - pip install pylint-fail-under
       - pip install pytest
       - pip install pytest-cov
       - pip install coverage-badge
       - pip install -r requirements.txt
-      - pytest ./iqmotion/tests/ --cov-config=.coveragerc --cov=iqmotion --cov-fail-under=100
+      - pytest ./iqmotion/tests/ --cov-config=.coveragerc --cov=iqmotion --cov-fail-under=90
+      - pylint-fail-under --fail-under 10.0 iqmotion
       - coverage-badge -o coverage.svg
     artifacts:
       - coverage.svg
@@ -34,6 +37,23 @@ test: &test
     services:
       - docker
 
+test-release: &test-release
+  step:
+    name: Test
+    script:
+      - python -m pip install --upgrade pip
+      - pip install pytest
+      - pip install pytest-cov
+      - pip install coverage-badge
+      - pip install -r requirements.txt
+      - pytest ./iq_package_test/tests/ --cov-config=.coveragerc --cov=iq_package_test 
+      - pylint-fail-under --fail-under 10.0 iqmotion
+      - coverage-badge -o coverage.svg
+    artifacts:
+      - coverage.svg
+    services:
+      - docker
+
 bump-version: &bump-version
   step:
     name: Bump the repository version
@@ -41,12 +61,31 @@ bump-version: &bump-version
       - python -m pip install --upgrade pip
       - pip install pybadges
       - pip install semversioner
-      - chmod +x ./bump_version.sh
-      - chmod +x ./git_tag_and_push.sh
-      - ./bump_version.sh
-      - ./git_tag_and_push.sh
+      - chmod +x ./ci_scripts/bump_version.sh
+      - chmod +x ./ci_scripts/git_tag_and_push.sh
+      - ./ci_scripts/bump_version.sh
+      - ./ci_scripts/git_tag_and_push.sh
     artifacts:
       - release_badge.svg
+
+release-package: &release-package
+  step:
+    name: Bump the repository version
+    script:
+      - python -m pip install --upgrade pip
+      - pip install twine
+      - chmod +x ./ci_scripts/build_and_release_package.sh
+      - cd ./ci_scripts
+      - ./build_and_release_package.sh
+
+delete-release-branch: &delete-release-branch
+  step:
+    name: Deletes the release branch
+    script:
+      - git config remote.origin.fetch "+refs/heads/*:refs/remotes/origin/*"
+      - git fetch 
+      - git checkout master
+      - git push -d origin $BITBUCKET_BRANCH
 
 upload-cov-badge: &upload-cov-badge
   step:
@@ -74,6 +113,10 @@ pipelines:
   branches:
     master:
     - <<: *test-master
+    release/*:
+    - <<: *test-release
     - <<: *upload-cov-badge
     - <<: *bump-version
+    - <<: *release-package
     - <<: *upload-release-badge
+    - <<: *delete-release-branch

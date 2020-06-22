@@ -1,6 +1,5 @@
 import iqmotion as iq
 import time
-import argparse
 
 
 if __name__ == "__main__":

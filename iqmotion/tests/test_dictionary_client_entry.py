@@ -1,7 +1,6 @@
 from iqmotion.client_entries.dictionary_client_entry import DictionaryClientEntry
 from iqmotion.client_entries.dictionary_client_entry import DictionaryClientEntryData
 
-import pytest
 
 TEST_CLIENT_ENTRY_DICT = {
     "type_idn": 50,
@@ -19,7 +18,7 @@ class TestDictionaryClientEntry:
 
         dce.read_message(message)
 
-        assert dce.fresh == True
+        assert dce.fresh
 
     def test_read_message_wrong_access_type(self):
         message = bytearray([50, 0, 1, 99])
@@ -27,23 +26,23 @@ class TestDictionaryClientEntry:
 
         dce.read_message(message)
 
-        assert dce.fresh == False
+        assert not dce.fresh
 
     def test_fresh(self):
         dce = DictionaryClientEntry(TEST_CLIENT_ENTRY_DICT)
 
-        assert dce.fresh == False
+        assert not dce.fresh
 
         dce.value = bytearray([11])
-        assert dce.fresh == True
+        assert dce.fresh
 
         _ = dce.value
-        assert dce.fresh == False
+        assert not dce.fresh
 
     def test_value(self):
         dce = DictionaryClientEntry(TEST_CLIENT_ENTRY_DICT)
 
-        assert dce.value == None
+        assert not dce.value
 
         dce.value = bytearray([11])
         assert dce.value == 11

@@ -57,10 +57,10 @@ pip install pytest-cov
 You can then run the software tests with the following command:
 
 ```shell
-pytest ./iqmotion/tests/ --cov-config=.coveragerc --cov=iqmotion --cov-fail-under=100
+pytest ./iqmotion/tests/ --cov-config=.coveragerc --cov=iqmotion --cov-fail-under=90
 ```
 
-The test will fail if coverage is under 100%
+The test will fail if coverage is under 90%
 
 You can run the hardware tests with the following commands:
 
@@ -69,6 +69,8 @@ python run_hardware_tests.py speed --usb_handle=/dev/ttyUSB0
 python run_hardware_tests.py servo --usb_handle=/dev/ttyUSB0
 python run_hardware_tests.py step_dir --usb_handle=/dev/ttyUSB0
 ```
+
+We use pylint and black to format this repository.
 
 ## Contributing
 

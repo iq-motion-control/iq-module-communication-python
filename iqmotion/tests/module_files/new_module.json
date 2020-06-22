@@ -13,9 +13,9 @@
     "step_direction_input",
     "system_control",
     "temperature_estimator",
-    "temperature_monitor_uc",
-    "voltage_superposition",
-    "predicting_linearizing_rev_conv_compact",
-    "product_key"
+    "temperature_monitor_uc"
+  ],
+  "extra_clients": [
+    "extra_client"
   ]
 }

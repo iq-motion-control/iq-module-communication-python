@@ -1,5 +1,3 @@
-import pytest
-
 from iqmotion.communication.crc import Crc
 
 
@@ -21,8 +19,8 @@ class TestCrc:
         data = [1, 2, 3]
         crcs = []
 
-        for i in range(len(data)):
+        for i, _ in enumerate(data):
             crcs.append(Crc.byte_update_crc(crc, data[i]))
 
-        for i in range(len(data)):
+        for i, _ in enumerate(data):
             assert crcs[i] == expected_crc[i]

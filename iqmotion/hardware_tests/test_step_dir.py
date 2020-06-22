@@ -1,6 +1,7 @@
-import iqmotion as iq
-
+import sys
 import pytest
+
+import iqmotion as iq
 
 
 class TestStepDir:
@@ -12,7 +13,7 @@ class TestStepDir:
 
         if hardware_type not in hardware_types.keys():
             print("THIS TYPE IS NOT HANDLED IN TEST SPEED")
-            exit()
+            sys.exit()
 
         com = iq.SerialCommunicator(usb_handle)
         iq_module = hardware_types[hardware_type](com, 0)
