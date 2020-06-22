@@ -15,6 +15,3 @@ semversioner changelog > CHANGELOG.md
 echo "Replace version '$previous_version' to '$new_version' in setup.py ..."
 sed -i 's/version="'${previous_version}'"/version="'${new_version}'"/g' setup.py
 
-
-echo "Updating the version tag"
-python -m pybadges --left-text=release --right-text=v${new_version} --right-color=green > release_badge.svg

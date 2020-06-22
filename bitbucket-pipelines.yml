@@ -14,13 +14,9 @@ test-master: &test-master
       - pip install pylint-fail-under
       - pip install pytest
       - pip install pytest-cov
-      - pip install coverage-badge
       - pip install -r requirements.txt
       - pytest ./iqmotion/tests/ --cov-config=.coveragerc --cov=iqmotion --cov-fail-under=90
       - pylint-fail-under --fail-under 10 iqmotion
-      - coverage-badge -o coverage.svg
-    artifacts:
-      - coverage.svg
     services:
       - docker
 
@@ -31,7 +27,6 @@ test: &test
       - python -m pip install --upgrade pip
       - pip install pytest
       - pip install pytest-cov
-      - pip install coverage-badge
       - pip install -r requirements.txt
       - pytest ./iqmotion/tests/ --cov-config=.coveragerc --cov=iqmotion 
     services:
@@ -45,13 +40,9 @@ test-release: &test-release
       - pip install pytest
       - pip install pytest-cov
       - pip install pylint-fail-under
-      - pip install coverage-badge
       - pip install -r requirements.txt
       - pytest ./iqmotion/tests/ --cov-config=.coveragerc --cov=iqmotion --cov-fail-under=90
       - pylint-fail-under --fail-under 10 iqmotion
-      - coverage-badge -o coverage.svg
-    artifacts:
-      - coverage.svg
     services:
       - docker
 
@@ -69,8 +60,6 @@ release-new-version: &release-new-version
       - ./ci_scripts/bump_version.sh
       - ./ci_scripts/build_and_release_package.sh
       - ./ci_scripts/git_tag_and_push.sh
-    artifacts:
-      - release_badge.svg
 
 
 delete-release-branch: &delete-release-branch
@@ -82,25 +71,6 @@ delete-release-branch: &delete-release-branch
       - git checkout master
       - git push -d origin $BITBUCKET_BRANCH
 
-upload-cov-badge: &upload-cov-badge
-  step:
-    name: Upload the coverage badge
-    script:
-      - pipe: docker://bitbucketpipelines/bitbucket-upload-file:0.1.0
-        variables:
-          BITBUCKET_USERNAME: $BITBUCKET_USERNAME
-          BITBUCKET_APP_PASSWORD: $BITBUCKET_APP_PASSWORD
-          FILENAME: 'coverage.svg'
-
-upload-release-badge: &upload-release-badge
-  step:
-    name: Upload the release badge
-    script:
-      - pipe: docker://bitbucketpipelines/bitbucket-upload-file:0.1.0
-        variables:
-          BITBUCKET_USERNAME: $BITBUCKET_USERNAME
-          BITBUCKET_APP_PASSWORD: $BITBUCKET_APP_PASSWORD
-          FILENAME: 'release_badge.svg'
 
 pipelines:
   default:
@@ -108,10 +78,7 @@ pipelines:
   branches:
     master:
     - <<: *test-master
-    - <<: *upload-cov-badge
     release/*:
     - <<: *test-release
-    - <<: *upload-cov-badge
     - <<: *release-new-version
-    - <<: *upload-release-badge
     - <<: *delete-release-branch
