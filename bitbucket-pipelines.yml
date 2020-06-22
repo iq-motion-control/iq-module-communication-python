@@ -17,7 +17,7 @@ test-master: &test-master
       - pip install coverage-badge
       - pip install -r requirements.txt
       - pytest ./iqmotion/tests/ --cov-config=.coveragerc --cov=iqmotion --cov-fail-under=90
-      - pylint-fail-under --fail-under 10.0 iqmotion
+      - pylint-fail-under --fail-under 10 iqmotion
       - coverage-badge -o coverage.svg
     artifacts:
       - coverage.svg
