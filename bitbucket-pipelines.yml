@@ -55,29 +55,23 @@ test-release: &test-release
     services:
       - docker
 
-bump-version: &bump-version
+release-new-version: &release-new-version
   step:
     name: Bump the repository version
     script:
       - python -m pip install --upgrade pip
       - pip install pybadges
       - pip install semversioner
+      - pip install twine
       - chmod +x ./ci_scripts/bump_version.sh
+      - chmod +x ./ci_scripts/build_and_release_package.sh
       - chmod +x ./ci_scripts/git_tag_and_push.sh
       - ./ci_scripts/bump_version.sh
+      - ./ci_scripts/build_and_release_package.sh
       - ./ci_scripts/git_tag_and_push.sh
     artifacts:
       - release_badge.svg
 
-release-package: &release-package
-  step:
-    name: Release python packet to pypi
-    script:
-      - python -m pip install --upgrade pip
-      - pip install twine
-      - chmod +x ./ci_scripts/build_and_release_package.sh
-      - cd ./ci_scripts
-      - ./build_and_release_package.sh
 
 delete-release-branch: &delete-release-branch
   step:
@@ -117,7 +111,6 @@ pipelines:
     release/*:
     - <<: *test-release
     - <<: *upload-cov-badge
-    - <<: *bump-version
-    - <<: *release-package
+    - <<: *release-new-version
     - <<: *upload-release-badge
     - <<: *delete-release-branch
