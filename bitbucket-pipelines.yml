@@ -46,7 +46,7 @@ test-release: &test-release
       - pip install pytest-cov
       - pip install coverage-badge
       - pip install -r requirements.txt
-      - pytest ./iq_package_test/tests/ --cov-config=.coveragerc --cov=iq_package_test 
+      - pytest ./iqmotion/tests/ --cov-config=.coveragerc --cov=iqmotion --cov-fail-under=90
       - pylint-fail-under --fail-under 10.0 iqmotion
       - coverage-badge -o coverage.svg
     artifacts:
@@ -70,7 +70,7 @@ bump-version: &bump-version
 
 release-package: &release-package
   step:
-    name: Bump the repository version
+    name: Release python packet to pypi
     script:
       - python -m pip install --upgrade pip
       - pip install twine
