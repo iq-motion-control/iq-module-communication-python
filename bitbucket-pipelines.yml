@@ -44,6 +44,7 @@ test-release: &test-release
       - python -m pip install --upgrade pip
       - pip install pytest
       - pip install pytest-cov
+      - pip install pylint-fail-under
       - pip install coverage-badge
       - pip install -r requirements.txt
       - pytest ./iqmotion/tests/ --cov-config=.coveragerc --cov=iqmotion --cov-fail-under=90
