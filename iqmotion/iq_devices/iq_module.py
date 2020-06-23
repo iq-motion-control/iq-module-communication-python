@@ -80,7 +80,7 @@ class IqModule:
         client = self._client_dict[client_name]
         client_entry = client.client_entries[client_entry_name]
 
-        message_bytes = self._make_message_bytes(client_entry, AccessType.SET, args)
+        message_bytes = self._make_message_bytes(client_entry, AccessType.SET, *args)
 
         self._com.send_message(message_bytes)
 
@@ -137,7 +137,7 @@ class IqModule:
 
         return True
 
-    def get(self, client_name: str, client_entry_name: str, time_out=0.1):
+    def get(self, client_name: str, client_entry_name: str, *args, time_out=0.1):
         """ Gets the value define by the client and client entry from the module.
 
         This call is blocking and will wait until it gets a reply or timeouts.
@@ -152,7 +152,7 @@ class IqModule:
         Returns:
             the reply from the module, None if no reply was available (timeout)
         """
-        self.get_async(client_name, client_entry_name)
+        self.get_async(client_name, client_entry_name, *args)
 
         max_time = time.perf_counter() + time_out
         while not self.is_fresh(client_name, client_entry_name):
@@ -165,7 +165,7 @@ class IqModule:
         return reply
 
     def get_retry(
-        self, client_name: str, client_entry_name: str, time_out=0.1, retries=5
+        self, client_name: str, client_entry_name: str, *args, time_out=0.1, retries=5
     ):
         """ Sends multiple get requests to the module until a reply comes back or there are no more retries left
         
@@ -181,7 +181,7 @@ class IqModule:
             the reply from the module, None if no reply was available (timeout and/or max num of retries)
         """
         for _ in range(retries):
-            reply = self.get(client_name, client_entry_name, time_out)
+            reply = self.get(client_name, client_entry_name, *args, time_out=time_out)
             if reply is not None:
                 return reply
 
@@ -246,7 +246,7 @@ class IqModule:
         client = self._client_dict[client_name]
         client_entry = client.client_entries[client_entry_name]
 
-        message_bytes = self._make_message_bytes(client_entry, AccessType.SAVE, [])
+        message_bytes = self._make_message_bytes(client_entry, AccessType.SAVE)
 
         self._com.send_message(message_bytes)
 
@@ -262,7 +262,7 @@ class IqModule:
         for client_entry_name in client.client_entries.keys():
             self.save(client_name, client_entry_name)
 
-    def get_async(self, client_name: str, client_entry_name: str):
+    def get_async(self, client_name: str, client_entry_name: str, *args):
         """ Sends a asynchroniously get request to the module
 
         This call is non blocking, to read the reply you have to call "update reply" or "update replies" and then "get_reply" if that client entry is fresh
@@ -275,7 +275,7 @@ class IqModule:
         client = self._client_dict[client_name]
         client_entry = client.client_entries[client_entry_name]
 
-        message_bytes = self._make_message_bytes(client_entry, AccessType.GET, [])
+        message_bytes = self._make_message_bytes(client_entry, AccessType.GET, *args)
 
         self._com.send_message(message_bytes)
 
@@ -393,7 +393,7 @@ class IqModule:
             )
         return True
 
-    def _make_message_bytes(self, client_entry, access_type: AccessType, args):
+    def _make_message_bytes(self, client_entry, access_type: AccessType, *args):
         message_maker = DictionaryMessageMaker(
             client_entry, self._module_idn, access_type, args
         )

@@ -96,7 +96,9 @@ class DictionaryClientEntry(ClientEntry):
         """
         # unpack always returns a tuple
         data_format = self._data.format
-        formated_value = struct.unpack(data_format, value)[0]
+        formated_value = struct.unpack(data_format, value)
+        if len(data_format) < 2:
+            formated_value = formated_value[0]
         self._value = formated_value
         self._fresh = 1
 
