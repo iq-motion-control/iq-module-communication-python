@@ -1,6 +1,10 @@
 # Changelog
 Note: version releases in the 0.x.y range may introduce breaking changes.
 
+## 0.9.0
+
+- minor: added get with value support and multiple set values
+
 ## 0.8.0
 
 - minor: handles custom modules and dynamically adding clients
