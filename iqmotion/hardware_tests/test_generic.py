@@ -2,6 +2,8 @@ import time
 import sys
 import pytest
 
+import numpy as np
+
 import iqmotion as iq
 
 
@@ -36,8 +38,13 @@ class TestGeneric:
                 assert value is not None
 
     def test_get_overload(self, iq_module):
-        for _ in range(50):
+        for _ in range(100):
             result = iq_module.get("system_control", "uid1")
+            assert result is not None
+
+    def test_get_retry_overload(self, iq_module):
+        for _ in range(1000):
+            result = iq_module.get_retry("system_control", "uid1")
             assert result is not None
 
     def test_get_async_overload(self, iq_module):
@@ -65,6 +72,16 @@ class TestGeneric:
 
         iq_module.set_verify("brushless_drive", "motor_Kv", orginal_kv, save=True)
 
+    def test_set_verify_overload(self, iq_module):
+        orginal_kv = iq_module.get("brushless_drive", "motor_Kv")
+
+        kv_values = np.arange(1, 101, 0.1)
+        for i in range(1000):
+            success = iq_module.set_verify("brushless_drive", "motor_Kv", kv_values[i])
+            assert success
+
+        iq_module.set_verify("brushless_drive", "motor_Kv", orginal_kv, save=True)
+
     def test_coast(self, iq_module):
         iq_module.set("brushless_drive", "drive_volts", 1)
         time.sleep(0.5)
@@ -72,6 +89,6 @@ class TestGeneric:
 
         assert drive_mode != 5
 
-        iq_module.set("brushless_drive", "drive_coast")
+        iq_module.coast()
         drive_mode = iq_module.get_retry("brushless_drive", "drive_mode")
         assert drive_mode == 5
