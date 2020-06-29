@@ -1,0 +1,4 @@
+{
+  "type": "patch",
+  "description": "fixed multiple values for set bug"
+}
