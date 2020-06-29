@@ -25,6 +25,14 @@ class TestDictionaryMessageMaker:
         "unit": "rad",
     }
 
+    _FAKE_DICTIONARY_CLIENT_ENTRY_DATA_DICT_LIST2 = {
+        "type_idn": 1,
+        "param": "dictionary_client_entry",
+        "param_idn": 1,
+        "format": "BB",
+        "unit": "rad",
+    }
+
     _TEST_VALUES_ACCESSTYPES = [
         ([AccessType.GET, 0], [1, 1, 0, 0]),
         ([AccessType.SET, 1], [1, 1, 1, 1]),
@@ -37,6 +45,13 @@ class TestDictionaryMessageMaker:
         ([AccessType.SET, [1, 1]], [1, 1, 1, 1, 1]),
         ([AccessType.SAVE, [2, 2, 2]], [1, 1, 2, 2, 2, 2]),
         ([AccessType.REPLY, [3, 3, 3, 3]], [1, 1, 3, 3, 3, 3, 3]),
+    ]
+
+    _TEST_VALUES_ACCESSTYPES_LIST2 = [
+        ([AccessType.GET, [0, 0]], [1, 1, 0, 0, 0]),
+        ([AccessType.SET, [1, 1]], [1, 1, 1, 1, 1]),
+        ([AccessType.SAVE, [2, 2]], [1, 1, 2, 2, 2]),
+        ([AccessType.REPLY, [3, 3]], [1, 1, 3, 3, 3]),
     ]
 
     @pytest.fixture
@@ -72,6 +87,19 @@ class TestDictionaryMessageMaker:
 
         return message_maker
 
+    @pytest.fixture()
+    def message_maker_with_list_client_entry2(self, test_input):
+        client_entry = DictionaryClientEntry(
+            self._FAKE_DICTIONARY_CLIENT_ENTRY_DATA_DICT_LIST2
+        )
+
+        acces_type = test_input[0]
+        value = test_input[1]
+
+        message_maker = DictionaryMessageMaker(client_entry, 0, acces_type, value)
+
+        return message_maker
+
     @pytest.mark.parametrize("test_input, expected", _TEST_VALUES_ACCESSTYPES)
     def test_make(self, message_maker, test_input, expected):
         message = message_maker.make()
@@ -83,6 +111,14 @@ class TestDictionaryMessageMaker:
         self, message_maker_with_list_client_entry, test_input, expected
     ):
         message = message_maker_with_list_client_entry.make()
+
+        assert message == bytearray(expected)
+
+    @pytest.mark.parametrize("test_input, expected", _TEST_VALUES_ACCESSTYPES_LIST2)
+    def test_make_with_list_values2(
+        self, message_maker_with_list_client_entry2, test_input, expected
+    ):
+        message = message_maker_with_list_client_entry2.make()
 
         assert message == bytearray(expected)
 
