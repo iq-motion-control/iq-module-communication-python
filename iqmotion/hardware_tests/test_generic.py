@@ -92,3 +92,4 @@ class TestGeneric:
         iq_module.coast()
         drive_mode = iq_module.get_retry("brushless_drive", "drive_mode")
         assert drive_mode == 5
+
