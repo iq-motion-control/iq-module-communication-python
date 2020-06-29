@@ -101,7 +101,7 @@ class DictionaryMessageMaker(MessageMaker):
     def _format_values(self, format_list, values):
         if isinstance(values, list) and len(values) > 1:
             formated_values = self._format_values_list(format_list, values)
-        elif len(format_list) == 0:
+        elif values is None:
             formated_values = []
         else:
             formated_values = self._format_single_value(format_list[0], values)

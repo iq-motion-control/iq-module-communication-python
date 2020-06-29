@@ -22,7 +22,7 @@ class TestIqModule:
 
     _DICTIONARY_MSG_SET = (["dictionary_client_entry", 99], [1, 1, 1, 99])
     _EMPTY_DICTIONARY_MSG_SET = (
-        ["dictionary_client_entry_no_format", []],
+        ["dictionary_client_entry_no_format", None],
         [3, 3, 1],
     )
 
@@ -166,19 +166,19 @@ class TestIqModule:
     def test_set_retry(self, mock_communicator, mock_client, test_input, expected):
         mock_communicator.send_message = MagicMock()
         module = IqModule(mock_communicator)
-        module.get_retry = MagicMock()
+        module.get = MagicMock()
 
         client_entry_name = test_input[0]
         value = test_input[1]
         if not value:
-            module.get_retry.return_value = 1
+            module.get.return_value = 1
             module.set_verify(self._CLIENT_NAME, client_entry_name)
         else:
-            module.get_retry.return_value = value
+            module.get.return_value = value
             module.set_verify(self._CLIENT_NAME, client_entry_name, value)
 
-        assert module.get_retry.call_args == call(
-            self._CLIENT_NAME, client_entry_name, 0.1, 5
+        assert module.get.call_args == call(
+            self._CLIENT_NAME, client_entry_name, None, time_out=0.1
         )
 
     @pytest.mark.parametrize(
@@ -192,20 +192,20 @@ class TestIqModule:
     def test_set_retry_fail(self, mock_communicator, mock_client, test_input, expected):
         mock_communicator.send_message = MagicMock()
         module = IqModule(mock_communicator)
-        module.get_retry = MagicMock()
+        module.get = MagicMock()
 
         client_entry_name = test_input[0]
         value = test_input[1]
         if not value:
-            module.get_retry.return_value = 0
+            module.get.return_value = 0
             success = module.set_verify(self._CLIENT_NAME, client_entry_name)
         else:
-            module.get_retry.return_value = None
+            module.get.return_value = None
             success = module.set_verify(self._CLIENT_NAME, client_entry_name, value)
             # two points of failure
             assert not success
 
-            module.get_retry.return_value = value - 1
+            module.get.return_value = value - 1
             success = module.set_verify(self._CLIENT_NAME, client_entry_name, value)
 
         assert not success
@@ -222,15 +222,15 @@ class TestIqModule:
         mock_communicator.send_message = MagicMock()
         module = IqModule(mock_communicator)
         module.save = MagicMock()
-        module.get_retry = MagicMock()
+        module.get = MagicMock()
 
         client_entry_name = test_input[0]
         value = test_input[1]
         if not value:
-            module.get_retry.return_value = 1
+            module.get.return_value = 1
             module.set_verify(self._CLIENT_NAME, client_entry_name, save=1)
         else:
-            module.get_retry.return_value = value
+            module.get.return_value = value
             module.set_verify(self._CLIENT_NAME, client_entry_name, value, save=1)
 
         assert module.save.call_args == call(self._CLIENT_NAME, client_entry_name)
