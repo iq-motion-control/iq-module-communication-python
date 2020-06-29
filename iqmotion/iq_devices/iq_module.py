@@ -67,20 +67,20 @@ class IqModule:
         """
         self.set(self._DEFAULT_CONTROL_CLIENT, "ctrl_coast")
 
-    def set(self, client_name: str, client_entry_name: str, *args):
+    def set(self, client_name: str, client_entry_name: str, values=None):
         """ Sets a value to the module with a message formed by a client and client entry
         
         Arguments:
             client_name {str} -- name of the client
             client_entry_name {str} -- name of the client entry
-            *args -- value(s) to be set
+            values -- value(s) to be set
         """
         self._client_and_client_entry_exists(client_name, client_entry_name)
 
         client = self._client_dict[client_name]
         client_entry = client.client_entries[client_entry_name]
 
-        message_bytes = self._make_message_bytes(client_entry, AccessType.SET, *args)
+        message_bytes = self._make_message_bytes(client_entry, AccessType.SET, values)
 
         self._com.send_message(message_bytes)
 
@@ -88,7 +88,8 @@ class IqModule:
         self,
         client_name: str,
         client_entry_name: str,
-        *args,
+        values=None,
+        get_values=None,
         time_out=0.1,
         retries=5,
         save=False,
@@ -100,26 +101,39 @@ class IqModule:
         Arguments:
             client_name {str} -- name of the client
             client_entry_name {str} -- name of the client entry
-            *args -- value(s) to be set
 
         Keyword Arguments:
+            values {int, list} -- value(s) to be set
+            get_values {int, list} -- values to add in the get message (such as index for some client entries) (default: {None})
             time_out {float} -- blocking timeout while verifying the set (s) (default: {0.1})
-            retries {int} -- num of times you want to retry verifying the set (default: {5})
+            retries {int} -- num of times you want to retry (default: {5})
             save {bool} -- save the value if verify was successful (default: {False})
 
         Returns:
             bool -- if the value was correctly set
         """
-        verify_range = 0.01
-        self.set(client_name, client_entry_name, args)
+        VERIFY_RANGE = 0.01
 
-        get_value = self.get_retry(client_name, client_entry_name, time_out, retries)
+        success = False
+        for _ in range(retries):
+            self.flush_input_com_buffer()
+            self.set(client_name, client_entry_name, values)
 
-        # checks when you do an empty set
-        if not args:
-            if get_value != 1:
-                return False
-        elif not self._verify_value(args[0], get_value, verify_range):
+            returned_value = self.get(
+                client_name, client_entry_name, get_values, time_out=time_out,
+            )
+
+            # checks when you do an empty set
+            if values is None:
+                if returned_value == 1:
+                    success = True
+                    break
+
+            elif self._verify_value(values, returned_value, VERIFY_RANGE):
+                success = True
+                break
+
+        if not success:
             return False
 
         if save:
@@ -127,17 +141,19 @@ class IqModule:
 
         return True
 
-    def _verify_value(self, set_value, get_value, verify_range=0.01):
-        if get_value is None:
+    def _verify_value(self, set_value, returned_value, verify_range=0.01):
+        if returned_value is None:
             return False
 
         # some values might loose precision when being saved so check if it's within a 0.01 range
-        if abs(set_value - get_value) >= verify_range:
+        if abs(set_value - returned_value) >= verify_range:
             return False
 
         return True
 
-    def get(self, client_name: str, client_entry_name: str, *args, time_out=0.1):
+    def get(
+        self, client_name: str, client_entry_name: str, get_values=None, time_out=0.1
+    ):
         """ Gets the value define by the client and client entry from the module.
 
         This call is blocking and will wait until it gets a reply or timeouts.
@@ -147,12 +163,13 @@ class IqModule:
             client_entry_name {str} -- name of the client entry
         
         Keyword Arguments:
+            get_values {int, list} -- values to add in the get message (such as index for some client entries) (default: {None})
             time_out {float} -- blocking timeout while waiting for a reply (s) (default: {0.1})
         
         Returns:
             the reply from the module, None if no reply was available (timeout)
         """
-        self.get_async(client_name, client_entry_name, *args)
+        self.get_async(client_name, client_entry_name, get_values)
 
         max_time = time.perf_counter() + time_out
         while not self.is_fresh(client_name, client_entry_name):
@@ -165,7 +182,12 @@ class IqModule:
         return reply
 
     def get_retry(
-        self, client_name: str, client_entry_name: str, *args, time_out=0.1, retries=5
+        self,
+        client_name: str,
+        client_entry_name: str,
+        get_values=None,
+        time_out=0.1,
+        retries=5,
     ):
         """ Sends multiple get requests to the module until a reply comes back or there are no more retries left
         
@@ -174,6 +196,7 @@ class IqModule:
             client_entry_name {str} -- name of the client entry
         
         Keyword Arguments:
+            get_values {int, list} -- values to add in the get message (such as index for some client entries) (default: {None})
             time_out {float} -- blocking timeout while waiting for a reply for every retry (s) (default: {0.1})
             retries {int} -- num of times you want to retry sending a get request if nothing came back (default: {5})
         
@@ -181,7 +204,10 @@ class IqModule:
             the reply from the module, None if no reply was available (timeout and/or max num of retries)
         """
         for _ in range(retries):
-            reply = self.get(client_name, client_entry_name, *args, time_out=time_out)
+            self.flush_input_com_buffer()
+            reply = self.get(
+                client_name, client_entry_name, get_values, time_out=time_out
+            )
             if reply is not None:
                 return reply
 
@@ -206,7 +232,7 @@ class IqModule:
 
         replies = {}
         for client_entry_name in client.client_entries.keys():
-            reply = self.get(client_name, client_entry_name, time_out)
+            reply = self.get(client_name, client_entry_name, time_out=time_out)
             replies[client_entry_name] = reply
 
         return replies
@@ -262,7 +288,7 @@ class IqModule:
         for client_entry_name in client.client_entries.keys():
             self.save(client_name, client_entry_name)
 
-    def get_async(self, client_name: str, client_entry_name: str, *args):
+    def get_async(self, client_name: str, client_entry_name: str, get_values=None):
         """ Sends a asynchroniously get request to the module
 
         This call is non blocking, to read the reply you have to call "update reply" or "update replies" and then "get_reply" if that client entry is fresh
@@ -270,12 +296,15 @@ class IqModule:
         Arguments:
             client_name {str} -- name of the client
             client_entry_name {str} -- name of the client entry
+            get_values {int, list} -- values to add in the get message (such as index for some client entries) (default: {None})
         """
         self._client_and_client_entry_exists(client_name, client_entry_name)
         client = self._client_dict[client_name]
         client_entry = client.client_entries[client_entry_name]
 
-        message_bytes = self._make_message_bytes(client_entry, AccessType.GET, *args)
+        message_bytes = self._make_message_bytes(
+            client_entry, AccessType.GET, get_values
+        )
 
         self._com.send_message(message_bytes)
 
@@ -393,9 +422,9 @@ class IqModule:
             )
         return True
 
-    def _make_message_bytes(self, client_entry, access_type: AccessType, *args):
+    def _make_message_bytes(self, client_entry, access_type: AccessType, values=None):
         message_maker = DictionaryMessageMaker(
-            client_entry, self._module_idn, access_type, args
+            client_entry, self._module_idn, access_type, values
         )
 
         message = ClientWithEntriesMessage(message_maker)
