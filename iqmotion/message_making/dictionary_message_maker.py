@@ -121,13 +121,13 @@ class DictionaryMessageMaker(MessageMaker):
         return values_bytes_array
 
     def _parse_format_list(self, format_list, current_index):
-        if current_index >= len(format_list) - 1:
-            if format_list[-1] != "*":
-                raise MessageMakerError("values too long for client entry")
-            data_format = format_list[-2]
-
-        else:
-            data_format = format_list[current_index]
+        try:
+            if current_index >= len(format_list) - 1 and format_list[-1] == "*":
+                data_format = format_list[-2]
+            else:
+                data_format = format_list[current_index]
+        except IndexError:
+            raise MessageMakerError("values too long for client entry")
 
         return data_format
 
