@@ -1,0 +1,6 @@
+[
+  {
+    "description": "fix set_verify for multiple values bug",
+    "type": "patch"
+  }
+]
