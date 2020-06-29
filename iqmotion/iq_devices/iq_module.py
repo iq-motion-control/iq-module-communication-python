@@ -145,9 +145,15 @@ class IqModule:
         if returned_value is None:
             return False
 
+        # makes sure the values are a list so that the for loop works
+        if not isinstance(set_value, list):
+            set_value = [set_value]
+            returned_value = [returned_value]
+
         # some values might loose precision when being saved so check if it's within a 0.01 range
-        if abs(set_value - returned_value) >= verify_range:
-            return False
+        for i, value in enumerate(set_value):
+            if abs(value - returned_value[i]) >= verify_range:
+                return False
 
         return True
 
