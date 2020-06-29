@@ -1,4 +1,0 @@
-{
-  "type": "patch",
-  "description": "fix set_verify for multiple values bug"
-}
