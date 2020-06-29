@@ -1,4 +1,0 @@
-{
-  "type": "patch",
-  "description": "values for get/set are now list instead of *args, set_verify retries the set as well, flushes input com before each retry"
-}
