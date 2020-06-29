@@ -1,6 +1,10 @@
 # Changelog
 Note: version releases in the 0.x.y range may introduce breaking changes.
 
+## 0.9.3
+
+- patch: fix set_verify for multiple values bug
+
 ## 0.9.2
 
 - patch: fixed multiple values for set bug
