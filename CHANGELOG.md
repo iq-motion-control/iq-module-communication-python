@@ -1,6 +1,10 @@
 # Changelog
 Note: version releases in the 0.x.y range may introduce breaking changes.
 
+## 0.9.2
+
+- patch: fixed multiple values for set bug
+
 ## 0.9.1
 
 - patch: values for get/set are now list instead of *args, set_verify retries the set as well, flushes input com before each retry
