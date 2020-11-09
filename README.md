@@ -5,7 +5,7 @@
 ![tag](https://img.shields.io/github/v/tag/iq-motion-control/iq-module-communication-python)
 ![release](https://img.shields.io/github/release/iq-motion-control/iq-module-communication-python/all.svg)
 
-This library is to talk to any IQ Control devices from mulititude of communication protocoles.
+This library is to talk to any IQ Control devices from multitude of communication protocoles.
 
 ## Getting Started
 
