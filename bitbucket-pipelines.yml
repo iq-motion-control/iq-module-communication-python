@@ -16,7 +16,6 @@ test-master: &test-master
       - pip install pytest-cov
       - pip install -r requirements.txt
       - pytest ./iqmotion/tests/ --cov-config=.coveragerc --cov=iqmotion --cov-fail-under=90
-      - pylint-fail-under --fail-under 10 iqmotion
     services:
       - docker
 
@@ -42,7 +41,6 @@ test-release: &test-release
       - pip install pylint-fail-under
       - pip install -r requirements.txt
       - pytest ./iqmotion/tests/ --cov-config=.coveragerc --cov=iqmotion --cov-fail-under=90
-      - pylint-fail-under --fail-under 10 iqmotion
     services:
       - docker
 
@@ -52,7 +50,7 @@ release-new-version: &release-new-version
     script:
       - python -m pip install --upgrade pip
       - pip install pybadges
-      - pip install semversioner
+      - pip install semversioner==0.8.1
       - pip install twine
       - chmod +x ./ci_scripts/bump_version.sh
       - chmod +x ./ci_scripts/build_and_release_package.sh
