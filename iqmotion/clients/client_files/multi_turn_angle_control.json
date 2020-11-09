@@ -25,6 +25,8 @@
 {"type_idn":59, "param":"trajectory_duration",              "param_idn":  22,"format":"f", "unit": "s"          },
 {"type_idn":59, "param":"trajectory_linear_displacement",   "param_idn":  23,"format":"f", "unit": "m"          },
 {"type_idn":59, "param":"trajectory_linear_velocity",       "param_idn":  24,"format":"f", "unit": "m/s"        },
-{"type_idn":59, "param":"trajectory_linear_acceleration",   "param_idn":  25,"format":"f", "unit": "m/s^2"      }
+{"type_idn":59, "param":"trajectory_linear_acceleration",   "param_idn":  25,"format":"f", "unit": "m/s^2"      },
+{"type_idn":59, "param":"trajectory_average_speed",         "param_idn":  26,"format":"f", "unit": "rad/s"        },
+{"type_idn":59, "param":"trajectory_queue_mode",            "param_idn":  27,"format":"b", "unit": ""           }
 
 ]
