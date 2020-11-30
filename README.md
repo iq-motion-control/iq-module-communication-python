@@ -1,5 +1,4 @@
 # IQ Motion Python API
-
 ![Python Build](https://github.com/iq-motion-control/iq-module-communication-python/workflows/Python%20Build/badge.svg)
 [![codecov](https://codecov.io/gh/iq-motion-control/iq-module-communication-python/branch/master/graph/badge.svg)](https://codecov.io/gh/iq-motion-control/iq-module-communication-python)
 ![tag](https://img.shields.io/github/v/tag/iq-motion-control/iq-module-communication-python)
@@ -58,7 +57,7 @@ pipenv shell
 For windows, the power shell might not be able to activate the environment cuase of restrictions, just run the following command in a PowerShell to solve this:
 
 ```powershell
-Set-ExecutionPolicy –ExecutionPolicy RemoteSignedt
+Set-ExecutionPolicy ï¿½ExecutionPolicy RemoteSignedt
 ```
 
 ### Installing
