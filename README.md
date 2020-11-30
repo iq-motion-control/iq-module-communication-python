@@ -58,8 +58,7 @@ pipenv shell
 For windows, the power shell might not be able to activate the environment cuase of restrictions, just run the following command in a PowerShell to solve this:
 
 ```powershell
-Set-ExecutionPolicy â€“ExecutionPolicy RemoteSignedt
-```stall requirements.txt
+Set-ExecutionPolicy –ExecutionPolicy RemoteSignedt
 ```
 
 ### Installing
