@@ -9,8 +9,6 @@
     "persistent_memory",
     "power_monitor",
     "serial_interface",
-    "servo_input_parser",
-    "step_direction_input",
     "system_control",
     "temperature_estimator",
     "temperature_monitor_uc"
