@@ -2,7 +2,6 @@
   "clients": [
     "brushless_drive",
     "propeller_motor_control",
-    "anticogging",
     "buzzer_control",
     "esc_propeller_input_parser",
     "hobby_input",
