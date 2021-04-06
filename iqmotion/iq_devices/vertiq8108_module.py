@@ -19,7 +19,8 @@ class vertiq8108(IqModule):
     def __init__(
         self,
         com: Communicator, 
-        firmware = "speed" 
+        firmware = "speed",
+        module_idn=0
     ):
         if firmware.lower() == "speed":
             self._DEFAULT_CONTROL_CLIENT = "propeller_motor_control"
@@ -28,7 +29,7 @@ class vertiq8108(IqModule):
 
             self._MODULE_FILE_NAME = "speed.json"
 
-            super().__init__(com)
+            super().__init__(com,module_idn)
         else:
             raise IqModuleError("'" + str(firmware) + "' firmware is not supported")
 

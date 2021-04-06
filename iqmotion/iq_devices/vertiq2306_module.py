@@ -19,7 +19,8 @@ class vertiq2306(IqModule):
     def __init__(
         self,
         com: Communicator, 
-        firmware = "speed" 
+        firmware = "speed",
+        module_idn=0 
     ):
 
         # Point to the correct JSON File depending on the firmware
@@ -50,4 +51,4 @@ class vertiq2306(IqModule):
             raise IqModuleError("'" + str(firmware) + "' firmware is not supported")
 
         # Pass the Super
-        super().__init__(com)
+        super().__init__(com,module_idn)
