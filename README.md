@@ -1,4 +1,5 @@
 # IQ Motion Python API
+
 ![Python Build](https://github.com/iq-motion-control/iq-module-communication-python/workflows/Python%20Build/badge.svg)
 [![codecov](https://codecov.io/gh/iq-motion-control/iq-module-communication-python/branch/master/graph/badge.svg)](https://codecov.io/gh/iq-motion-control/iq-module-communication-python)
 ![tag](https://img.shields.io/github/v/tag/iq-motion-control/iq-module-communication-python)
@@ -76,6 +77,34 @@ If you are using this repository as a submodule, make sure to make a symbolic li
 
 ```bash
 ln -s python_api/iqmotion iqmotion
+```
+
+If you prefer **not** to use symbolic links, you could dynamically append the library to your system PATH at runtime by following along with the example below:
+
+```bash
+├── examples 
+│   ├── api_testing.py <---------------(current python script)
+│   ├── async_example.py
+│   ├── multi_turn_example.py
+│   └── propeller_example.py
+├── iqmotion   <-----------------------(IQMOTION API LIBRARY)
+│   ├── client_entries
+│   │   ├── client_entry_data.py
+│   │   ├── client_entry.py
+│   │   ├── dictionary_client_entry.py
+│   │   ├── __init__.py
+│   │   └── process_client_entry.py
+│   ├── clients
+```
+
+If I wanted to run api_testing.py from the examples Directory, I need to append the iqmotion library to the system path at the top of my api_testing.py script:
+
+```python
+import sys
+
+#  Adds the parent directory to the system path 
+# (Same location that the iqmotion library is located)
+sys.path.append("../") 
 ```
 
 ## Running the tests
