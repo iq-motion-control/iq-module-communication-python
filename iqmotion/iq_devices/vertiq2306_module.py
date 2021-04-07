@@ -4,7 +4,7 @@ from iqmotion.custom_errors import IqModuleError
 
 # This is a IQ Module Wrapper for the vertiq 2306
 # This Wrapper takes in firmware argument and creates an veritq2036 API Object
-class vertiq2306(IqModule):
+class Vertiq2306(IqModule):
     """ Creates vertiq2306 object with default speed firmware
     
     Arguments:
@@ -19,8 +19,9 @@ class vertiq2306(IqModule):
     def __init__(
         self,
         com: Communicator, 
-        firmware = "speed",
-        module_idn=0 
+        module_idn: int = 0,
+        firmware: str = "speed", # Default Firmware
+        clients_path: str = None 
     ):
 
         # Point to the correct JSON File depending on the firmware
@@ -51,4 +52,4 @@ class vertiq2306(IqModule):
             raise IqModuleError("'" + str(firmware) + "' firmware is not supported")
 
         # Pass the Super
-        super().__init__(com,module_idn)
+        super().__init__(com, module_idn, clients_path)

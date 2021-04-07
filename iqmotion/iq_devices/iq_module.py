@@ -20,28 +20,32 @@ class IqModule:
     _DEFAULT_VELOCITY_CLIENT_ENTRY = ""
     _DEFAULT_VOLTS_CLIENT_ENTRY = ""
 
-    def __init__(
-        self, com: Communicator, module_idn=0, extra_clients=None, module_file_path=None
-    ):
+    def __init__(self, com: Communicator, module_idn=0, clients_path=None):
+        
         self._client_dict = {}
         self._com = com
         self._module_idn = module_idn
 
-        if module_file_path is None:
-            self._module_file_dict = IqModuleJsonParser.parse_default_modules(
-                self._MODULE_FILE_NAME
-            )
-        else:
-            self._module_file_dict = IqModuleJsonParser.parse_module(module_file_path)
+        # Load the Module JSON (Base, Vertiq, Fortiq, etc...)
+        self._module_file_dict = IqModuleJsonParser.parse_default_modules(
+            self._MODULE_FILE_NAME
+        )
+        
+        # Deprecated: Add a custom module 
+        # self._module_file_dict = IqModuleJsonParser.parse_module(module_file_path)
 
+        # Load the default clients from the Module JSON
         self._create_clients(self._module_file_dict)
 
-        if extra_clients is not None:
-            for extra_client in extra_clients:
-                self.add_client(extra_client)
+        # Load the custom clients from the provided client_path?
+        if clients_path is not None:
+            for extra_client in os.listdir(clients_path):
+                self.add_client(os.path.join(
+                                os.getcwd(),
+                                clients_path,
+                                extra_client))
 
     def _create_clients(self, module_file_dict: dict):
-
         # parse different clients when new clients will be added
         for client_name in module_file_dict["clients"]:
             self._client_dict[client_name] = ClientWithEntries.from_default_clients(
@@ -392,6 +396,12 @@ class IqModule:
 
         for client_name in self._client_dict:
             print("\t{0}".format(client_name))
+
+    def return_clients(self):
+        """ Returns a list of all the clients available with a module
+        """
+
+        return self._client_dict.keys()
 
     def list_client_entries(self, client_name: str):
         """ Displays all the client entries available for that client

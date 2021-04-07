@@ -4,7 +4,7 @@ from iqmotion.custom_errors import IqModuleError
 
 # This is a IQ Module Wrapper for the fortiq
 # This Wrapper takes in firmware argument and creates an fortiq API Object
-class fortiq(IqModule):
+class Fortiq(IqModule):
     """ Creates fortiq object with default speed firmware
     
     Arguments:
@@ -19,7 +19,9 @@ class fortiq(IqModule):
     def __init__(
         self,
         com: Communicator, 
-        firmware = "servo"  # Default firmware 
+        module_idn: int = 0,
+        firmware: str = "servo",  # Default Firmware 
+        clients_path: str = None
     ):
 
         # Point to the correct JSON File depending on the firmware
@@ -50,4 +52,4 @@ class fortiq(IqModule):
             raise IqModuleError("'" + str(firmware) + "' firmware os not supported")
 
         # Pass the Super
-        super().__init__(com)
+        super().__init__(com, module_idn, clients_path)

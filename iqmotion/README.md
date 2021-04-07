@@ -1,40 +1,64 @@
-# How to Add new Clients and Client Entries for R&D
+# IQ Modules
 
-## Step 1: Create A New Module JSON File
+## Creating a Vertiq Module
 
-**Make sure this file is placed in the directory: `iqmotion/module_files`**
+Currently IQ Python API supports 2 motors: Vertiq 2306 & Vertiq 8108
 
-For Example: If the R&D Servo Firmware has a new client called `crazy_new_feature`, we will want to create a json file (`servo_rd_module.json` ) that contains the new client:
+Here's how you create a Vertiq Module:  
 
-```json
-{
-  "clients": [
-    "crazy_new_feature", <------- (New client)
-    "brushless_drive",
-    "multi_turn_angle_control",
-    "anticogging",
-    "buzzer_control",
-    "hobby_input",
-    "persistent_memory",
-    "power_monitor",
-    "serial_interface",
-    "servo_input_parser",
-    "system_control",
-    "temperature_estimator",
-    "temperature_monitor_uc"
-  ]
-}
+```python
+import iqmotion as iq
+
+serial_port = "/dev/ttyUSB0" # Machine dependent
+com = iq.SerialCommunicator(serial_port)
+
+# Create a vertiq2306 module with default firmware settings ("speed")
+vertiq2306 = iq.Vertiq2306(com, 0)
+
+# Create a vertiq8108 module with default firmware settings ("speed")
+vertiq8108 = iq.Vertiq8108(com, 0) 
 ```
 
-## Step 2: Create Client Entry JSON for any new clients
+## Choosing the firmware for the Vertiq Module
 
-Create a new client_entry json (`crazy_new_feature.json`) that holds the client entries for the client.
+If you have flashed different firmware onto the module, then you'll need to reflect that change in the API as well.  
 
-**Make sure this file is placed in the directory: `iqmotion/module_files`**
+* The Vertiq2306 currently supports:  
+    `firmware = ["stepdir", "speed", "servo"]`
 
-```json
-[
-{"type_idn":11, "param":"new_feature_value1", "param_idn":  0, "format":"", "unit": ""},
-{"type_idn":11, "param":"new_feature_value2", "param_idn":  1, "format":"", "unit": ""}
-]
+* The Vertiq8108 currently supports:  
+    `firmware = ["speed"]`
+
+Here's how you change the firmware in the API
+
+```python
+# Create a vertiq module with different firmare settings
+vertiq2306 = iq.vertiq2306(com, 0, firmware="stepdir") 
 ```
+
+## Load new clients on top of your Vertiq Module
+
+To add clients on top of a Vertiq2306 or Vertiq8108, create a folder that holds all of your custom client json files and pass the folder name to the module.
+
+```python
+# This folder should contain custom client jsons
+clients_path = "clients/" 
+
+vertiq2306 = iq.vertiq2306(com, 0, clients_path=clients_path)
+vertiq2306.list_clients() # Displays loaded clients for the module
+```
+
+## Create a Base Module containing only essential clients
+
+A Base Module is a module that contains all the essentials clients needed to interact with a motor. It does not have any control modules so it's a blank slate.
+
+To start with a base module and add clients on top, create a folder that holds all of your custom client json files and pass the folder name to the module.
+
+```python
+# This folder should contain custom client jsons
+clients_path = "custom_clients/"
+
+FlyDronePro = iq.BaseIqModule(com, 0, clients_path=clients_path)
+FlyDronePro.list_clients() # Displays loaded clients for the module
+```
+

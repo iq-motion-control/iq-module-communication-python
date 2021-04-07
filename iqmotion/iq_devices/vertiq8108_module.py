@@ -4,7 +4,7 @@ from iqmotion.custom_errors import IqModuleError
 
 # This is a IQ Module Wrapper for the vertiq 8108
 # This Wrapper takes in firmware argument and creates an veritq8108 API Object
-class vertiq8108(IqModule):
+class Vertiq8108(IqModule):
     """ Creates vertiq8108 object with default speed firmware
     
     Arguments:
@@ -19,18 +19,18 @@ class vertiq8108(IqModule):
     def __init__(
         self,
         com: Communicator, 
-        firmware = "speed",
-        module_idn=0
+        module_idn: int = 0, 
+        firmware: str = "speed", # Default Firmware       
+        clients_path: str = None
     ):
         if firmware.lower() == "speed":
             self._DEFAULT_CONTROL_CLIENT = "propeller_motor_control"
             self._DEFAULT_VELOCITY_CLIENT_ENTRY = "ctrl_velocity"
             self._DEFAULT_VOLTS_CLIENT_ENTRY = "ctrl_volts"
-
             self._MODULE_FILE_NAME = "speed.json"
 
-            super().__init__(com,module_idn)
         else:
             raise IqModuleError("'" + str(firmware) + "' firmware is not supported")
 
+        super().__init__(com, module_idn, clients_path)
         
