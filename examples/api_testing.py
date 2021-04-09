@@ -6,7 +6,7 @@ import time
 import math
 
 # Motor Comms
-com = iq.SerialCommunicator("/dev/ttyUSB2") # Q-Motor
+com = iq.SerialCommunicator("/dev/ttyUSB0") # Q-Motor
 
 # Clients to Load
 client_files = "clients/"
@@ -21,5 +21,8 @@ vertiq8108.list_clients()
 
 # Using the Vertiq2306 with additional custom client files
 vertiq2306 = iq.Vertiq2306(com, 0, firmware="stepdir", clients_path=client_files)
+
+speed = iq.SpeedModule(com, 0)
+speed.list_clients()
 
 
