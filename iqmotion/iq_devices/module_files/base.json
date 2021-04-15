@@ -1,0 +1,10 @@
+{
+    "clients": [
+      "brushless_drive",
+      "persistent_memory",
+      "power_monitor",
+      "serial_interface",
+      "system_control",
+      "temperature_monitor_uc"
+    ]
+  }
