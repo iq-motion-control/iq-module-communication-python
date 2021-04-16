@@ -93,12 +93,12 @@ class TestIqModule:
             == err_str
         )
 
-    def test_extra_clients(self, mock_communicator, mock_client):
+    def test_clients_path(self, mock_communicator, mock_client):
         client_file_path = os.path.join(
-            os.path.dirname(__file__), ("client_files/extra_client.json")
+            os.path.dirname(__file__), ("extra_client_files/")
         )
 
-        module = IqModule(mock_communicator, extra_clients=[client_file_path])
+        module = IqModule(mock_communicator, clients_path=client_file_path)
 
         assert "extra_client" in module._client_dict.keys()
 
