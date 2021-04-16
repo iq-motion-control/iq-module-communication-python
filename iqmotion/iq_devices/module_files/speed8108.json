@@ -1,0 +1,16 @@
+{
+    "clients": [
+      "brushless_drive",
+      "propeller_motor_control",
+      "buzzer_control",
+      "esc_propeller_input_parser",
+      "hobby_input",
+      "persistent_memory",
+      "power_monitor",
+      "serial_interface",
+      "system_control",
+      "temperature_estimator",
+      "temperature_monitor_uc",
+      "uavcan_node"
+    ]
+  }

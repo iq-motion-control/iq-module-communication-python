@@ -1,5 +1,3 @@
-import os
-
 from iqmotion.iq_devices.iq_module import IqModule
 from iqmotion.communication.communicator import Communicator
 
