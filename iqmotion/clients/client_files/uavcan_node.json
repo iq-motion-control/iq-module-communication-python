@@ -1,0 +1,4 @@
+[
+{"type_idn":80, "param":"uavcan_node_id",   "param_idn":  0,  "format":"I",  "unit": ""},
+{"type_idn":80, "param":"uavcan_esc_index", "param_idn":  1,  "format":"I",  "unit": ""}
+]

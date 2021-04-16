@@ -13,6 +13,7 @@ exclude_lines =
     def _find_serial_port
     def list_clients
     def list_client_entries
+    def return_clients
 skip_covered = 0
 show_missing = 1
 

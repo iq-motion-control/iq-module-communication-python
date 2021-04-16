@@ -1,6 +1,18 @@
 # Changelog
 Note: version releases in the 0.x.y range may introduce breaking changes.
 
+## 0.11.1
+
+- patch: Updated Coverage tests for the New Vertiq's, Fortiq's, and Base Modules
+
+## 0.11.0
+
+- minor: updated modules and clients for vertiq2306 and vertiq8108
+
+## 0.10.0
+
+- minor: updated clients for new firmware speed v23 and servo v15
+
 ## 0.9.3
 
 - patch: fix set_verify for multiple values bug
