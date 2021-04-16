@@ -1,6 +1,10 @@
 # Changelog
 Note: version releases in the 0.x.y range may introduce breaking changes.
 
+## 0.11.1
+
+- patch: Updated Coverage tests for the New Vertiq's, Fortiq's, and Base Modules
+
 ## 0.11.0
 
 - minor: updated modules and clients for vertiq2306 and vertiq8108
