@@ -5,15 +5,18 @@
 ![tag](https://img.shields.io/github/v/tag/iq-motion-control/iq-module-communication-python)
 ![release](https://img.shields.io/github/release/iq-motion-control/iq-module-communication-python/all.svg)
 
-This library is to talk to any IQ Control devices from mulititude of communication protocoles.
+This library is to talk to any IQ Control devices from mulititude of communication protocols.
 
 ## Getting Started
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.  
+To Learn more about this API, Read the [Communications API Documentation](https://iq-motion-control-iqmotion.readthedocs-hosted.com/en/latest/) 
 
 ### Prerequisites
 
 #### Pipenv
+
+Read the second part of [this](https://hackernoon.com/reaching-python-development-nirvana-bb5692adf30c) and [this](https://pipenv-fork.readthedocs.io/en/latest/basics.html) for more information on pipenv.
 
 Windows and mac users:
 
@@ -23,47 +26,15 @@ Linux users:
 
 - [installing pipenv](https://github.com/pypa/pipenv)
 
-Read the second part of [this](https://hackernoon.com/reaching-python-development-nirvana-bb5692adf30c) and [this](https://pipenv-fork.readthedocs.io/en/latest/basics.html) once, understand how it works (it's really easy) and you will be good for ever (you can also come and bother Raf, he loves explaining how this stuff works).
-
-List of usefull pipenv commands:
-
-```bash
-pipenv install
-pipenv install --dev
-pipenv install [some_package]
-
-pipenv uninstall --all
-pipenv uninstall [some_package]
-
-pipenv shell
-
-pipenv update
-pipenv update [some_package]
-```
-
-you probably only need this command to create a python venv and install all the dependancies when starting out:
-
-```bash
-pipenv install --dev
-```
-
-and this command to init the python venv shell
-
-```bash
-pipenv shell
-```
-
-### Vscode
-
-For windows, the power shell might not be able to activate the environment cuase of restrictions, just run the following command in a PowerShell to solve this:
-
-```powershell
-Set-ExecutionPolicy �ExecutionPolicy RemoteSignedt
-```
-
 ### Installing
 
-You can install this library using "pip":
+You can install this library using "pipenv" or "pip":
+
+```bash
+pipenv install iqmotion
+```
+
+or
 
 ```bash
 pip install iqmotion
@@ -97,7 +68,7 @@ If you prefer **not** to use symbolic links, you could dynamically append the li
 │   ├── clients
 ```
 
-If I wanted to run api_testing.py from the examples Directory, I need to append the iqmotion library to the system path at the top of my api_testing.py script:
+If you wanted to run api_testing.py from the examples Directory, you would need to append the iqmotion library to the system path at the top of my api_testing.py script:
 
 ```python
 import sys
@@ -119,10 +90,10 @@ They should be already installed with pipenv.
 You can then run the software tests with the following command:
 
 ```shell
-pytest ./iqmotion/tests/ --cov-config=.coveragerc --cov=iqmotion --cov-fail-under=90
+pytest ./iqmotion/tests/ --cov-config=.coveragerc --cov=iqmotion --cov-fail-under=100
 ```
 
-The test will fail if coverage is under 90%
+The test will fail if coverage is under 100%
 
 You can run the hardware tests with the following commands:
 
@@ -188,6 +159,7 @@ Please read [CONTRIBUTING.md](https://github.com/iq-motion-control/iq-module-com
 ## Authors
 
 - **Raphael Van Hoffelen**
+- **Malik B. Parker**
 
 See also the list of [contributors](https://github.com/iq-motion-control/iq-module-communication-python/blob/master/contributors.md) who participated in this project.
 
