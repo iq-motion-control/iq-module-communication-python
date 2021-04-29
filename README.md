@@ -10,7 +10,7 @@ This library is to talk to any IQ Control devices from mulititude of communicati
 ## Getting Started
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.  
-To Learn more about this API, Read the [Communications API Documentation](https://iq-motion-control-iqmotion.readthedocs-hosted.com/en/latest/) 
+To Learn more about this API, Read the [Communications API Documentation](https://iqmotion.readthedocs.io/en/latest/) 
 
 ### Prerequisites
 
