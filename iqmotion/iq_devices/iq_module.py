@@ -21,7 +21,7 @@ class IqModule:
     _DEFAULT_VOLTS_CLIENT_ENTRY = ""
 
     def __init__(self, com: Communicator, 
-                module_idn=0, 
+                module_idn=0,  
                 clients_path: str=None, 
                 extra_clients: list=None, 
                 module_file_path: str=None):
