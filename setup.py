@@ -8,7 +8,7 @@ setup(
     name="iqmotion",
     packages=find_packages(),
     include_package_data=True,
-    version="0.11.2",
+    version="0.11.3",
     license="lgpl-3.0",
     description="Python libraries to talk to IQ Motion Control devices",
     long_description=long_description,
