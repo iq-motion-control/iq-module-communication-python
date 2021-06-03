@@ -1,0 +1,4 @@
+{
+  "type": "patch",
+  "description": "Exposes CustomIQModule through iq import"
+}
