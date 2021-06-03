@@ -22,8 +22,8 @@ class IqModule:
 
     def __init__(self, com: Communicator, 
                 module_idn=0, 
-                extra_clients: list=None, 
                 clients_path: str=None, 
+                extra_clients: list=None, 
                 module_file_path: str=None):
         
         self._client_dict = {}
