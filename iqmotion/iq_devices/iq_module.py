@@ -20,7 +20,11 @@ class IqModule:
     _DEFAULT_VELOCITY_CLIENT_ENTRY = ""
     _DEFAULT_VOLTS_CLIENT_ENTRY = ""
 
-    def __init__(self, com: Communicator, module_idn=0, extra_clients=None, clients_path=None, module_file_path=None):
+    def __init__(self, com: Communicator, 
+                module_idn=0, 
+                extra_clients: list=None, 
+                clients_path: str=None, 
+                module_file_path: str=None):
         
         self._client_dict = {}
         self._com = com

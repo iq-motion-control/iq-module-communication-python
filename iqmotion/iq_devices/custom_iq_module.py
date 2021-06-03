@@ -22,6 +22,29 @@ from iqmotion.communication.communicator import Communicator
 #           in addition to extra client files. 
 #           Note: You need to have a folder named extra_client_files hosting your 
 #                 client files
+#           Example of 3rd Option
+#           {
+#             "clients": [
+#               "brushless_drive",
+#               "propeller_motor_control",
+#               "anticogging",
+#               "buzzer_control",
+#               "esc_propeller_input_parser",
+#               "hobby_input",
+#               "persistent_memory",
+#               "power_monitor",
+#               "serial_interface",
+#               "servo_input_parser",
+#               "step_direction_input",
+#               "system_control",
+#               "temperature_estimator",
+#               "temperature_monitor_uc"
+#             ],
+#             "extra_clients": [
+#               "extra_client"
+#             ]
+#           }
+
 
 class CustomIqModule(IqModule):
     _MODULE_FILE_NAME = ""
@@ -31,8 +54,8 @@ class CustomIqModule(IqModule):
         custom_module_location: str,
         com: Communicator,
         module_idn=0,
-        clients_path=None,
-        extra_clients=None,
+        clients_path: str=None,
+        extra_clients: list=None,
     ):
         module_file_path = os.path.join(
             os.path.dirname(custom_module_location),
@@ -56,25 +79,3 @@ class CustomIqModule(IqModule):
                 self.add_client(extra_client_file_path)
 
 
-# Example of 3rd Option
-# {
-#   "clients": [
-#     "brushless_drive",
-#     "propeller_motor_control",
-#     "anticogging",
-#     "buzzer_control",
-#     "esc_propeller_input_parser",
-#     "hobby_input",
-#     "persistent_memory",
-#     "power_monitor",
-#     "serial_interface",
-#     "servo_input_parser",
-#     "step_direction_input",
-#     "system_control",
-#     "temperature_estimator",
-#     "temperature_monitor_uc"
-#   ],
-#   "extra_clients": [
-#     "extra_client"
-#   ]
-# }
