@@ -1,4 +1,5 @@
 from iqmotion.iq_devices.base_iq_module import BaseIqModule
+from iqmotion.iq_devices.custom_iq_module import CustomIqModule
 
 # Soon to be deprecated: but the original way to access motor firmware API
 from iqmotion.iq_devices.speed_module import SpeedModule
