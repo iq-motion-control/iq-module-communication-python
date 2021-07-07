@@ -1,6 +1,10 @@
 # Changelog
 Note: version releases in the 0.x.y range may introduce breaking changes.
 
+## 0.11.4
+
+- patch: Internal Update
+
 ## 0.11.3
 
 - patch: Exposes CustomIQModule through iq import
