@@ -1,6 +1,10 @@
 # Changelog
 Note: version releases in the 0.x.y range may introduce breaking changes.
 
+## 0.11.5
+
+- patch: internal update 2
+
 ## 0.11.4
 
 - patch: Internal Update
