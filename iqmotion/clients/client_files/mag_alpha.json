@@ -1,0 +1,10 @@
+[
+    {"type_idn":75, "param":"angle_raw",	"param_idn":  0, "format":"I", "unit": "Rev32"},
+    {"type_idn":75, "param":"angle_rad",	"param_idn":  1, "format":"f", "unit": "rad"},
+    {"type_idn":75, "param":"alarm",        "param_idn":  2, "format":"B", "unit": ""},
+    {"type_idn":75, "param":"mght",         "param_idn":  3, "format":"B", "unit": ""},
+    {"type_idn":75, "param":"mglt",         "param_idn":  4, "format":"B", "unit": ""},
+    {"type_idn":75, "param":"reg_val",      "param_idn":  5, "format":"H", "unit": ""},
+    {"type_idn":75, "param":"reg_adr",      "param_idn":  6, "format":"H", "unit": ""},
+    {"type_idn":75, "param":"reg_str",      "param_idn":  7, "format":"",  "unit": ""}
+]
