@@ -1,6 +1,10 @@
 # Changelog
 Note: version releases in the 0.x.y range may introduce breaking changes.
 
+## 0.11.6
+
+- patch: Added Anticogging_ft client to main code base
+
 ## 0.11.5
 
 - patch: internal update 2

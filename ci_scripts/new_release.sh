@@ -26,7 +26,12 @@ echo "Creating Release"
 RELEASE_BRANCH=release/new_release
 git checkout -b ${RELEASE_BRANCH}
 
-semversioner add-change --type $RELEASE_TYPE --description "$RELEASE_MSG"
+semversioner add-change --type $RELEASE_TYPE --description "$RELEASE_MSG" ||
+{ echo 'Semversioner Failed' ; 
+  git checkout master
+  git branch -D release/new_release
+  exit 1; }
+
 git add --all
 git commit -m "$RELEASE_MSG"
 git push --set-upstream origin ${RELEASE_BRANCH}
