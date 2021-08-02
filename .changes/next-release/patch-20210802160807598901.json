@@ -1,4 +1,0 @@
-{
-  "type": "patch",
-  "description": "You can now change the baudrate from within the module using .update_baudrate"
-}
