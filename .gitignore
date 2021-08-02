@@ -5,6 +5,9 @@
 *.code-workspace
 *.vscode
 
+# Exclude any Test Code
+test.py
+
 coverage.svg
 release_badge.svg
 
