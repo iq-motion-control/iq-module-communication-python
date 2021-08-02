@@ -517,3 +517,6 @@ class IqModule:
         success = Ramper.ramp_volts_slew(self, final_volts, slew_rate)
 
         return success
+
+    def update_baudrate(self, baudrate):
+        self._com._ser_handle.baudrate = baudrate
