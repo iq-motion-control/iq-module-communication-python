@@ -1,0 +1,22 @@
+{
+ "clients": [
+  "power_monitor",
+  "buzzer_control",
+  "propeller_motor_control",
+  "esc_propeller_input_parser",
+  "uavcan_node",
+  "multi_turn_angle_control",
+  "hobby_input",
+  "step_direction_input",
+  "anticogging",
+  "serial_interface",
+  "mag_alpha",
+  "persistent_memory",
+  "servo_input_parser",
+  "anticogging_ft",
+  "system_control",
+  "brushless_drive",
+  "temperature_monitor_uc",
+  "temperature_estimator"
+ ]
+}

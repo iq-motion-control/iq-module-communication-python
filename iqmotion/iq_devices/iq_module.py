@@ -518,5 +518,10 @@ class IqModule:
 
         return success
 
-    def update_baudrate(self, baudrate):
+    def update_baudrate(self, baudrate: int):
+        """ Updates the baudrate of the serial com. This does not update the baudrate of the motor
+        
+        Arguments:
+            baudrate {int} -- baudrate of com port
+        """
         self._com._ser_handle.baudrate = baudrate

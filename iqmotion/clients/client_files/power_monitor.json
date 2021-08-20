@@ -5,7 +5,6 @@
 {"type":"PowerMonitor", "type_idn":69, "param":"watts",         "param_idn":  2, "format":"f", "unit": "W"},
 {"type":"PowerMonitor", "type_idn":69, "param":"joules",        "param_idn":  3, "format":"f", "unit": "J"},
 {"type":"PowerMonitor", "type_idn":69, "param":"reset_joules",  "param_idn":  4, "format":"",  "unit": ""},
-
 {"type":"PowerMonitor", "type_idn":69, "param":"filter_fs",     "param_idn":  5, "format":"I", "unit": "Hz"},
 {"type":"PowerMonitor", "type_idn":69, "param":"filter_fc",     "param_idn":  6, "format":"I", "unit": "Hz"},
 {"type":"PowerMonitor", "type_idn":69, "param":"volts_raw",     "param_idn":  7, "format":"H", "unit": "-"},
