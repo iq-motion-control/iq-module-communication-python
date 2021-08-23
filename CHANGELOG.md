@@ -1,6 +1,10 @@
 # Changelog
 Note: version releases in the 0.x.y range may introduce breaking changes.
 
+## 0.11.8
+
+- patch: modified anticogging_pro
+
 ## 0.11.7
 
 - patch: You can now change the baudrate from within the module using .update_baudrate
