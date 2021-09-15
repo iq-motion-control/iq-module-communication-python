@@ -275,7 +275,7 @@ class IqModule:
 
         replies = {}
         for client_entry_name in client.client_entries.keys():
-            reply = self.get_retry(client_name, client_entry_name, time_out, retries)
+            reply = self.get_retry(client_name, client_entry_name, time_out=time_out, retries=retries)
             replies[client_entry_name] = reply
 
         return replies
