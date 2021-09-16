@@ -5,6 +5,8 @@
 *.code-workspace
 *.vscode
 
+
+
 # Exclude any Test Code
 test.py
 
@@ -39,6 +41,7 @@ share/python-wheels/
 .installed.cfg
 *.egg
 MANIFEST
+*.toml
 
 # PyInstaller
 #  Usually these files are written by a python script from a template
