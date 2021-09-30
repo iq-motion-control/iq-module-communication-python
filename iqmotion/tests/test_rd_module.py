@@ -20,11 +20,14 @@ class TestRdModule:
                 RdModule("/dev/ttyUSB0")
 
     # Test autoconnection with 1 serial port available
+    # Testing autoconnection to a speed and position module
     @patch('iqmotion.iq_devices.rd_iq_module.SerialCommunicator')
     def test_mock_one_port(self, mock_serial):
         setattr(RdModule, "_find_serial_ports", Mock(return_value=["/dev/ttyUSB0"]))
+        setattr(RdModule, "get", Mock(side_effect=[0x100000, 0x200000]))
         mock_serial.return_value = MockCommunicator()
-        RdModule()
+        mot = RdModule()
+        assert(mot._DEFAULT_CONTROL_CLIENT == "propeller_motor_control")
 
     # Test autoconnection with multiple serial ports available
     @patch('iqmotion.iq_devices.rd_iq_module.SerialCommunicator')
@@ -42,23 +45,11 @@ class TestRdModule:
         with pytest.raises(CommunicationError):
             RdModule()
 
-    # Test ramp velocity fails
+    # Test autoconnection with 1 serial port available but unknown firmware style
     @patch('iqmotion.iq_devices.rd_iq_module.SerialCommunicator')
-    def test_ramp_velocity(self, mock_serial):
+    def test_mock_one_port(self, mock_serial):
         setattr(RdModule, "_find_serial_ports", Mock(return_value=["/dev/ttyUSB0"]))
+        setattr(RdModule, "get", Mock(side_effect=[0x12300000]))
         mock_serial.return_value = MockCommunicator()
         with pytest.raises(IqModuleError):
-            module = RdModule()
-            module.ramp_velocity(3,20)
-
-    
-    # Test ramp velocity fails
-    @patch('iqmotion.iq_devices.rd_iq_module.SerialCommunicator')
-    def test_ramp_prop_multi_velocity(self, mock_serial):
-        setattr(RdModule, "_find_serial_ports", Mock(return_value=["/dev/ttyUSB0"]))
-        mock_serial.return_value = MockCommunicator()
-        module = RdModule()
-        module.ramp_propeller_velocity(3,20)
-        module.ramp_multi_turn_velocity(3,20)
-
-    
+            RdModule()

@@ -8,6 +8,10 @@ import sys
 import glob
 import serial
 
+SPEED   = '1'
+SERVO   = '2'
+STEPDIR = '4'
+
 class RdModule(IqModule):
     """ Creates R&D Object with every publicly available json
 
@@ -30,10 +34,11 @@ class RdModule(IqModule):
         self,
         port: str=None,
         baudrate: int=115200,
-        module_idn: int = 0,      
+        module_idn: int = 0,
+        style: str = None,      
         clients_path: str = None
     ):
-        
+
         self._DEFAULT_VELOCITY_CLIENT_ENTRY = "ctrl_velocity"
         self._DEFAULT_VOLTS_CLIENT_ENTRY = "ctrl_volts"
         self._MODULE_FILE_NAME = "rd.json"
@@ -73,116 +78,18 @@ class RdModule(IqModule):
 
         super().__init__(com, module_idn, clients_path)
 
-    def ramp_propeller_velocity(self, final_velocity: float, total_time: float, time_steps=20):
-        """ Ramps Velocity of the module up via Propeller Client to a target in set amount of seconds
+        # Try to automagically figure out the firmware style
+        firmware_version = self.get("system_control", "firmware_version")
+        firmware_style = str(0xFFFF & (firmware_version >> 20))
+        if (style=="speed" or firmware_style == SPEED):
+            self._DEFAULT_CONTROL_CLIENT = "propeller_motor_control"
+        elif(style=="position" or firmware_style == SERVO or firmware_style == STEPDIR):
+            self._DEFAULT_CONTROL_CLIENT = "multi_turn_angle_control"
+        else:
+            err_msg = "Please select the motor firmware style:\n\n"
+            err_msg += "'speed' or 'position'"
+            raise IqModuleError(err_msg)
 
-        Arguments:
-            final_velocity {float} -- final velocity goal
-            total_time {float} -- time to reach velocity goal (s)
-
-        Keyword Arguments:
-            time_steps {int} -- num of velocity increments (default: {20})
-
-        Returns:
-            bool -- True if the ramp was successful
-        """
-
-        self._DEFAULT_CONTROL_CLIENT = "propeller_motor_control"
-        success = super().ramp_velocity(final_velocity, total_time, time_steps)
-        
-        return success
-
-    def ramp_multi_turn_velocity(self, final_velocity: float, total_time: float, time_steps=20):
-        """ Ramps Velocity of the module up via Multi Turn Client to a target in set amount of seconds
-
-        Arguments:
-            final_velocity {float} -- final velocity goal
-            total_time {float} -- time to reach velocity goal (s)
-
-        Keyword Arguments:
-            time_steps {int} -- num of velocity increments (default: {20})
-
-        Returns:
-            bool -- True if the ramp was successful
-        """
-
-        self._DEFAULT_CONTROL_CLIENT = "multi_turn_angle_control"
-        success = super().ramp_velocity(final_velocity, total_time, time_steps)
-        
-        return success
-
-    def ramp_velocity(self, final_velocity: float=None, total_time: float=None, time_steps=None):
-        """ NOT SUPPORTED 
-
-            Please use ramp_multi_turn_velocity or ramp_propeller_velocity
-        """
-        err_msg = "ramp_velocity not supported with Rd_module:\n\n"
-        err_msg += "Please use ramp_multi_turn_velocity or ramp_propeller_velocity"
-        raise IqModuleError(err_msg)
-
-    def coast_prop(self):
-        """ Send a coast command to the propeller motor control client 
-        
-        """
-        self._DEFAULT_CONTROL_CLIENT = "propeller_motor_control"
-        super().coast()
-
-    def coast_multi_turn(self):
-        """ Send a coast command to the multi turn angle control client
-        
-        """
-        self._DEFAULT_CONTROL_CLIENT = "multi_turn_angle_control"
-        super().coast()
-
-    def coast(self):
-        """ NOT SUPPORTED 
-
-            Please use coast_multi_turn or coast_prop
-        """
-        err_msg = "coast not supported with Rd_module:\n\n"
-        err_msg += "Please use coast_multi_turn or coast_prop"
-        raise IqModuleError(err_msg)
-
-    def ramp_multi_turn_volts(self, final_volts: float, total_time: float, time_steps=20):
-        """ Ramps the volts of the module via multi_turn client up to a target in set amount of seconds
-
-        Arguments:
-            final_volts {float} -- final volts goal
-            total_time {float} -- time to reach volts goal (s)
-
-        Keyword Arguments:
-            time_steps {int} -- num of volts increment (default: {20})
-
-        Returns:
-            bool -- True if the ramp was successful
-        """
-        self._DEFAULT_CONTROL_CLIENT = "multi_turn_angle_control"
-        return super().ramp_volts(final_volts, total_time, time_steps=time_steps)
-
-    def ramp_propeller_volts(self, final_volts: float, total_time: float, time_steps=20):
-        """ Ramps the volts of the module via Propeller client up to a target in set amount of seconds
-
-        Arguments:
-            final_volts {float} -- final volts goal
-            total_time {float} -- time to reach volts goal (s)
-
-        Keyword Arguments:
-            time_steps {int} -- num of volts increment (default: {20})
-
-        Returns:
-            bool -- True if the ramp was successful
-        """
-        self._DEFAULT_CONTROL_CLIENT = "propeller_motor_control"
-        return super().ramp_volts(final_volts, total_time, time_steps=time_steps)
-
-    def ramp_volts(self, final_volts: float=None, total_time: float=None, time_steps=None):
-        """ NOT SUPPORTED 
-
-            Please use ramp_multi_turn_volts or ramp_propeller_volts
-        """
-        err_msg = "ramp_volts not supported with Rd_module:\n\n"
-        err_msg += "Please use ramp_multi_turn_volts or ramp_propeller_volts"
-        raise IqModuleError(err_msg)
 
     def _find_serial_ports(self):
         """ Finds a list of open serial ports
