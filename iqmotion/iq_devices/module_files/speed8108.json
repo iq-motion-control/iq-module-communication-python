@@ -9,7 +9,7 @@
       "power_monitor",
       "serial_interface",
       "system_control",
-      "temperature_estimator",
+      "coil_temperature_estimator",
       "temperature_monitor_uc",
       "uavcan_node"
     ]
