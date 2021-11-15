@@ -427,6 +427,16 @@ class IqModule:
         for client_entry in client.client_entries.values():
             print(client_entry.data)
 
+    def return_client_entries(self, client_name: str):
+        """ Returns all the client entries available for that client
+
+        Args:
+            client_name {str} -- name of client
+        """
+        self._client_exists(client_name)
+        client = self._client_dict[client_name]
+        return client.client_entries.keys()
+
     def _client_and_client_entry_exists(self, client_name: str, client_entry_name: str):
         self._client_exists(client_name)
 

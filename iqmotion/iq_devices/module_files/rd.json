@@ -9,6 +9,7 @@
   "multi_turn_angle_control",
   "hobby_input",
   "step_direction_input",
+  "coil_temperature_estimator",
   "anticogging",
   "serial_interface",
   "mag_alpha",
