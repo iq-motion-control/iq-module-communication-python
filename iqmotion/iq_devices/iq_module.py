@@ -81,6 +81,12 @@ class IqModule:
         """
         self.set(self._DEFAULT_CONTROL_CLIENT, "ctrl_coast")
 
+    def brake(self):
+        """ Sends a brake command from the default control client to the module.
+        You can check the success with "brushless_drive" "drive_mode".
+        """
+        self.set(self._DEFAULT_CONTROL_CLIENT, "ctrl_brake")
+
     def set(self, client_name: str, client_entry_name: str, values=None):
         """ Sets a value to the module with a message formed by a client and client entry
         
