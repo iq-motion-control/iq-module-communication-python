@@ -60,7 +60,7 @@ class RdModule(IqModule):
         if port is not None:
             com = SerialCommunicator(port, baudrate)
         # Otherwise allow RdModule auto-connect if it's only 1 port open
-        if len(ports_avail) == 1:
+        elif len(ports_avail) == 1:
             port = ports_avail[0]
             com = SerialCommunicator(port, baudrate)
         # If too many ports are available, you should pass one in
