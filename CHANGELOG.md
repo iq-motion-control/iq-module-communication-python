@@ -1,6 +1,10 @@
 # Changelog
 Note: version releases in the 0.x.y range may introduce breaking changes.
 
+## 0.11.13
+
+- patch: Patched RD module to work with Windows
+
 ## 0.11.12
 
 - patch: Updated Vertiq8108 Files
