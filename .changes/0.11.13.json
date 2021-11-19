@@ -1,0 +1,6 @@
+[
+  {
+    "description": "Patched RD module to work with Windows",
+    "type": "patch"
+  }
+]
