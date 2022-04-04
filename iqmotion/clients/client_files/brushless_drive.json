@@ -30,6 +30,8 @@
 {"type_idn":50, "param":"motor_redline_start",      "param_idn":  38, "format":"f", "unit": "rad/s"       },
 {"type_idn":50, "param":"motor_redline_end",        "param_idn":  39, "format":"f", "unit": "rad/s"       },
 {"type_idn":50, "param":"motor_l",                  "param_idn":  40, "format":"f", "unit": "H"           },
-{"type_idn":50, "param":"derate",                   "param_idn":  41, "format":"i", "unit": "PU fix16"    }
+{"type_idn":50, "param":"derate",                   "param_idn":  41, "format":"i", "unit": "PU fix16"    },
+{"type_idn":50, "param":"slew_volts_per_second",    "param_idn":  46, "format":"f", "unit": "V"           },
+{"type_idn":50, "param":"slew_enable",              "param_idn":  47, "format":"B", "unit": ""            }
 
 ]
