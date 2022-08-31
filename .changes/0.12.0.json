@@ -1,0 +1,6 @@
+[
+  {
+    "description": "Update persistent_memory client file",
+    "type": "minor"
+  }
+]
