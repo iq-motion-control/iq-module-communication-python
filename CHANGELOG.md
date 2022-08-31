@@ -1,6 +1,10 @@
 # Changelog
 Note: version releases in the 0.x.y range may introduce breaking changes.
 
+## 0.12.0
+
+- minor: Update persistent_memory client file
+
 ## 0.11.13
 
 - patch: Patched RD module to work with Windows
