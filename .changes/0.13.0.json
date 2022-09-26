@@ -1,0 +1,6 @@
+[
+  {
+    "description": "Update anticogging_pro, brushless_drive, hobby_input, persistent_memory, power_monitor, serial_interface, servo_input_parser, system_control, temperature_esimator, and uavcan_node",
+    "type": "minor"
+  }
+]
