@@ -5,7 +5,8 @@
 *.code-workspace
 *.vscode
 
-
+# PYCHARM
+.idea/
 
 # Exclude any Test Code
 test.py
