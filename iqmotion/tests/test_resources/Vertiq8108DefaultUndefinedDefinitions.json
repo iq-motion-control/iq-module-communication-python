@@ -1,0 +1,23 @@
+[
+  "angle_adjust_enable",
+  "motor_emf_calc",
+  "angle_adjustment",
+  "angle_adjust_max",
+  "angle_adjust_kp",
+  "angle_adjust_ki",
+  "motor_i_soft_start",
+  "motor_i_soft_end",
+  "motoring_supply_current_limit",
+  "regen_supply_current_limit",
+  "supply_current_limit_enable",
+  "regen_limiting",
+  "regen_limit_adjust",
+  "motoring_limiting",
+  "motoring_limit_adjust",
+  "regen_limit_kp",
+  "regen_limit_ki",
+  "regen_limit_max",
+  "motoring_limit_kp",
+  "motoring_limit_ki",
+  "motoring_limit_max"
+]

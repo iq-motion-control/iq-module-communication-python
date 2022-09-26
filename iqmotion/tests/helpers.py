@@ -88,3 +88,20 @@ def index_in_list(a_list, index):
         return 1
 
     return 0
+
+class ClientIfDefs:
+    brushless_drive = {
+        "BRUSHLESS_DRIVE_ANGLE_ADJUST": ["angle_adjust_enable", "motor_emf_calc", "angle_adjustment",
+                                         "angle_adjust_max", "angle_adjust_kp", "angle_adjust_ki"],
+        "BRUSHLESS_DRIVE_ENABLE_SOFT_CURRENT_LIMIT": ["derate_volts", "motor_i_soft_start", "motor_i_soft_end", "emf",
+                                                      "volts_at_mac_amps"],
+        "USE_SLEW_LIMIT": ["slew_volts_per_second", "slew_enable"],
+        "BRUSHLESS_DRIVE_SUPPLY_CURRENT_LIMIT": ["motoring_supply_current_limit", "regen_supply_current_limit",
+                                                 "supply_current_limit_enable"],
+        "BRUSHLESS_DRIVE_SUPPLY_CURRENT_LIMIT_CLOSED_LOOP": ["regen_limiting", "regen_limit_adjust",
+                                                             "motoring_limiting", "motoring_limit_adjust",
+                                                             "regen_limit_kp", "regen_limit_ki", "regen_limit_max",
+                                                             "motoring_limit_kp", "motoring_limit_ki",
+                                                             "motoring_limit_max"]
+
+    }
