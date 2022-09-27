@@ -1,0 +1,6 @@
+[
+  {
+    "description": "Undo derate name change in brushless_drive",
+    "type": "patch"
+  }
+]
