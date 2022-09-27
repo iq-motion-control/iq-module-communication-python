@@ -1,6 +1,10 @@
 # Changelog
 Note: version releases in the 0.x.y range may introduce breaking changes.
 
+## 0.13.1
+
+- patch: Undo derate name change in brushless_drive
+
 ## 0.13.0
 
 - minor: Update anticogging_pro, brushless_drive, hobby_input, persistent_memory, power_monitor, serial_interface, servo_input_parser, system_control, temperature_esimator, and uavcan_node
