@@ -1,6 +1,6 @@
 [
 
-{"type_idn":61, "param":"ctrl_mode",  "param_idn":  0, "format":"b", "unit": ""           },
+{"type_idn":61, "param":"ctrl_mode",  "param_idn":  0, "format":"b", "unit": "enum"           },
 {"type_idn":61, "param":"ctrl_brake", "param_idn":  1, "format":"",  "unit": ""           },
 {"type_idn":61, "param":"ctrl_coast", "param_idn":  2, "format":"",  "unit": ""           },
 {"type_idn":61, "param":"ctrl_note",  "param_idn":  3, "format":"",  "unit": ""           },
