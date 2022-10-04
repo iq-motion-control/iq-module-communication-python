@@ -11,6 +11,7 @@
     "servo_input_parser",
     "system_control",
     "temperature_estimator",
-    "temperature_monitor_uc"
+    "temperature_monitor_uc",
+    "power_safety"
   ]
 }
