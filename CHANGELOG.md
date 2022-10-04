@@ -1,6 +1,10 @@
 # Changelog
 Note: version releases in the 0.x.y range may introduce breaking changes.
 
+## 0.14.0
+
+- minor: Added power_safety client
+
 ## 0.13.1
 
 - patch: Undo derate name change in brushless_drive
