@@ -9,5 +9,6 @@
   {"type_idn":80, "param":"bus_off_flag",           "param_idn":  6,  "format":"B",  "unit": ""   },
   {"type_idn":80, "param":"error_passive_flag",     "param_idn":  7,  "format":"B",  "unit": ""   },
   {"type_idn":80, "param":"error_warning_flag",     "param_idn":  8,  "format":"B",  "unit": ""   },
-  {"type_idn":80, "param":"telemetry_frequency",    "param_idn":  9,  "format":"I",  "unit": "Hz" }
+  {"type_idn":80, "param":"telemetry_frequency",    "param_idn":  9,  "format":"I",  "unit": "Hz" },
+  {"type_idn":80, "param":"bit_rate",               "param_idn": 10,  "format":"I",  "unit": "bps"}
 ]
