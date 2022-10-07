@@ -1,6 +1,10 @@
 # Changelog
 Note: version releases in the 0.x.y range may introduce breaking changes.
 
+## 0.14.2
+
+- patch: Fix unit fields for power_safety
+
 ## 0.14.1
 
 - patch: Fix param_idn fields in power_safety
