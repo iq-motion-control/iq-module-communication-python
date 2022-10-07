@@ -1,0 +1,6 @@
+[
+  {
+    "description": "Fix unit fields for power_safety",
+    "type": "patch"
+  }
+]
