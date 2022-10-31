@@ -7,6 +7,6 @@
 {"type_idn":60, "param":"velocity_max", "param_idn":  5, "format":"f", "unit": "rad/s"      },
 {"type_idn":60, "param":"thrust_max",   "param_idn":  6, "format":"f", "unit": "N"          },
 {"type_idn":60, "param":"safe_factor",  "param_idn":  7, "format":"f", "unit": "PU"         },
-{"type_idn":60, "param":"flip_negative","param_idn":  8, "format":"B", "unit": "bool"         }
+{"type_idn":60, "param":"flip_negative","param_idn":  8, "format":"B", "unit": "bool"       }
 
 ]

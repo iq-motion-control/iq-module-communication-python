@@ -1,0 +1,19 @@
+[
+
+  {"type":"PowerSafety", "type_idn":84, "param":"fault_now",              "param_idn": 0,   "format":"B", "unit": ""      },
+  {"type":"PowerSafety", "type_idn":84, "param":"fault_ever",             "param_idn": 1,   "format":"B", "unit": ""      },
+  {"type":"PowerSafety", "type_idn":84, "param":"fault_latching",         "param_idn": 2,   "format":"B", "unit": ""      },
+  {"type":"PowerSafety", "type_idn":84, "param":"volt_input_low",         "param_idn": 3,   "format":"f", "unit": "V"     },
+  {"type":"PowerSafety", "type_idn":84, "param":"volt_input_high",        "param_idn": 4,   "format":"f", "unit": "V"     },
+  {"type":"PowerSafety", "type_idn":84, "param":"vref_int_low",           "param_idn": 5,   "format":"f", "unit": "V"     },
+  {"type":"PowerSafety", "type_idn":84, "param":"vref_int_high",          "param_idn": 6,   "format":"f", "unit": "V"     },
+  {"type":"PowerSafety", "type_idn":84, "param":"current_input_low",      "param_idn": 7,   "format":"f", "unit": "A"     },
+  {"type":"PowerSafety", "type_idn":84, "param":"current_input_high",     "param_idn": 8,   "format":"f", "unit": "A"     },
+  {"type":"PowerSafety", "type_idn":84, "param":"motor_current_low",      "param_idn": 9,   "format":"f", "unit": "A"     },
+  {"type":"PowerSafety", "type_idn":84, "param":"motor_current_high",     "param_idn": 10,  "format":"f", "unit": "A"     },
+  {"type":"PowerSafety", "type_idn":84, "param":"temperature_uc_low",     "param_idn": 11,  "format":"f", "unit": "degC"  },
+  {"type":"PowerSafety", "type_idn":84, "param":"temperature_uc_high",    "param_idn": 12,  "format":"f", "unit": "degC"  },
+  {"type":"PowerSafety", "type_idn":84, "param":"temperature_coil_low",   "param_idn": 13,  "format":"f", "unit": "degC"  },
+  {"type":"PowerSafety", "type_idn":84, "param":"temperature_coil_high",  "param_idn": 14,  "format":"f", "unit": "degC"  }
+
+]

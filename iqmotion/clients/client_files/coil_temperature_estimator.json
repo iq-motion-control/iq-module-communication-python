@@ -1,0 +1,19 @@
+[
+
+    {"type_idn":83, "param":"t_coil",                 "param_idn":  0, "format":"f", "unit": "degC"},
+    {"type_idn":83, "param":"t_alu",                  "param_idn":  1, "format":"f", "unit": "degC"},
+    {"type_idn":83, "param":"t_amb",                  "param_idn":  2, "format":"f", "unit": "degC"},
+    {"type_idn":83, "param":"h_free_conv",            "param_idn":  3, "format":"f", "unit": ""},
+    {"type_idn":83, "param":"h_coil_alu",             "param_idn":  4, "format":"f", "unit": ""},
+    {"type_idn":83, "param":"h_forced_conv",          "param_idn":  5, "format":"f", "unit": ""},
+    {"type_idn":83, "param":"c_coil",                 "param_idn":  6, "format":"f", "unit": ""},
+    {"type_idn":83, "param":"h_conv_coeff",           "param_idn":  7, "format":"f", "unit": ""},
+    {"type_idn":83, "param":"otw",                    "param_idn":  8, "format":"f", "unit": "degC"},
+    {"type_idn":83, "param":"otlo",                   "param_idn":  9, "format":"f", "unit": "degC"},
+    {"type_idn":83, "param":"derate",                 "param_idn":  10, "format":"f", "unit": ""},
+    {"type_idn":83, "param":"q_joule",                "param_idn":  11, "format":"f", "unit": "W"},
+    {"type_idn":83, "param":"q_conv",                 "param_idn":  12, "format":"f", "unit": "W"},
+    {"type_idn":83, "param":"q_rad",                  "param_idn":  13, "format":"f", "unit": "W"},
+    {"type_idn":83, "param":"q_cond",                 "param_idn":  14, "format":"f", "unit": "W"}
+  
+  ]
