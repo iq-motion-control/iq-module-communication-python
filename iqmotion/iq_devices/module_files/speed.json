@@ -10,6 +10,7 @@
     "serial_interface",
     "system_control",
     "temperature_estimator",
-    "temperature_monitor_uc"
+    "temperature_monitor_uc",
+    "power_safety"
   ]
 }

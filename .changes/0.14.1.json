@@ -1,0 +1,6 @@
+[
+  {
+    "description": "Fix param_idn fields in power_safety",
+    "type": "patch"
+  }
+]
