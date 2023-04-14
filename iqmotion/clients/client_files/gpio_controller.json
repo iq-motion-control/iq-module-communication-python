@@ -1,0 +1,13 @@
+[
+    {"type_idn":90, "param":"modes_register", "param_idn":  0, "format":"B", "unit": ""},
+    {"type_idn":90, "param":"inputs_register", "param_idn":  1, "format":"B", "unit": ""},
+    {"type_idn":90, "param":"outputs_register", "param_idn":  2, "format":"B", "unit": ""},
+    {"type_idn":90, "param":"use_pull_register", "param_idn":  3, "format":"B", "unit": ""},
+    {"type_idn":90, "param":"pull_type_register", "param_idn":  4, "format":"B", "unit": ""},
+    {"type_idn":90, "param":"push_pull_register", "param_idn":  5, "format":"B", "unit": ""},
+    {"type_idn":90, "param":"addressable_gpio_modes", "param_idn":  6, "format":"B", "unit": ""},
+    {"type_idn":90, "param":"addressable_outputs", "param_idn":  7, "format":"B", "unit": ""},
+    {"type_idn":90, "param":"addressable_use_pull", "param_idn":  8, "format":"B", "unit": ""},
+    {"type_idn":90, "param":"addressable_pull_type", "param_idn":  9, "format":"B", "unit": ""},
+    {"type_idn":90, "param":"addressable_push_pull_open_drain", "param_idn":  10, "format":"B", "unit": ""}
+]
