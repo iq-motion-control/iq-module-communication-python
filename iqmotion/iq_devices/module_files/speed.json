@@ -1,16 +1,19 @@
 {
   "clients": [
+    "arming_handler",
     "brushless_drive",
-    "propeller_motor_control",
     "buzzer_control",
+    "coil_temperature_estimator",
     "esc_propeller_input_parser",
     "hobby_input",
     "persistent_memory",
     "power_monitor",
+    "power_safety",
+    "propeller_motor_control",
     "serial_interface",
+    "stopping_handler",
     "system_control",
     "temperature_estimator",
-    "temperature_monitor_uc",
-    "power_safety"
+    "temperature_monitor_uc"
   ]
 }

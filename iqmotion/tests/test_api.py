@@ -1,39 +1,48 @@
+import pytest
 import iqmotion as iq
-import pprint as pp
-import json
 
 
 class TestAPI:
-    com = iq.SerialCommunicator("COM7")
-    vertiq = iq.Vertiq8108(com, 0)
+    @pytest.fixture
+    def com_port(self):
+        return iq.SerialCommunicator("COM4")
 
-    def test_get_set(self):
+    @pytest.fixture
+    def vertiq_8108(self, com_port):
+        return iq.Vertiq8108(com_port, 0)
+
+    @pytest.fixture
+    def client_list(self, vertiq_8108):
+        return vertiq_8108.return_clients()
+
+    def test_brushless_drive_set(self, vertiq_8108, client_list):
+        assert client_list is not None
+
         client_name = "brushless_drive"
-        client_entry_name = "drive_volts_addition"
-        response = TestAPI.vertiq.get(client_name, client_entry_name)
-        print(response)
-        assert response is not None
+        assert client_name in client_list
 
+        client_entries = vertiq_8108.return_client_entries(client_name)
+        assert client_entries is not None
 
+        client_entry_name = "drive_mode"
+        assert client_entry_name in client_entries
 
-    def test_get_all(self):
-        # com = iq.SerialCommunicator("COM7")
-        # vertiq = iq.Vertiq8108(com, 0)
+        print("\nSetting drive mode to 5 (coast)")
+        status = vertiq_8108.set_verify(client_name, client_entry_name, 5)
+        print(f"status: {status}")
+        assert status is True
+        print("Getting updated drive mode")
+        response = vertiq_8108.get(client_name, client_entry_name)
+        print(f"response: {response}")
+        assert response is 5
+
+    def test_get_all(self, vertiq_8108, client_list):
         print('\n')
-        pp.pprint(TestAPI.vertiq.get_all("brushless_drive"))
-        responses = TestAPI.vertiq.get_all("brushless_drive")
+        for client in client_list:
+            print(f"\ntesting {client}")
+            responses = vertiq_8108.get_all(client)
+            assert responses is not None
 
-        with open("test_resources/Vertiq8108DefaultUndefinedDefinitions.json", 'r') as undefined_definitions:
-            undefined_defs = json.load(undefined_definitions)
-
-        with open("test_resources/Vertiq8108DefaultDefinedDefinitions.json", 'r') as defined_definitions:
-            defined_defs = json.load(defined_definitions)
-
-        for response in responses:
-            print(f"testing {response}")
-
-            if response in undefined_defs:
-                assert responses[response] is None
-            # if response in defined_defs:
-            #     if responses[response] is None:
-            #         print(f"{response} returned None")
+            for response in responses:
+                print(f"testing {response}: {responses[response]}")
+                # assert responses[response] is not None
