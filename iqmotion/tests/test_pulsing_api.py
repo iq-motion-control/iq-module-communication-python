@@ -15,6 +15,11 @@ class TestAPI:
     def client_list(self, pulsing_module):
         return pulsing_module.return_clients()
 
+    def test_telemetry(self, pulsing_module):
+        telemetry = pulsing_module.get("iquart_flight_controller_interface", "telemetry")
+        print(f"\n telemetry type: {type(telemetry)}")
+        print(telemetry)
+
     def test_brushless_drive_set(self, pulsing_module, client_list):
         assert client_list is not None
 
