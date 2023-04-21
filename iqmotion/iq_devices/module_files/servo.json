@@ -1,6 +1,7 @@
 {
   "clients": [
     "brushless_drive",
+    "coil_temperature_estimator",
     "multi_turn_angle_control",
     "anticogging",
     "buzzer_control",
