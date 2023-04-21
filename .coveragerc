@@ -9,7 +9,9 @@ omit =
     iqmotion/message_making/client_with_entries_message.py
     iqmotion/iq_devices/iq_module_json_parser.py
     iqmotion/iq_devices/common_commands/ramper.py
-exclude_lines = 
+    iqmotion/iq_devices/fortiq_module.py
+    iqmotion/iq_devices/pulsing_module.py
+exclude_lines =
     def _find_serial_port
     def list_clients
     def list_client_entries
