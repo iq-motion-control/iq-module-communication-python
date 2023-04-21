@@ -1,19 +1,19 @@
 {
   "clients": [
-    "arming_handler",
     "brushless_drive",
     "buzzer_control",
     "coil_temperature_estimator",
     "esc_propeller_input_parser",
-    "hobby_input",
+    "iquart_flight_controller_interface",
     "persistent_memory",
     "power_monitor",
     "power_safety",
     "propeller_motor_control",
+    "pulsing_rectangular_input_parser",
     "serial_interface",
-    "stopping_handler",
     "system_control",
     "temperature_estimator",
-    "temperature_monitor_uc"
+    "temperature_monitor_uc",
+    "voltage_superposition"
   ]
 }

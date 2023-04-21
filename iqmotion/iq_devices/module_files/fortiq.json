@@ -1,0 +1,18 @@
+{
+  "clients": [
+    "brushless_drive",
+    "multi_turn_angle_control",
+    "anticogging_pro",
+    "buzzer_control",
+    "hobby_input",
+    "persistent_memory",
+    "power_monitor",
+    "serial_interface",
+    "servo_input_parser",
+    "system_control",
+    "temperature_monitor_uc",
+    "gpio_controller",
+    "adc_interface",
+    "pwm_interface"
+  ]
+}

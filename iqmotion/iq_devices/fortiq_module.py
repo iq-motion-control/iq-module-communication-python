@@ -20,7 +20,7 @@ class Fortiq(IqModule):
         self,
         com: Communicator, 
         module_idn: int = 0,
-        firmware: str = "servo",  # Default Firmware 
+        firmware: str = "fortiq",  # Default Firmware
         clients_path: str = None
     ):
 
@@ -40,12 +40,27 @@ class Fortiq(IqModule):
 
             self._MODULE_FILE_NAME = "step_direction.json"
 
-        elif firmware.lower() == "servo": 
+        elif firmware.lower() == "servo":
             self._DEFAULT_CONTROL_CLIENT = "multi_turn_angle_control"
             self._DEFAULT_VELOCITY_CLIENT_ENTRY = "ctrl_velocity"
             self._DEFAULT_VOLTS_CLIENT_ENTRY = "ctrl_volts"
 
             self._MODULE_FILE_NAME = "servo.json"
+
+        elif firmware.lower() == "fortiq_stepdir":
+            self._DEFAULT_CONTROL_CLIENT = "multi_turn_angle_control"
+            self._DEFAULT_VELOCITY_CLIENT_ENTRY = "ctrl_velocity"
+            self._DEFAULT_VOLTS_CLIENT_ENTRY = "ctrl_volts"
+
+            self._MODULE_FILE_NAME = "fortiq_stepdir.json"
+
+        elif firmware.lower() == "fortiq":
+            self._DEFAULT_CONTROL_CLIENT = "multi_turn_angle_control"
+            self._DEFAULT_VELOCITY_CLIENT_ENTRY = "ctrl_velocity"
+            self._DEFAULT_VOLTS_CLIENT_ENTRY = "ctrl_volts"
+
+            self._MODULE_FILE_NAME = "fortiq.json"
+
 
 
         else:
