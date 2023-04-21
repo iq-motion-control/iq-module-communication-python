@@ -33,7 +33,7 @@ class Vertiq8108(IqModule):
             self._DEFAULT_CONTROL_CLIENT = "multi_turn_angle_control"
             self._DEFAULT_VELOCITY_CLIENT_ENTRY = "ctrl_velocity"
             self._DEFAULT_VOLTS_CLIENT_ENTRY = "ctrl_volts"
-            self._MODULE_FILE_NAME = "servo.json"
+            self._MODULE_FILE_NAME = "servo8108.json"
         else:
             raise IqModuleError("'" + str(firmware) + "' firmware is not supported")
 
