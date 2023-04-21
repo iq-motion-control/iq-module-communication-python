@@ -1,6 +1,10 @@
 # Changelog
 Note: version releases in the 0.x.y range may introduce breaking changes.
 
+## 0.15.1
+
+- patch: Update client files for 8108 servo
+
 ## 0.15.0
 
 - minor: Added new clients for 81-08 speed, fortiq, and pulsing
