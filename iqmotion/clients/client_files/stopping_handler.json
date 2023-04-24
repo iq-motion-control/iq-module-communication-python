@@ -1,0 +1,4 @@
+[
+  {"type_idn": 87, "param": "stopped_speed",  "param_idn": 0, "format": "f", "unit": "rad/s"  },
+  {"type_idn": 87, "param": "stopped_time",   "param_idn": 1, "format": "f", "unit": "s"      }
+]
