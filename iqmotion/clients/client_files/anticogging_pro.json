@@ -1,0 +1,15 @@
+[
+
+    {"type_idn":79, "param":"enabled",          "param_idn": 0,     "format":"B",   "unit": "bool"    },
+    {"type_idn":79, "param":"tau",              "param_idn": 1,     "format":"f",   "unit": ""        },
+    {"type_idn":79, "param":"num_harmonics",    "param_idn": 2,     "format":"B",   "unit": ""        },
+    {"type_idn":79, "param":"voltage",          "param_idn": 3,     "format":"f",   "unit": ""        },
+    {"type_idn":79, "param":"index",            "param_idn": 4,     "format":"B",   "unit": ""        },
+    {"type_idn":79, "param":"harmonic",         "param_idn": 5,     "format":"B",   "unit": ""        },
+    {"type_idn":79, "param":"a",                "param_idn": 6,     "format":"f",   "unit": ""        },
+    {"type_idn":79, "param":"phase",            "param_idn": 7,     "format":"f",   "unit": "rad"     },
+    {"type_idn":79, "param":"phase_total",      "param_idn": 8,     "format":"f",   "unit": "rad"     },
+    {"type_idn":79, "param":"amplitude",        "param_idn": 9,     "format":"f",   "unit": ""        },
+    {"type_idn":79, "param":"max_harmonics",    "param_idn": 10,    "format":"B",   "unit": ""        }
+
+]
