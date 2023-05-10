@@ -19,6 +19,12 @@
   {"type_idn":5, "param":"firmware_version",      "param_idn":  16, "format":"I", "unit": "ver"  },
   {"type_idn":5, "param":"hardware_version",      "param_idn":  17, "format":"I", "unit": "ver"  },
   {"type_idn":5, "param":"electronics_version",   "param_idn":  18, "format":"I", "unit": "ver"  },
-  {"type_idn":5, "param":"firmware_valid",        "param_idn":  19, "format":"B", "unit": "bool" }
+  {"type_idn":5, "param":"firmware_valid",        "param_idn":  19, "format":"B", "unit": "bool" },
+  {"type_idn":5, "param":"applications_present",  "param_idn":  20, "format":"B", "unit": ""     },
+  {"type_idn":5, "param":"bootloader_version",    "param_idn":  21, "format":"I", "unit": ""     },
+  {"type_idn":5, "param":"upgrade_version",       "param_idn":  22, "format":"I", "unit": ""     },
+  {"type_idn":5, "param":"iquart_system_clock",   "param_idn":  23, "format":"I", "unit": "Hz"   },
+  {"type_idn":5, "param":"iquart_control_flags",  "param_idn":  24, "format":"I", "unit": ""     },
+  {"type_idn":5, "param":"pcb_version",           "param_idn":  25, "format":"I", "unit": ""     }
 
 ]
