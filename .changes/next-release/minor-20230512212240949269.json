@@ -1,0 +1,4 @@
+{
+  "type": "minor",
+  "description": "Added new 4006 module and updated endpoints for system_control"
+}
