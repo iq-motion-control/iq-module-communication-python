@@ -9,8 +9,9 @@ from iqmotion.iq_devices.step_dir_module import StepDirModule
 
 # Make Motor Modules front facing visible
 from iqmotion.iq_devices.vertiq8108_module import Vertiq8108
+from iqmotion.iq_devices.vertiq4006_module import Vertiq4006
 from iqmotion.iq_devices.vertiq2306_module import Vertiq2306
-from iqmotion.iq_devices.fortiq_module  import Fortiq
+from iqmotion.iq_devices.fortiq_module import Fortiq
 from iqmotion.iq_devices.pulsing_module import PulsingModule
 
 from iqmotion.communication.communicator import Communicator
