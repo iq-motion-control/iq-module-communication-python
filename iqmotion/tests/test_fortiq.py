@@ -16,6 +16,10 @@ class TestFortiqModule:
 
     def test_stepdir_module(self, mock_communicator):
         Fortiq(mock_communicator, firmware="stepdir")
+        Fortiq(mock_communicator, firmware="fortiq_stepdir")
+
+    def test_fortiq_module(self, mock_communicator):
+        Fortiq(mock_communicator, firmware="fortiq")
 
     def test_servo_module(self, mock_communicator):
         Fortiq(mock_communicator, firmware="servo")
