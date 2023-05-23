@@ -23,4 +23,4 @@ class TestVertiq8108Module:
 
     def test_false_module(self, mock_communicator):
         with pytest.raises(IqModuleError):
-            Vertiq8108(mock_communicator, firmware="abcxyz")
+            Vertiq8108(mock_communicator, firmware="pulse")
