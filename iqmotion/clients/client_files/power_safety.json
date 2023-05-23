@@ -1,7 +1,7 @@
 [
   {"type":"PowerSafety", "type_idn":84, "param":"fault_now",              "param_idn": 0,   "format":"B", "unit": "Bitmask"   },
   {"type":"PowerSafety", "type_idn":84, "param":"fault_ever",             "param_idn": 1,   "format":"B", "unit": "Bitmask"   },
-  {"type":"PowerSafety", "type_idn":84, "param":"fault_latching",         "param_idn": 2,   "format":"B", "unit": "Bitmask"   },
+  {"type":"PowerSafety", "type_idn":84, "param":"fault_latching",         "param_idn": 2,   "format":"B", "unit": "bool"      },
   {"type":"PowerSafety", "type_idn":84, "param":"volt_input_low",         "param_idn": 3,   "format":"f", "unit": "V"         },
   {"type":"PowerSafety", "type_idn":84, "param":"volt_input_high",        "param_idn": 4,   "format":"f", "unit": "V"         },
   {"type":"PowerSafety", "type_idn":84, "param":"vref_int_low",           "param_idn": 5,   "format":"f", "unit": "V"         },

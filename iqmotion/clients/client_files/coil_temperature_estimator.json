@@ -9,7 +9,7 @@
   {"type_idn":83, "param":"h_coil_amb_forced_conv_coeff",	  "param_idn":  7, "format":"f", "unit": "W/(degC*sqrt(rad/s))"   },
   {"type_idn":83, "param":"otw",                              "param_idn":  8, "format":"f", "unit": "degC"                   },
   {"type_idn":83, "param":"otlo",                             "param_idn":  9, "format":"f", "unit": "degC"                   },
-  {"type_idn":83, "param":"derate",                           "param_idn": 10, "format":"f", "unit": "%"                      },
+  {"type_idn":83, "param":"derate",                           "param_idn": 10, "format":"f", "unit": "PU"                     },
   {"type_idn":83, "param":"q_coil_joule",                     "param_idn": 11, "format":"f", "unit": "W"                      },
   {"type_idn":83, "param":"q_coil_amb_conv",                  "param_idn": 12, "format":"f", "unit": "W"                      },
   {"type_idn":83, "param":"q_coil_stator_cond",               "param_idn": 13, "format":"f", "unit": "W"                      },

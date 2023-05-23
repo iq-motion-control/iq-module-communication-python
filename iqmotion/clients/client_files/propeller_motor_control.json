@@ -2,7 +2,7 @@
   {"type_idn":52, "param":"ctrl_mode",            "param_idn":  0,  "format":"b", "unit": "enum"        },
   {"type_idn":52, "param":"ctrl_brake",           "param_idn":  1,  "format":"",  "unit": ""            },
   {"type_idn":52, "param":"ctrl_coast",           "param_idn":  2,  "format":"",  "unit": ""            },
-  {"type_idn":52, "param":"ctrl_pwm",             "param_idn":  3,  "format":"f", "unit": "PWM"         },
+  {"type_idn":52, "param":"ctrl_pwm",             "param_idn":  3,  "format":"f", "unit": "PU"          },
   {"type_idn":52, "param":"ctrl_volts",           "param_idn":  4,  "format":"f", "unit": "V"           },
   {"type_idn":52, "param":"ctrl_velocity",        "param_idn":  5,  "format":"f", "unit": "rad/s"       },
   {"type_idn":52, "param":"ctrl_thrust",          "param_idn":  6,  "format":"f", "unit": "N"           },

@@ -8,7 +8,7 @@
   {"type_idn":59, "param":"angle_Ki",                         "param_idn":  6, "format":"f", "unit": "V/(rad*s)"  },
   {"type_idn":59, "param":"angle_Kd",                         "param_idn":  7, "format":"f", "unit": "V/(rad/s)"  },
   {"type_idn":59, "param":"timeout",                          "param_idn":  8, "format":"f", "unit": "s"          },
-  {"type_idn":59, "param":"ctrl_pwm",                         "param_idn":  9, "format":"f", "unit": "PWM"        },
+  {"type_idn":59, "param":"ctrl_pwm",                         "param_idn":  9, "format":"f", "unit": "PU"         },
   {"type_idn":59, "param":"ctrl_volts",                       "param_idn":  10,"format":"f", "unit": "V"          },
   {"type_idn":59, "param":"obs_angular_displacement",         "param_idn":  11,"format":"f", "unit": "rad"        },
   {"type_idn":59, "param":"obs_angular_velocity",             "param_idn":  12,"format":"f", "unit": "rad/s"      },
