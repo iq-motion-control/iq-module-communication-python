@@ -19,9 +19,8 @@ class TestVertiq8108Module:
             Vertiq8108(mock_communicator, firmware="stepdir")
 
     def test_servo_module(self, mock_communicator):
-        with pytest.raises(IqModuleError):
-            Vertiq8108(mock_communicator, firmware="servo")
+        Vertiq8108(mock_communicator, firmware="servo")
 
     def test_false_module(self, mock_communicator):
         with pytest.raises(IqModuleError):
-            Vertiq8108(mock_communicator, firmware="pulse")
+            Vertiq8108(mock_communicator, firmware="abcxyz")
