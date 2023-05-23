@@ -1,4 +1,4 @@
 [
-  {"type_idn":89, "param":"pulsing_voltage_mode",   "param_idn": 0, "format":"B", "unit": "" },
-  {"type_idn":89, "param":"pulsing_voltage_limit",  "param_idn": 1, "format":"f", "unit": "" }
+  {"type_idn":89, "param":"pulsing_voltage_mode",   "param_idn": 0, "format":"B", "unit": "enum" },
+  {"type_idn":89, "param":"pulsing_voltage_limit",  "param_idn": 1, "format":"f", "unit": "V"    }
 ]
