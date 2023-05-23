@@ -130,12 +130,19 @@ class TestIqModule:
             == f"IQ MODULE ERROR: Path does not lead to a json file: {client_file_path}\n"
         )
 
-    def test_coast(self, mock_communicator, mock_client):
-        module = IqModule(mock_communicator)
+    
+
+    def test_coast_and_baudrate(self, mock_communicator, mock_client):
+        com = MagicMock()
+        module = IqModule(com)
         module.set = MagicMock()
         module.coast()
+        module.update_baudrate(921600)
 
         assert module.set.called
+        assert com._ser_handle.baudrate == 921600
+
+
 
     @pytest.mark.parametrize(
         "test_input,expected",
@@ -441,3 +448,6 @@ class TestIqModule:
         module.update_replies()
 
         assert module.get_reply("client_test", client_entry_name) == expected
+
+    
+        
