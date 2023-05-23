@@ -1,15 +1,21 @@
 import pytest
 import iqmotion as iq
+from iqmotion.tests.helpers import MockCommunicator
 
 
 class TestAPI:
-    @pytest.fixture
-    def com_port(self):
-        return iq.SerialCommunicator("COM4")
+    # @pytest.fixture
+    # def com_port(self):
+    #     return iq.SerialCommunicator("COM4")
 
     @pytest.fixture
-    def vertiq_8108(self, com_port):
-        return iq.Vertiq8108(com_port, 0)
+    def mock_communicator(self):
+        mock_class = MockCommunicator()
+        return mock_class
+
+    @pytest.fixture
+    def vertiq_8108(self, mock_communicator):
+        return iq.Vertiq8108(mock_communicator, 0)
 
     @pytest.fixture
     def client_list(self, vertiq_8108):
