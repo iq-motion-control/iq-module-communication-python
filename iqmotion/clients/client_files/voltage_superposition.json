@@ -1,5 +1,5 @@
 [
-  {"type_idn":74, "param":"zero_angle",                       "param_idn":  0, "format":"f", "unit": "rad"	        },
+  {"type_idn":74, "param":"zero_angle",                       "param_idn":  0, "format":"f", "unit": "rad"	          },
   {"type_idn":74, "param":"frequency",                        "param_idn":  1, "format":"B", "unit": "Hz"             },
   {"type_idn":74, "param":"phase",                            "param_idn":  2, "format":"f", "unit": "rad"            },
   {"type_idn":74, "param":"amplitude",                        "param_idn":  3, "format":"f", "unit": "V"              },
