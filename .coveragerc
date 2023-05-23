@@ -2,6 +2,7 @@
 omit = 
     iqmotion/tests/*
     iqmotion/hardware_tests/*
+    local_tests/*
 
 [report]
 omit = 
