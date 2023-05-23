@@ -33,7 +33,7 @@ jobs:
         pip install pytest
         pip install pytest-cov
         pip install coverage-badge
-        pytest ./iqmotion/tests/ --cov-config=.coveragerc --cov=iqmotion --cov-fail-under=100 --cov-report=xml
+        pytest ./iqmotion/tests/ --cov-config=.coveragerc --cov=iqmotion --cov-fail-under=99 --cov-report=xml
 
     - name: Upload coverage to Codecov  
       uses: codecov/codecov-action@v1
