@@ -2,7 +2,7 @@
   "clients": [
     "brushless_drive",
     "multi_turn_angle_control",
-    "anticogging",
+    "anticogging_pro",
     "buzzer_control",
     "hobby_input",
     "persistent_memory",
@@ -10,8 +10,9 @@
     "serial_interface",
     "servo_input_parser",
     "system_control",
-    "temperature_estimator",
     "temperature_monitor_uc",
-    "power_safety"
+    "gpio_controller",
+    "adc_interface",
+    "pwm_interface"
   ]
 }

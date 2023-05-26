@@ -20,22 +20,32 @@ class IqModule:
     _DEFAULT_VELOCITY_CLIENT_ENTRY = ""
     _DEFAULT_VOLTS_CLIENT_ENTRY = ""
 
-    def __init__(self, com: Communicator, module_idn=0, clients_path=None):
+    def __init__(self, com: Communicator, 
+                module_idn=0,  
+                clients_path: str=None, 
+                extra_clients: list=None, 
+                module_file_path: str=None):
         
         self._client_dict = {}
         self._com = com
         self._module_idn = module_idn
 
         # Load the Module JSON (Base, Vertiq, Fortiq, etc...)
-        self._module_file_dict = IqModuleJsonParser.parse_default_modules(
-            self._MODULE_FILE_NAME
-        )
-        
-        # Deprecated: Add a custom module 
-        # self._module_file_dict = IqModuleJsonParser.parse_module(module_file_path)
+        if module_file_path is None:
+            self._module_file_dict = IqModuleJsonParser.parse_default_modules(
+                self._MODULE_FILE_NAME
+            )
+        # this only occurs from custom IQ Module
+        else:
+            self._module_file_dict = IqModuleJsonParser.parse_module(module_file_path)
 
         # Load the default clients from the Module JSON
         self._create_clients(self._module_file_dict)
+
+        # Load a list of json paths
+        if extra_clients is not None:
+            for extra_client in extra_clients:
+                self.add_client(extra_client)
 
         # Load the custom clients from the provided client_path?
         if clients_path is not None:
@@ -70,6 +80,12 @@ class IqModule:
         You can check the success with "brushless_drive" "drive_mode".
         """
         self.set(self._DEFAULT_CONTROL_CLIENT, "ctrl_coast")
+
+    def brake(self):
+        """ Sends a brake command from the default control client to the module.
+        You can check the success with "brushless_drive" "drive_mode".
+        """
+        self.set(self._DEFAULT_CONTROL_CLIENT, "ctrl_brake")
 
     def set(self, client_name: str, client_entry_name: str, values=None):
         """ Sets a value to the module with a message formed by a client and client entry
@@ -265,7 +281,7 @@ class IqModule:
 
         replies = {}
         for client_entry_name in client.client_entries.keys():
-            reply = self.get_retry(client_name, client_entry_name, time_out, retries)
+            reply = self.get_retry(client_name, client_entry_name, time_out=time_out, retries=retries)
             replies[client_entry_name] = reply
 
         return replies
@@ -417,6 +433,16 @@ class IqModule:
         for client_entry in client.client_entries.values():
             print(client_entry.data)
 
+    def return_client_entries(self, client_name: str):
+        """ Returns all the client entries available for that client
+
+        Args:
+            client_name {str} -- name of client
+        """
+        self._client_exists(client_name)
+        client = self._client_dict[client_name]
+        return client.client_entries.keys()
+
     def _client_and_client_entry_exists(self, client_name: str, client_entry_name: str):
         self._client_exists(client_name)
 
@@ -507,3 +533,11 @@ class IqModule:
         success = Ramper.ramp_volts_slew(self, final_volts, slew_rate)
 
         return success
+
+    def update_baudrate(self, baudrate: int):
+        """ Updates the baudrate of the serial com. This does not update the baudrate of the motor
+        
+        Arguments:
+            baudrate {int} -- baudrate of com port
+        """
+        self._com._ser_handle.baudrate = baudrate
