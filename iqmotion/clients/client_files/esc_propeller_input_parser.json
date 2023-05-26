@@ -7,6 +7,6 @@
   {"type_idn":60, "param":"thrust_max",         "param_idn":  6,  "format":"f", "unit": "N"          },
   {"type_idn":60, "param":"safe_factor",        "param_idn":  7,  "format":"f", "unit": "PU"         },
   {"type_idn":60, "param":"flip_negative",      "param_idn":  8,  "format":"B", "unit": "bool"       },
-  {"type_idn":60,"param":"zero_spin_throttle",  "param_idn":  9,  "format":"f", "unit": "%/100"      },
-  {"type_idn":60,"param":"zero_spin_tolerance", "param_idn":  10, "format":"f", "unit": "%/100"      }
+  {"type_idn":60,"param":"zero_spin_throttle",  "param_idn":  9,  "format":"f", "unit": "PU"         },
+  {"type_idn":60,"param":"zero_spin_tolerance", "param_idn":  10, "format":"f", "unit": "PU"         }
 ]
