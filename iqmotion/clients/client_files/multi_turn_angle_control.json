@@ -26,7 +26,7 @@
   {"type_idn":59, "param":"trajectory_linear_velocity",       "param_idn":  24,"format":"f", "unit": "m/s"        },
   {"type_idn":59, "param":"trajectory_linear_acceleration",   "param_idn":  25,"format":"f", "unit": "m/s^2"      },
   {"type_idn":59, "param":"trajectory_average_speed",         "param_idn":  26,"format":"f", "unit": "rad/s"      },
-  {"type_idn":59, "param":"trajectory_queue_mode",            "param_idn":  27,"format":"b", "unit": ""           },
+  {"type_idn":59, "param":"trajectory_queue_mode",            "param_idn":  27,"format":"b", "unit": "enum"       },
   {"type_idn":59, "param":"ff",                               "param_idn":  29,"format":"I", "unit": ""           },
   {"type_idn":59, "param":"sample_zero_angle",                "param_idn":  30,"format":"",  "unit": ""           },
   {"type_idn":59, "param":"zero_angle",                       "param_idn":  31,"format":"f", "unit": "rad"        }
