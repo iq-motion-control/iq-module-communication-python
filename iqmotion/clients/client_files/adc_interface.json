@@ -1,4 +1,4 @@
 [
-    {"type_idn":91, "param":"adc_voltage", "param_idn":  0, "format":"f", "unit": ""},
-    {"type_idn":91, "param":"raw_value", "param_idn":  1, "format":"H", "unit": ""}
+  {"type_idn": 91, "param": "adc_voltage",  "param_idn": 0, "format": "f", "unit": "V"        },
+  {"type_idn": 91, "param": "raw_value",    "param_idn": 1, "format": "H", "unit": "ADC Ticks"}
 ]
