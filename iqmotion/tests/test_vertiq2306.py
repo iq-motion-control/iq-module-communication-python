@@ -20,6 +20,9 @@ class TestVertiq2306Module:
     def test_servo_module(self, mock_communicator):
         Vertiq2306(mock_communicator, firmware="servo")
 
+    def test_pulsing_module(self, mock_communicator):
+        Vertiq2306(mock_communicator, firmware="pulsing")
+
     def test_false_module(self, mock_communicator):
         with pytest.raises(IqModuleError):
-            Vertiq2306(mock_communicator, firmware="pulse")
+            Vertiq2306(mock_communicator, firmware="abcxyz")
