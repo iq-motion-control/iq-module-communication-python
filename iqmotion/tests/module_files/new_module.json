@@ -1,0 +1,21 @@
+{
+  "clients": [
+    "brushless_drive",
+    "propeller_motor_control",
+    "anticogging",
+    "buzzer_control",
+    "esc_propeller_input_parser",
+    "hobby_input",
+    "persistent_memory",
+    "power_monitor",
+    "serial_interface",
+    "servo_input_parser",
+    "step_direction_input",
+    "system_control",
+    "temperature_estimator",
+    "temperature_monitor_uc"
+  ],
+  "extra_clients": [
+    "extra_client"
+  ]
+}
