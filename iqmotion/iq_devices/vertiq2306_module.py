@@ -2,30 +2,33 @@ from iqmotion.iq_devices.iq_module import IqModule
 from iqmotion.communication.communicator import Communicator
 from iqmotion.custom_errors import IqModuleError
 
-# This is a IQ Module Wrapper for the vertiq 2306
-# This Wrapper takes in firmware argument and creates an veritq2036 API Object
-class Vertiq2306(IqModule):
-    """ Creates vertiq2306 object with default speed firmware
-    
-    Arguments:
-        com {Communicator} -- The communicator object to interface with the IqModule
-        firmware {str} -- Which firmware is the motor using (default: {"speed"})
-    
-    Keyword Arguments:
-        module_idn {int} -- The idn of the module (default: {0})
-        extra_clients {list} -- list of file paths to extra clients you want to load in the module (default: {None})
-    """
 
+class Vertiq2306(IqModule):
     def __init__(
         self,
-        com: Communicator, 
+        com: Communicator,
         module_idn: int = 0,
-        firmware: str = "speed", # Default Firmware
-        clients_path: str = None 
+        firmware: str = "speed",  # Default Firmware
+        clients_path: str = None,
     ):
+        """Creates Vertiq2306 object with default speed firmware.
+
+        :param com: The communicator object used to interface with the IqModule
+        :type com: Communicator
+        :param module_idn: The idn of the module (default: 0)
+        :type module_idn: int
+        :param firmware: The firmware type used to determine which clients are available for the module to use
+            Options include:
+                * speed
+                * stepdir
+                * servo
+                * pulsing
+        :type firmware: str
+        :param clients_path: Optional parameter to specify a directory containing extra clients for the module to use (default: {None})
+        :type clients_path: str
+        """
 
         # Point to the correct JSON File depending on the firmware
-        #
         if firmware.lower() == "speed":
             self._DEFAULT_CONTROL_CLIENT = "propeller_motor_control"
             self._DEFAULT_VELOCITY_CLIENT_ENTRY = "ctrl_velocity"
@@ -40,13 +43,19 @@ class Vertiq2306(IqModule):
 
             self._MODULE_FILE_NAME = "step_direction.json"
 
-        elif firmware.lower() == "servo": 
+        elif firmware.lower() == "servo":
             self._DEFAULT_CONTROL_CLIENT = "multi_turn_angle_control"
             self._DEFAULT_VELOCITY_CLIENT_ENTRY = "ctrl_velocity"
             self._DEFAULT_VOLTS_CLIENT_ENTRY = "ctrl_volts"
 
             self._MODULE_FILE_NAME = "servo.json"
 
+        elif firmware.lower() == "pulsing":
+            self._DEFAULT_CONTROL_CLIENT = "propeller_motor_control"
+            self._DEFAULT_VELOCITY_CLIENT_ENTRY = "ctrl_velocity"
+            self._DEFAULT_VOLTS_CLIENT_ENTRY = "ctrl_volts"
+
+            self._MODULE_FILE_NAME = "pulsing.json"
 
         else:
             raise IqModuleError("'" + str(firmware) + "' firmware is not supported")
