@@ -10,6 +10,6 @@
     {"type_idn":79, "param":"phase",            "param_idn": 7,     "format":"f",   "unit": "rad"                   },
     {"type_idn":79, "param":"phase_total",      "param_idn": 8,     "format":"f",   "unit": "rad"                   },
     {"type_idn":79, "param":"amplitude",        "param_idn": 9,     "format":"f",   "unit": "A"                     },
-    {"type_idn":79, "param":"max_harmonics",    "param_idn": 10,    "format":"B",   "unit": "Hz"                    }
+    {"type_idn":79, "param":"max_harmonics",    "param_idn": 10,    "format":"B",   "unit": "Number of Harmonics"   }
 
 ]
