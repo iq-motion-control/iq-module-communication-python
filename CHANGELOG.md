@@ -1,6 +1,90 @@
 # Changelog
 Note: version releases in the 0.x.y range may introduce breaking changes.
 
+## 0.16.0
+
+- minor: Added new 4006 module and updated endpoints for system_control
+
+## 0.15.1
+
+- patch: Update client files for 8108 servo
+
+## 0.15.0
+
+- minor: Added new clients for 81-08 speed, fortiq, and pulsing
+
+## 0.14.2
+
+- patch: Fix unit fields for power_safety
+
+## 0.14.1
+
+- patch: Fix param_idn fields in power_safety
+
+## 0.14.0
+
+- minor: Added power_safety client
+
+## 0.13.1
+
+- patch: Undo derate name change in brushless_drive
+
+## 0.13.0
+
+- minor: Update anticogging_pro, brushless_drive, hobby_input, persistent_memory, power_monitor, serial_interface, servo_input_parser, system_control, temperature_esimator, and uavcan_node
+
+## 0.12.0
+
+- minor: Update persistent_memory client file
+
+## 0.11.13
+
+- patch: Patched RD module to work with Windows
+
+## 0.11.12
+
+- patch: Updated Vertiq8108 Files
+
+## 0.11.11
+
+- patch: compress rd module code
+
+## 0.11.10
+
+- patch: remove the local toml file
+
+## 0.11.9
+
+- patch: get_all_retry bug fix
+
+## 0.11.8
+
+- patch: modified anticogging_pro
+
+## 0.11.7
+
+- patch: You can now change the baudrate from within the module using .update_baudrate
+
+## 0.11.6
+
+- patch: Added Anticogging_ft client to main code base
+
+## 0.11.5
+
+- patch: internal update 2
+
+## 0.11.4
+
+- patch: Internal Update
+
+## 0.11.3
+
+- patch: Exposes CustomIQModule through iq import
+
+## 0.11.2
+
+- patch: Restored CustomIQModule
+
 ## 0.11.1
 
 - patch: Updated Coverage tests for the New Vertiq's, Fortiq's, and Base Modules
