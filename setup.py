@@ -13,8 +13,8 @@ setup(
     description="Python libraries to talk to IQ Motion Control devices",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    author="Malik B. Parker, Raphael Van Hoffelen",
-    author_email="malik.parker@iq-control.com",
+    author="Ben Quan, Malik B. Parker, Raphael Van Hoffelen",
+    author_email="ben.quan@vertiq.co",
     url="https://github.com/iq-motion-control/iq-module-communication-python",
     download_url="https://github.com/iq-motion-control/iq-module-communication-python/releases",
     keywords=[
