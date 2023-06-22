@@ -19,6 +19,15 @@ test-master: &test-master
     services:
       - docker
 
+sync-github: &sync-github
+  step:
+    name: Syncing with GitHub repository
+    script:
+      - git remote add sync git@github.com:iq-motion-control/iq-module-communication-python.git
+      - git checkout master
+      - git pull
+      - git push sync master --force
+
 test: &test
   step:
     name: Test
@@ -27,7 +36,7 @@ test: &test
       - pip install pytest
       - pip install pytest-cov
       - pip install -r requirements.txt
-      - pytest ./iqmotion/tests/ --cov-config=.coveragerc --cov=iqmotion 
+      - pytest ./iqmotion/tests/ --cov-config=.coveragerc --cov=iqmotion
     services:
       - docker
 
@@ -65,7 +74,7 @@ delete-release-branch: &delete-release-branch
     name: Deletes the release branch
     script:
       - git config remote.origin.fetch "+refs/heads/*:refs/remotes/origin/*"
-      - git fetch 
+      - git fetch
       - git checkout master
       - git push -d origin $BITBUCKET_BRANCH
 
@@ -76,6 +85,7 @@ pipelines:
   branches:
     master:
     - <<: *test-master
+    - <<: *sync-github
     release/*:
     - <<: *test-release
     - <<: *release-new-version
