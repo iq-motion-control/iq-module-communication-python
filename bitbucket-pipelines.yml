@@ -23,10 +23,9 @@ sync-github: &sync-github
   step:
     name: Syncing with GitHub repository
     script:
-      - git remote add sync git@github.com:iq-motion-control/iq-module-communication-python.git
-      - git checkout master
-      - git pull
-      - git push sync master --force --no-thin
+      - git clone --bare git@bitbucket.org:iqcontrol/python_api.git
+      - cd python_api.git
+      - git push --mirror git@github.com:iq-motion-control/iq-module-communication-python.git
 
 test: &test
   step:
