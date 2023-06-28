@@ -9,7 +9,7 @@ class TestAPI:
 
     @pytest.fixture
     def pulsing_module(self, com_port):
-        return iq.PulsingModule(com_port, 0)
+        return iq.Vertiq2306(com_port, 0, firmware="pulsing")
 
     @pytest.fixture
     def client_list(self, pulsing_module):
