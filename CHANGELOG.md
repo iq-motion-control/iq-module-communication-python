@@ -1,6 +1,26 @@
 # Changelog
 Note: version releases in the 0.x.y range may introduce breaking changes.
 
+## 0.21.0
+
+- minor: Testing client_files submodule
+
+## 0.20.0
+
+- minor: Once again trying to fix pypi versioning issue
+
+## 0.19.0
+
+- minor: Placeholder again to fix pypi version due to permissions issue
+
+## 0.18.0
+
+- minor: Placeholder to fix pypi version due to permissions issue
+
+## 0.17.0
+
+- minor: Placeholder to fix pypi version
+
 ## 0.16.0
 
 - minor: Added new 4006 module and updated endpoints for system_control
