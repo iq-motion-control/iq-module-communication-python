@@ -1,6 +1,10 @@
 # Changelog
 Note: version releases in the 0.x.y range may introduce breaking changes.
 
+## 0.21.0
+
+- minor: Testing client_files submodule
+
 ## 0.20.0
 
 - minor: Once again trying to fix pypi versioning issue
