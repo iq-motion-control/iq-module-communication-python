@@ -3,15 +3,9 @@ from setuptools import setup, find_packages
 with open("README.md", "r") as fh:
     long_description = fh.read()
 
-
 setup(
     name="iqmotion",
-    packages=["iqmotion", "client_files"],
-    package_dir={
-        "": ".",
-        "iqmotion": "./iqmotion",
-        "client_files": "./iqmotion/clients"
-    },
+    packages=find_packages(),
     include_package_data=True,
     version="0.21.0",
     license="lgpl-3.0",
