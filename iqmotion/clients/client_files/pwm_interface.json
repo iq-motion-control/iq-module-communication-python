@@ -1,5 +1,0 @@
-[
-  {"type_idn":92, "param":"pwm_frequency", "param_idn":  0, "format":"I", "unit": "Hz"    },
-  {"type_idn":92, "param":"duty_cycle",    "param_idn":  1, "format":"B", "unit": "%"     },
-  {"type_idn":92, "param":"pwm_mode",      "param_idn":  2, "format":"B", "unit": "enum"  }
-]
