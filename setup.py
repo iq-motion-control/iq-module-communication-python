@@ -6,7 +6,12 @@ with open("README.md", "r") as fh:
 
 setup(
     name="iqmotion",
-    packages=find_packages(),
+    packages=["iqmotion", "client_files"],
+    package_dir={
+        "": ".",
+        "iqmotion": "./iqmotion",
+        "client_files": "./iqmotion/clients"
+    },
     include_package_data=True,
     version="0.20.0",
     license="lgpl-3.0",
