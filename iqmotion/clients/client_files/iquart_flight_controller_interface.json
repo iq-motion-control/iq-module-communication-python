@@ -1,6 +1,0 @@
-[
-  {"type_idn":88, "param":"telemetry",      "param_idn": 1, "format":"16B", "unit": "Byte Array"     },
-  {"type_idn":88, "param":"throttle_cvi",   "param_idn": 2, "format":"B",   "unit": "Index [0, 255]" },
-  {"type_idn":88, "param":"x_cvi",          "param_idn": 3, "format":"B",   "unit": "Index [0, 255]" },
-  {"type_idn":88, "param":"y_cvi",          "param_idn": 4, "format":"B",   "unit": "Index [0, 255]" }
-]
