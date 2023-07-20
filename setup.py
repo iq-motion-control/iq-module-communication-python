@@ -13,7 +13,7 @@ setup(
         "client_files": "./iqmotion/clients"
     },
     include_package_data=True,
-    version="0.20.0",
+    version="0.21.0",
     license="lgpl-3.0",
     description="Python libraries to talk to IQ Motion Control devices",
     long_description=long_description,
