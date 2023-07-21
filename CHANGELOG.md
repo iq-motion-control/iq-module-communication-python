@@ -1,6 +1,10 @@
 # Changelog
 Note: version releases in the 0.x.y range may introduce breaking changes.
 
+## 0.21.2
+
+- patch: Testing fix in MANIFEST.in
+
 ## 0.21.1
 
 - patch: Fixing packages
