@@ -1,0 +1,3 @@
+[submodule "iqmotion/clients/client_files"]
+	path = iqmotion/clients/client_files
+	url = ../client_files.git

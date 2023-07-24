@@ -1,8 +1,0 @@
-[
-  {"type_idn":76, "param":"allowed_protocols",	        "param_idn":  0, "format":"B", "unit": "enum"   },
-  {"type_idn":76, "param":"protocol",	                "param_idn":  1, "format":"B", "unit": "enum"   },
-  {"type_idn":76, "param":"calibrated_protocol",	    "param_idn":  2, "format":"B", "unit": "enum"   },
-  {"type_idn":76, "param":"calibrated_high_ticks_us",   "param_idn":  3, "format":"I", "unit": "us"     },
-  {"type_idn":76, "param":"calibrated_low_ticks_us",    "param_idn":  4, "format":"I", "unit": "us"     },
-  {"type_idn":76, "param":"reset_calibration",	        "param_idn":  5, "format":"",  "unit": ""       }
-]
