@@ -1,6 +1,26 @@
 # Changelog
 Note: version releases in the 0.x.y range may introduce breaking changes.
 
+## 0.21.5
+
+- patch: Testing fix for username bug
+
+## 0.21.4
+
+- patch: Testing relative paths
+
+## 0.21.3
+
+- patch: Testing initializing submodule
+
+## 0.21.2
+
+- patch: Testing fix in MANIFEST.in
+
+## 0.21.1
+
+- patch: Fixing packages
+
 ## 0.21.0
 
 - minor: Testing client_files submodule
