@@ -1,6 +1,14 @@
 # Changelog
 Note: version releases in the 0.x.y range may introduce breaking changes.
 
+## 0.21.7
+
+- patch: Testing ssh key again
+
+## 0.21.6
+
+- patch: Testing ssh key for client_files
+
 ## 0.21.5
 
 - patch: Testing fix for username bug
