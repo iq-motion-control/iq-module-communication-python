@@ -1,7 +1,8 @@
 #!/bin/bash
 
 # required to initialize submodules in Bitbucket Pipeline
-git submodule update --init
+sed -i 's/url = \.\.\(.*\)/url = git@bitbucket.org:'"$BITBUCKET_WORKSPACE"'\1/g' ../.gitmodules
+git submodule update --init --recursive
 
 python setup.py sdist
 pip wheel --no-index --no-deps --wheel-dir dist dist/*.tar.gz
