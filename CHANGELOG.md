@@ -1,6 +1,10 @@
 # Changelog
 Note: version releases in the 0.x.y range may introduce breaking changes.
 
+## 0.21.4
+
+- patch: Testing relative paths
+
 ## 0.21.3
 
 - patch: Testing initializing submodule
