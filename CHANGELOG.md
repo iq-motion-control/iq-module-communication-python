@@ -1,6 +1,10 @@
 # Changelog
 Note: version releases in the 0.x.y range may introduce breaking changes.
 
+## 0.21.8
+
+- patch: Testing fix for submodule path
+
 ## 0.21.7
 
 - patch: Testing ssh key again
