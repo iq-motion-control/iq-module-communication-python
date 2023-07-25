@@ -1,6 +1,10 @@
 # Changelog
 Note: version releases in the 0.x.y range may introduce breaking changes.
 
+## 0.21.10
+
+- patch: Testing fix for relative path again
+
 ## 0.21.9
 
 - patch: Testing again
