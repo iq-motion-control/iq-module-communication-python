@@ -1,6 +1,10 @@
 # Changelog
 Note: version releases in the 0.x.y range may introduce breaking changes.
 
+## 0.21.13
+
+- patch: Test client_files sync
+
 ## 0.21.12
 
 - patch: Testing again
