@@ -1,0 +1,17 @@
+{
+  "clients": [
+    "anticogging_pro",
+    "brushless_drive",
+    "buzzer_control",
+    "coil_temperature_estimator",
+    "hobby_input",
+    "multi_turn_angle_control",
+    "persistent_memory",
+    "power_monitor",
+    "power_safety",
+    "serial_interface",
+    "servo_input_parser",
+    "system_control",
+    "temperature_monitor_uc"
+  ]
+}
