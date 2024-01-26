@@ -9,6 +9,7 @@
       "multi_turn_angle_control",
       "persistent_memory",
       "power_monitor",
+      "power_safety",
       "propeller_motor_control",
       "serial_interface",
       "stopping_handler",
