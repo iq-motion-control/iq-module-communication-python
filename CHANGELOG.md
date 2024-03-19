@@ -1,6 +1,10 @@
 # Changelog
 Note: version releases in the 0.x.y range may introduce breaking changes.
 
+## 0.22.0
+
+- minor: Added power_safety client, 40-06 servo and speed module files, and more test files for 23-06 and 40-06
+
 ## 0.21.13
 
 - patch: Test client_files sync
