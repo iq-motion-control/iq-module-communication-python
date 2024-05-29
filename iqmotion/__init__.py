@@ -10,6 +10,7 @@ from iqmotion.iq_devices.pulsing_module import PulsingModule
 
 # Make Motor Modules front facing visible
 from iqmotion.iq_devices.vertiq8108_module import Vertiq8108
+from iqmotion.iq_devices.vertiq6008_module import Vertiq6008
 from iqmotion.iq_devices.vertiq4006_module import Vertiq4006
 from iqmotion.iq_devices.vertiq2306_module import Vertiq2306
 from iqmotion.iq_devices.fortiq_module import Fortiq
