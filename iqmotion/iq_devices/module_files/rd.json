@@ -1,5 +1,6 @@
 {
  "clients": [
+  "adc_interface",
   "anticogging",
   "anticogging_pro",
   "arming_handler",
@@ -7,13 +8,17 @@
   "buzzer_control",
   "coil_temperature_estimator",
   "esc_propeller_input_parser",
+  "gpio_controller",
   "hobby_input",
+  "iquart_flight_controller_interface",
   "mag_alpha",
   "multi_turn_angle_control",
   "persistent_memory",
   "power_monitor",
   "power_safety",
   "propeller_motor_control",
+  "pulsing_rectangular_input_parser",
+  "pwm_interface",
   "serial_interface",
   "servo_input_parser",
   "step_direction_input",
@@ -22,6 +27,9 @@
   "system_control",
   "temperature_estimator",
   "temperature_monitor_uc",
-  "uavcan_node"
+  "uavcan_node",
+  "white_led",
+  "rgb_led",
+  "voltage_superposition"
  ]
 }

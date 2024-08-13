@@ -16,6 +16,8 @@
       "stow_user_interface",
       "system_control",
       "temperature_monitor_uc",
-      "uavcan_node"
+      "uavcan_node",
+      "white_led",
+      "rgb_led"
     ]
   }
