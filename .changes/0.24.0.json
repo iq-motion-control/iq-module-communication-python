@@ -1,0 +1,6 @@
+[
+  {
+    "description": "Added LED support and updated rd module",
+    "type": "minor"
+  }
+]
