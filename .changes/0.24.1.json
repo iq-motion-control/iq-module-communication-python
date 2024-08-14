@@ -1,0 +1,6 @@
+[
+  {
+    "description": "Fixed typo in disarm_behavior in arming_handler",
+    "type": "patch"
+  }
+]

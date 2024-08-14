@@ -1,6 +1,10 @@
 # Changelog
 Note: version releases in the 0.x.y range may introduce breaking changes.
 
+## 0.24.1
+
+- patch: Fixed typo in disarm_behavior in arming_handler
+
 ## 0.24.0
 
 - minor: Added LED support and updated rd module
