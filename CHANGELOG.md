@@ -1,6 +1,10 @@
 # Changelog
 Note: version releases in the 0.x.y range may introduce breaking changes.
 
+## 0.24.2
+
+- patch: Updated client files
+
 ## 0.24.1
 
 - patch: Fixed typo in disarm_behavior in arming_handler
