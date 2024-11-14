@@ -10,6 +10,7 @@ import serial
 
 SPEED   = '1'
 SERVO   = '2'
+PULSING = '3'
 STEPDIR = '4'
 
 class RdModule(IqModule):
@@ -81,7 +82,7 @@ class RdModule(IqModule):
         # Try to automagically figure out the firmware style
         firmware_version = self.get("system_control", "firmware_version")
         firmware_style = str(0xFFFF & (firmware_version >> 20))
-        if (style=="speed" or firmware_style == SPEED):
+        if (style=="speed" or firmware_style == SPEED or style=="pulsing" or firmware_style == PULSING):
             self._DEFAULT_CONTROL_CLIENT = "propeller_motor_control"
         elif(style=="position" or firmware_style == SERVO or firmware_style == STEPDIR):
             self._DEFAULT_CONTROL_CLIENT = "multi_turn_angle_control"
