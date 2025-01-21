@@ -10,11 +10,16 @@ class Ramper:
         velocity_client_entry: str,
         final_velocity: float,
         total_time: float,
-        time_steps=20,
+        time_steps=20
     ):
-        init_velocity = iq_module.get_retry(
-            "brushless_drive", "obs_velocity", retries=5
-        )
+        if not iq_module.use_hyperdrive:
+            init_velocity = iq_module.get_retry(
+                "brushless_drive", "obs_velocity", retries=5
+            )
+        else:
+            init_velocity = iq_module.get_retry(
+                "motor_model", "mechanical_velocity", retries=5
+            )
 
         if init_velocity is None:
             return 0
@@ -40,9 +45,12 @@ class Ramper:
         volts_client_entry: str,
         final_volts: float,
         total_time: float,
-        time_steps=20,
+        time_steps=20
     ):
-        init_volts = iq_module.get_retry("brushless_drive", "drive_volts", retries=5)
+        if not iq_module.use_hyperdrive:
+            init_volts = iq_module.get_retry("brushless_drive", "drive_volts", retries=5)
+        else:
+            init_volts = iq_module.get_retry("drive_control_interface", "voltage_target", retries=5)
 
         if init_volts is None:
             return 0
@@ -64,8 +72,15 @@ class Ramper:
         return 1
 
     @staticmethod
-    def ramp_volts_slew(iq_module, final_volts: float, slew_rate: float):
-        init_volts = iq_module.get_retry("brushless_drive", "drive_volts", retries=5)
+    def ramp_volts_slew(
+            iq_module,
+            final_volts: float,
+            slew_rate: float
+    ):
+        if not iq_module.use_hyperdrive:
+            init_volts = iq_module.get_retry("brushless_drive", "drive_volts", retries=5)
+        else:
+            init_volts = iq_module.get_retry("drive_control_interface", "voltage_target", retries=5)
 
         if init_volts is None:
             return 0

@@ -1,0 +1,24 @@
+{
+  "clients": [
+    "arming_handler",
+    "buzzer_control",
+    "coil_temperature_estimator",
+    "current_safeties",
+    "drive_control_interface",
+    "esc_propeller_input_parser",
+    "hobby_input",
+    "motor_driver",
+    "motor_model",
+    "persistent_memory",
+    "power_monitor",
+    "power_safety",
+    "propeller_motor_control",
+    "rotor_angle_generator",
+    "voltage_target_generator",
+    "serial_interface",
+    "stopping_handler",
+    "system_control",
+    "temperature_estimator",
+    "temperature_monitor_uc"
+  ]
+}
