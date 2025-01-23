@@ -1,3 +1,6 @@
+import time
+
+import iqmotion
 from iqmotion.iq_devices.iq_module import IqModule
 from iqmotion.communication.serial_communicator import SerialCommunicator
 from iqmotion.custom_errors import CommunicationError, IqModuleError
@@ -64,13 +67,25 @@ class RdModule(IqModule):
         elif len(ports_avail) == 1:
             port = ports_avail[0]
             com = SerialCommunicator(port, baudrate)
-        # If too many ports are available, you should pass one in
+        # If too many ports are available, try to connect to each one and get the baud_rate to see if it's valid
         elif len(ports_avail) > 1:
-            err_msg = "Too many ports available to choose from, "
-            err_msg += "Please choose one of the following:\n\n"
-            err_msg += f"{ports_avail}\n"
-            err_msg += "ex: motor = iq.RdModule(port='COM1', baudrate=115200)"
-            raise CommunicationError(err_msg)    
+            valid_com_port_name = None
+            for port_name in ports_avail:
+                com = SerialCommunicator(port_name, baudrate)
+                # Create a test module to try and get the baud_rate
+                test_module = IqModule(com, module_file_path="iqmotion/iq_devices/module_files/rd.json")
+                # If getting the baud_rate is successful, delete the test_module but keep the SerialCommunicator object
+                # This will connect to the first available port and assumes that this is the module you want to connect to
+                # Note: "Standard Serial over Bluetooth link" ports on Windows has an issue with timing out when attempting
+                #       to connect to it. If it seems like it's taking a long time to connect to your module, double-check
+                #       your Ports in Device Manager and change any Bluetooth ports to a higher COM number to avoid being stuck
+                if test_module.get_retry("serial_interface", "baud_rate"):
+                    valid_com_port_name = port_name
+                    del test_module
+                    break
+            if not valid_com_port_name:
+                err_msg = f"Cannot connect to detected ports: {ports_avail}"
+                raise CommunicationError(err_msg)
         # No ports available
         else:
             err_msg = "No available ports detected"
@@ -78,7 +93,6 @@ class RdModule(IqModule):
         
 
         super().__init__(com, module_idn, clients_path)
-
         # Try to automagically figure out the firmware style
         firmware_version = self.get("system_control", "firmware_version")
         firmware_style = str(0xFFFF & (firmware_version >> 20))
