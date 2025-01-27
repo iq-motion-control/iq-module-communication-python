@@ -7,11 +7,15 @@
   "brushless_drive",
   "buzzer_control",
   "coil_temperature_estimator",
+  "current_safeties",
+  "drive_control_interface",
   "esc_propeller_input_parser",
   "gpio_controller",
   "hobby_input",
   "iquart_flight_controller_interface",
   "mag_alpha",
+  "motor_driver",
+  "motor_model",
   "multi_turn_angle_control",
   "persistent_memory",
   "power_monitor",
@@ -19,6 +23,8 @@
   "propeller_motor_control",
   "pulsing_rectangular_input_parser",
   "pwm_interface",
+  "rgb_led",
+  "rotor_angle_generator",
   "serial_interface",
   "servo_input_parser",
   "step_direction_input",
@@ -27,9 +33,10 @@
   "system_control",
   "temperature_estimator",
   "temperature_monitor_uc",
+  "throttle_source_manager",
   "uavcan_node",
-  "white_led",
-  "rgb_led",
-  "voltage_superposition"
+  "voltage_superposition",
+  "voltage_target_generator",
+  "white_led"
  ]
 }
