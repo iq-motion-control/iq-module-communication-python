@@ -24,11 +24,13 @@ class IqModule:
                 module_idn=0,  
                 clients_path: str=None, 
                 extra_clients: list=None, 
-                module_file_path: str=None):
+                module_file_path: str=None,
+                use_hyperdrive: bool=False):
         
         self._client_dict = {}
         self._com = com
         self._module_idn = module_idn
+        self.use_hyperdrive = use_hyperdrive
 
         # Load the Module JSON (Base, Vertiq, Fortiq, etc...)
         if module_file_path is None:
