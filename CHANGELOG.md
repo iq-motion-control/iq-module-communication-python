@@ -1,6 +1,10 @@
 # Changelog
 Note: version releases in the 0.x.y range may introduce breaking changes.
 
+## 0.25.0
+
+- minor: Hypderdrive support and RdModule improvements
+
 ## 0.24.2
 
 - patch: Updated client files
