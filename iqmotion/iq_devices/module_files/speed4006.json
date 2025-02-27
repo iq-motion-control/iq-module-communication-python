@@ -11,14 +11,15 @@
     "power_monitor",
     "power_safety",
     "propeller_motor_control",
+    "rgb_led",
     "serial_interface",
     "stopping_handler",
     "stow_user_interface",
     "system_control",
+    "temperature_estimator",
     "temperature_monitor_uc",
     "throttle_source_manager",
     "uavcan_node",
-    "white_led",
-    "rgb_led"
+    "white_led"
   ]
 }
