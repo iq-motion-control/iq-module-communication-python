@@ -1,24 +1,25 @@
 {
-    "clients": [
-      "arming_handler",
-      "brushless_drive",
-      "buzzer_control",
-      "coil_temperature_estimator",
-      "esc_propeller_input_parser",
-      "hobby_input",
-      "multi_turn_angle_control",
-      "persistent_memory",
-      "power_monitor",
-      "power_safety",
-      "propeller_motor_control",
-      "serial_interface",
-      "stopping_handler",
-      "stow_user_interface",
-      "system_control",
-      "temperature_monitor_uc",
-      "throttle_source_manager",
-      "uavcan_node",
-      "white_led",
-      "rgb_led"
-    ]
-  }
+  "clients": [
+    "arming_handler",
+    "brushless_drive",
+    "buzzer_control",
+    "coil_temperature_estimator",
+    "esc_propeller_input_parser",
+    "hobby_input",
+    "multi_turn_angle_control",
+    "persistent_memory",
+    "power_monitor",
+    "power_safety",
+    "propeller_motor_control",
+    "rgb_led",
+    "serial_interface",
+    "stopping_handler",
+    "stow_user_interface",
+    "system_control",
+    "temperature_estimator",
+    "temperature_monitor_uc",
+    "throttle_source_manager",
+    "uavcan_node",
+    "white_led"
+  ]
+}
