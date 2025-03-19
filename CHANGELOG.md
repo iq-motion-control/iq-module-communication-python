@@ -1,6 +1,10 @@
 # Changelog
 Note: version releases in the 0.x.y range may introduce breaking changes.
 
+## 0.26.1
+
+- patch: Updated client files
+
 ## 0.26.0
 
 - minor: Added new module files and updated existing ones with new clients. Added bugfixes to RdModule.
