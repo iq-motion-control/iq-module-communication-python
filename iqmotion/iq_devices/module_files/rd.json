@@ -10,6 +10,7 @@
   "current_safeties",
   "drive_control_interface",
   "esc_propeller_input_parser",
+  "field_weakening_controller",
   "gpio_controller",
   "hobby_input",
   "iquart_flight_controller_interface",

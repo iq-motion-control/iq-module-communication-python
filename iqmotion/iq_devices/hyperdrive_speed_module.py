@@ -17,5 +17,5 @@ class HyperdriveSpeedModule(IqModule):
     _DEFAULT_VELOCITY_CLIENT_ENTRY = "ctrl_velocity"
     _DEFAULT_VOLTS_CLIENT_ENTRY = "ctrl_volts"
     _MODULE_FILE_NAME = "hyperdrive_speed.json"
-    def __init__(self, com: Communicator, module_id, use_hyperdrive: bool= True):
-        super().__init__(com=com, module_idn=module_id, use_hyperdrive=use_hyperdrive)
+    def __init__(self, com: Communicator, module_id: int = 0, clients_path: str = None, use_hyperdrive: bool= True):
+        super().__init__(com=com, module_idn=module_id, clients_path=clients_path, use_hyperdrive=use_hyperdrive)
