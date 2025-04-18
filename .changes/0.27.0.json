@@ -1,0 +1,6 @@
+[
+  {
+    "description": "Update client_files and added support for hyperdrive in RdModule",
+    "type": "minor"
+  }
+]
