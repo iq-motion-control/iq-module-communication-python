@@ -1,6 +1,10 @@
 # Changelog
 Note: version releases in the 0.x.y range may introduce breaking changes.
 
+## 0.27.0
+
+- minor: Update client_files and added support for hyperdrive in RdModule
+
 ## 0.26.1
 
 - patch: Updated client files
