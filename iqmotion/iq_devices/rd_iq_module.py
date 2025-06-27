@@ -105,7 +105,12 @@ class RdModule(IqModule):
         else:
             err_msg = "Please select the motor firmware style:\n\n"
             err_msg += "'speed' or 'position'"
+            com._ser_handle.close()
             raise IqModuleError(err_msg)
+
+        # We can auto-detect if we want to use hyperdrive based on the style
+        if (firmware_style == HYPERDRIVE_SPEED_G2 or firmware_style == HYPERDRIVE_SPEED_G3):
+            self.use_hyperdrive = True
 
 
     def _find_serial_ports(self):
