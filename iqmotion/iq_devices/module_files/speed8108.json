@@ -16,7 +16,6 @@
     "stopping_handler",
     "stow_user_interface",
     "system_control",
-    "temperature_estimator",
     "temperature_monitor_uc",
     "throttle_source_manager",
     "uavcan_node",
