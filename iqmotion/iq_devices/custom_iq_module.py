@@ -37,7 +37,6 @@ from iqmotion.communication.communicator import Communicator
 #               "servo_input_parser",
 #               "step_direction_input",
 #               "system_control",
-#               "temperature_estimator",
 #               "temperature_monitor_uc"
 #             ],
 #             "extra_clients": [

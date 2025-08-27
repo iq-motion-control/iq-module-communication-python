@@ -18,7 +18,6 @@
     "serial_interface",
     "stopping_handler",
     "system_control",
-    "temperature_estimator",
     "temperature_monitor_uc",
     "throttle_source_manager",
     "field_weakening_controller"
