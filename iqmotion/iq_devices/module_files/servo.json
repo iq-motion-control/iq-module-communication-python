@@ -4,6 +4,7 @@
     "multi_turn_angle_control",
     "anticogging",
     "buzzer_control",
+    "coil_temperature_estimator",
     "hobby_input",
     "persistent_memory",
     "power_monitor",
