@@ -1,5 +1,6 @@
 {
   "clients": [
+    "arming_handler",
     "brushless_drive",
     "buzzer_control",
     "coil_temperature_estimator",
@@ -11,6 +12,7 @@
     "propeller_motor_control",
     "pulsing_rectangular_input_parser",
     "serial_interface",
+    "stopping_handler",
     "system_control",
     "temperature_monitor_uc",
     "throttle_source_manager",
