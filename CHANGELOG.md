@@ -1,6 +1,10 @@
 # Changelog
 Note: version releases in the 0.x.y range may introduce breaking changes.
 
+## 0.29.2
+
+- patch: Updated client entries
+
 ## 0.29.1
 
 - patch: Addec coil_temperature_estimator for Servo module
