@@ -1,7 +1,7 @@
 import time
 import iqmotion as iq
 
-# Test 1: Get All on relevant hyperdrive endpoints with the Vspin Module
+# Test 1: Get All on relevant VSpin endpoints with the Vspin Module
 # com = iq.SerialCommunicator("COM3", baudrate=115200)
 # vertiq = iq.VSpinG2Module(com=com)
 #
