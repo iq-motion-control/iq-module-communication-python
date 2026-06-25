@@ -12,7 +12,7 @@ class Ramper:
         total_time: float,
         time_steps=20
     ):
-        if not iq_module.use_hyperdrive:
+        if not iq_module.use_vspin:
             init_velocity = iq_module.get_retry(
                 "brushless_drive", "obs_velocity", retries=5
             )
@@ -47,7 +47,7 @@ class Ramper:
         total_time: float,
         time_steps=20
     ):
-        if not iq_module.use_hyperdrive:
+        if not iq_module.use_vspin:
             init_volts = iq_module.get_retry("brushless_drive", "drive_volts", retries=5)
         else:
             init_volts = iq_module.get_retry("drive_control_interface", "voltage_target", retries=5)
@@ -77,7 +77,7 @@ class Ramper:
             final_volts: float,
             slew_rate: float
     ):
-        if not iq_module.use_hyperdrive:
+        if not iq_module.use_vspin:
             init_volts = iq_module.get_retry("brushless_drive", "drive_volts", retries=5)
         else:
             init_volts = iq_module.get_retry("drive_control_interface", "voltage_target", retries=5)

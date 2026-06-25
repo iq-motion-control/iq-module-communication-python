@@ -15,8 +15,8 @@ SPEED   = '1'
 SERVO   = '2'
 PULSING = '3'
 STEPDIR = '4'
-HYPERDRIVE_SPEED_G2 = '7'
-HYPERDRIVE_SPEED_G3 = '8'
+VSPIN_G2 = '7'
+VSPIN_G3 = '8'
 
 class RdModule(IqModule):
     """ Creates R&D Object with every publicly available json
@@ -43,7 +43,7 @@ class RdModule(IqModule):
         module_idn: int = 0,
         style: str = None,      
         clients_path: str = None,
-        use_hyperdrive: bool = False
+        use_vspin: bool = False
     ):
 
         self._DEFAULT_VELOCITY_CLIENT_ENTRY = "ctrl_velocity"
@@ -94,11 +94,11 @@ class RdModule(IqModule):
             err_msg = "No available ports detected"
             raise CommunicationError(err_msg)
 
-        super().__init__(com, module_idn, clients_path, use_hyperdrive=use_hyperdrive)
+        super().__init__(com, module_idn, clients_path, use_vspin=use_vspin)
         # Try to automagically figure out the firmware style
         firmware_version = self.get("system_control", "firmware_version")
         firmware_style = str(0xFFFF & (firmware_version >> 20))
-        if (style=="speed" or firmware_style == SPEED or firmware_style == HYPERDRIVE_SPEED_G2 or firmware_style == HYPERDRIVE_SPEED_G3 or style=="pulsing" or firmware_style == PULSING):
+        if (style=="speed" or firmware_style == SPEED or firmware_style == VSPIN_G2 or firmware_style == VSPIN_G3 or style=="pulsing" or firmware_style == PULSING):
             self._DEFAULT_CONTROL_CLIENT = "propeller_motor_control"
         elif(style=="position" or firmware_style == SERVO or firmware_style == STEPDIR):
             self._DEFAULT_CONTROL_CLIENT = "multi_turn_angle_control"
@@ -108,9 +108,9 @@ class RdModule(IqModule):
             com._ser_handle.close()
             raise IqModuleError(err_msg)
 
-        # We can auto-detect if we want to use hyperdrive based on the style
-        if (firmware_style == HYPERDRIVE_SPEED_G2 or firmware_style == HYPERDRIVE_SPEED_G3):
-            self.use_hyperdrive = True
+        # We can auto-detect if we want to use vspin based on the style
+        if (firmware_style == VSPIN_G2 or firmware_style == VSPIN_G3):
+            self.use_vspin = True
 
 
     def _find_serial_ports(self):
