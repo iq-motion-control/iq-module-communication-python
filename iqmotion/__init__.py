@@ -8,6 +8,7 @@ from iqmotion.iq_devices.servo_module import ServoModule
 from iqmotion.iq_devices.step_dir_module import StepDirModule
 from iqmotion.iq_devices.pulsing_module import PulsingModule
 from iqmotion.iq_devices.vspin_g2_module import VSpinG2Module
+from iqmotion.iq_devices.vspin_g3_module import VSpinG3Module
 
 # Make Motor Modules front facing visible
 from iqmotion.iq_devices.vertiq8108_module import Vertiq8108
