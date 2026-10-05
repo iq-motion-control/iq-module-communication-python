@@ -1,6 +1,10 @@
 # Changelog
 Note: version releases in the 0.x.y range may introduce breaking changes.
 
+## 0.30.0
+
+- minor: Added VSpin support
+
 ## 0.29.2
 
 - patch: Updated client entries
