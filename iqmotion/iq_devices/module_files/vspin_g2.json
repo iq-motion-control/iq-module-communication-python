@@ -24,6 +24,7 @@
     "system_control",
     "temperature_monitor_uc",
     "throttle_source_manager",
+    "uavcan_node",
     "voltage_target_generator",
     "white_led"
   ]
