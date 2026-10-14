@@ -24,6 +24,7 @@
     "temperature_monitor_uc",
     "throttle_source_manager",
     "timer_protocol_behavior_handler",
+    "uavcan_node",
     "voltage_target_generator",
     "v_motor_controller",
     "white_led"
