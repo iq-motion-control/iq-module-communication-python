@@ -1,0 +1,32 @@
+{
+  "clients": [
+    "arming_handler",
+    "buzzer_control",
+    "coil_temperature_estimator",
+    "command_target_interface",
+    "communication_timeout_handler",
+    "current_safeties",
+    "drive_control_interface",
+    "esc_propeller_input_parser",
+    "field_weakening_controller",
+    "hobby_input",
+    "iquart_flight_controller_interface",
+    "motor_driver",
+    "motor_model",
+    "persistent_memory",
+    "power_monitor",
+    "power_safety",
+    "rotor_angle_generator",
+    "rgb_led",
+    "serial_interface",
+    "stopping_handler",
+    "system_control",
+    "temperature_monitor_uc",
+    "throttle_source_manager",
+    "timer_protocol_behavior_handler",
+    "uavcan_node",
+    "voltage_target_generator",
+    "v_motor_controller",
+    "white_led"
+  ]
+}
