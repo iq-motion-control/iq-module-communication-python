@@ -1,4 +1,0 @@
-{
-  "type": "patch",
-  "description": "Add support for tunnel filter configuration entry and support for future module types for initial testing"
-}
