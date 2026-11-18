@@ -98,8 +98,10 @@ class RdModule(IqModule):
         # Try to automagically figure out the firmware style
         firmware_version = self.get("system_control", "firmware_version")
         firmware_style = str(0xFFFF & (firmware_version >> 20))
-        if (style=="speed" or firmware_style == SPEED or firmware_style == VSPIN_G2 or firmware_style == VSPIN_G3 or style=="pulsing" or firmware_style == PULSING):
+        if (style=="speed" or firmware_style == SPEED or firmware_style == VSPIN_G2 or style=="pulsing" or firmware_style == PULSING):
             self._DEFAULT_CONTROL_CLIENT = "propeller_motor_control"
+        elif (style=="g3" or firmware_style == VSPIN_G3):
+            self._DEFAULT_CONTROL_CLIENT = "command_target_interface"
         elif(style=="position" or firmware_style == SERVO or firmware_style == STEPDIR):
             self._DEFAULT_CONTROL_CLIENT = "multi_turn_angle_control"
         else:
@@ -109,7 +111,7 @@ class RdModule(IqModule):
             raise IqModuleError(err_msg)
 
         # We can auto-detect if we want to use vspin based on the style
-        if (firmware_style == VSPIN_G2 or firmware_style == VSPIN_G3):
+        if (style=="g3" or firmware_style == VSPIN_G2 or firmware_style == VSPIN_G3):
             self.use_vspin = True
 
 
