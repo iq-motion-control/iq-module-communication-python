@@ -7,6 +7,8 @@
   "brushless_drive",
   "buzzer_control",
   "coil_temperature_estimator",
+  "command_target_interface",
+  "communication_timeout_handler",
   "current_safeties",
   "drive_control_interface",
   "esc_propeller_input_parser",
@@ -34,9 +36,11 @@
   "system_control",
   "temperature_monitor_uc",
   "throttle_source_manager",
+  "timer_protocol_behavior_handler",
   "uavcan_node",
   "voltage_superposition",
   "voltage_target_generator",
+  "v_motor_controller",
   "white_led"
  ]
 }
