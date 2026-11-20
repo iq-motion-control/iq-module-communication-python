@@ -14,8 +14,8 @@ class VSpinG3Module(IqModule):
     """
 
     _DEFAULT_CONTROL_CLIENT = "command_target_interface"
-    _DEFAULT_VELOCITY_CLIENT_ENTRY = "command_velocity"
-    _DEFAULT_VOLTS_CLIENT_ENTRY = "command_volts"
+    _DEFAULT_VELOCITY_CLIENT_ENTRY = "ctrl_velocity"
+    _DEFAULT_VOLTS_CLIENT_ENTRY = "ctrl_volts"
     _MODULE_FILE_NAME = "vspin_g3.json"
     def __init__(self, com: Communicator, module_id: int = 0, clients_path: str = None):
         super().__init__(com=com, module_idn=module_id, clients_path=clients_path, use_vspin=True)
