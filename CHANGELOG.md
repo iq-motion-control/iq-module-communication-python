@@ -1,6 +1,10 @@
 # Changelog
 Note: version releases in the 0.x.y range may introduce breaking changes.
 
+## 0.30.2
+
+- patch: -Add improved support for future generation 3 modules[[3~
+
 ## 0.30.1
 
 - patch: Add support for tunnel filter configuration entry and support for future module types for initial testing
