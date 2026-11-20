@@ -1,6 +1,10 @@
 # Changelog
 Note: version releases in the 0.x.y range may introduce breaking changes.
 
+## 0.30.3
+
+- patch: Additional updates to fix client entries for Gen 3 module betas
+
 ## 0.30.2
 
 - patch: -Add improved support for future generation 3 modules[[3~
